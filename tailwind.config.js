@@ -9,37 +9,41 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "#0A0E17", // Deep Midnight Obsidian
-        foreground: "#F8FAFC", // Pure Crisp White
+        background: "#F8FAFC", // Clean Light Slate Snow
+        foreground: "#0F172A", // Deep Slate 900
         surface: {
-          50: "#1A2338",
-          100: "#161F32",
-          200: "#121826", // Dark Slate Navy Card
-          border: "#1F293D",
-          card: "#121826",
+          50: "#F8FAFC",
+          100: "#F1F5F9",
+          200: "#FFFFFF", // Pure White Card
+          border: "#E2E8F0",
+          card: "#FFFFFF",
+        },
+        primary: {
+          DEFAULT: "#2563EB", // Royal Blue
+          hover: "#1D4ED8",
+          light: "#60A5FA",
+          dark: "#1E40AF",
         },
         cyan: {
-          DEFAULT: "#00D2FF", // Electric Cyber Cyan (Primary Accent / CTAs)
-          hover: "#00B4D8",
-          light: "#66E5FF",
-          dark: "#0099CC",
-          glow: "rgba(0, 210, 255, 0.35)",
+          DEFAULT: "#0284C7", // Cyan / Sky
+          hover: "#0369A1",
+          light: "#38BDF8",
+          dark: "#075985",
         },
         indigo: {
-          DEFAULT: "#6366F1", // Royal Indigo (Secondary Accent)
-          hover: "#4F46E5",
+          DEFAULT: "#4F46E5",
+          hover: "#4338CA",
           light: "#818CF8",
-          dark: "#4338CA",
-          glow: "rgba(99, 102, 241, 0.35)",
+          dark: "#3730A3",
         },
         brand: {
-          DEFAULT: "#00D2FF",
-          glow: "#33DDFF",
-          dark: "#0088B3",
+          DEFAULT: "#2563EB",
+          glow: "#3B82F6",
+          dark: "#1D4ED8",
         },
         status: {
           available: "#10B981", // Emerald Green
-          occupied: "#00D2FF", // Electric Cyan
+          occupied: "#2563EB", // Royal Blue
           reserved: "#F59E0B", // Warm Amber
           cleaning: "#8B5CF6", // Amethyst Purple
           maintenance: "#EF4444", // Crimson Red

@@ -45,31 +45,31 @@ export default function StaffPage() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#1F293D]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E2E8F0]">
         <div>
-          <h1 className="text-xl sm:text-2xl font-black text-white tracking-wide flex items-center gap-2.5">
-            <ShieldAlert className="w-5 h-5 text-[#6366F1]" />
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-wide flex items-center gap-2.5">
+            <ShieldAlert className="w-5 h-5 text-[#4F46E5]" />
             Staff Roles & Operational Audit History
           </h1>
-          <p className="text-xs sm:text-sm text-[#A3A3A3] mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Role-based access matrix, shift monitoring, and tamper-evident event log.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 p-1.5 bg-[#121826] border border-[#1F293D] rounded-xl text-xs">
-          <span className="text-[#A3A3A3] px-2 font-medium">Logged in as:</span>
-          <span className="font-black text-[#00D2FF] font-mono">{currentStaff.name} ({currentStaff.role})</span>
+        <div className="flex items-center gap-2 p-1.5 bg-[#FFFFFF] border border-[#E2E8F0] rounded-xl text-xs">
+          <span className="text-slate-500 px-2 font-medium">Logged in as:</span>
+          <span className="font-black text-[#2563EB] font-mono">{currentStaff.name} ({currentStaff.role})</span>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-2 border-b border-[#1F293D] pb-3">
+      <div className="flex items-center gap-2 border-b border-[#E2E8F0] pb-3">
         <button
           onClick={() => setActiveTab('roster')}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-colors ${
             activeTab === 'roster'
-              ? 'bg-[#00D2FF] text-[#0A0E17] shadow-md shadow-[#00D2FF]/20'
-              : 'text-[#A3A3A3] hover:text-white hover:bg-[#121826]'
+              ? 'bg-[#2563EB] text-[#F8FAFC] shadow-md shadow-[#2563EB]/20'
+              : 'text-slate-500 hover:text-white hover:bg-[#FFFFFF]'
           }`}
         >
           <Users className="w-3.5 h-3.5" />
@@ -79,8 +79,8 @@ export default function StaffPage() {
           onClick={() => setActiveTab('permissions')}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-colors ${
             activeTab === 'permissions'
-              ? 'bg-[#00D2FF] text-[#0A0E17] shadow-md shadow-[#00D2FF]/20'
-              : 'text-[#A3A3A3] hover:text-white hover:bg-[#121826]'
+              ? 'bg-[#2563EB] text-[#F8FAFC] shadow-md shadow-[#2563EB]/20'
+              : 'text-slate-500 hover:text-white hover:bg-[#FFFFFF]'
           }`}
         >
           <Key className="w-3.5 h-3.5" />
@@ -90,8 +90,8 @@ export default function StaffPage() {
           onClick={() => setActiveTab('audit')}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-colors ${
             activeTab === 'audit'
-              ? 'bg-[#00D2FF] text-[#0A0E17] shadow-md shadow-[#00D2FF]/20'
-              : 'text-[#A3A3A3] hover:text-white hover:bg-[#121826]'
+              ? 'bg-[#2563EB] text-[#F8FAFC] shadow-md shadow-[#2563EB]/20'
+              : 'text-slate-500 hover:text-white hover:bg-[#FFFFFF]'
           }`}
         >
           <Clock className="w-3.5 h-3.5" />
@@ -107,42 +107,42 @@ export default function StaffPage() {
               key={staff.id}
               className={`p-5 rounded-2xl border transition-all flex flex-col justify-between ${
                 staff.id === currentStaff.id
-                  ? 'bg-[#121826] border-[#00D2FF] shadow-lg shadow-[#00D2FF]/10'
-                  : 'bg-[#121826] border-[#1F293D] hover:border-[#1F293D]'
+                  ? 'bg-[#FFFFFF] border-[#2563EB] shadow-lg shadow-[#2563EB]/10'
+                  : 'bg-[#FFFFFF] border-[#E2E8F0] hover:border-[#E2E8F0]'
               }`}
             >
               <div className="space-y-3.5">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#6366F1] to-[#00D2FF] flex items-center justify-center font-black text-[#0A0E17] text-sm">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#4F46E5] to-[#2563EB] flex items-center justify-center font-black text-[#F8FAFC] text-sm">
                     {staff.name.charAt(0)}
                   </div>
                   <div>
-                    <h3 className="font-bold text-white text-sm leading-tight">{staff.name}</h3>
-                    <span className="text-[11px] text-[#00D2FF] font-mono capitalize block">{staff.role.replace('_', ' ')}</span>
+                    <h3 className="font-bold text-slate-900 text-sm leading-tight">{staff.name}</h3>
+                    <span className="text-[11px] text-[#2563EB] font-mono capitalize block">{staff.role.replace('_', ' ')}</span>
                   </div>
                 </div>
 
-                <div className="text-xs text-[#A3A3A3]">
+                <div className="text-xs text-slate-500">
                   <span>Email:</span> <span className="text-white ml-1">{staff.email}</span>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-[#161F32] border border-[#1F293D] text-xs flex justify-between items-center">
-                  <span className="text-[#A3A3A3]">Active Shift:</span>
-                  <span className="font-mono text-[#00D2FF] font-bold flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#00D2FF] animate-pulse" />
+                <div className="p-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs flex justify-between items-center">
+                  <span className="text-slate-500">Active Shift:</span>
+                  <span className="font-mono text-[#2563EB] font-bold flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse" />
                     On Duty
                   </span>
                 </div>
               </div>
 
-              <div className="pt-3.5 mt-3.5 border-t border-[#1F293D]">
+              <div className="pt-3.5 mt-3.5 border-t border-[#E2E8F0]">
                 <button
                   onClick={() => switchStaffRole(staff.id)}
                   disabled={staff.id === currentStaff.id}
                   className={`w-full py-2 rounded-xl text-xs font-bold transition-colors ${
                     staff.id === currentStaff.id
-                      ? 'bg-[#00D2FF]/15 text-[#00D2FF] border border-[#00D2FF]/30 cursor-default'
-                      : 'bg-[#161F32] hover:bg-[#161F32] text-white border border-[#1F293D]'
+                      ? 'bg-[#2563EB]/15 text-[#2563EB] border border-[#2563EB]/30 cursor-default'
+                      : 'bg-[#F8FAFC] hover:bg-[#F8FAFC] text-white border border-[#E2E8F0]'
                   }`}
                 >
                   {staff.id === currentStaff.id ? 'Currently Active' : 'Switch to this User'}
@@ -155,15 +155,15 @@ export default function StaffPage() {
 
       {/* TAB 2: RBAC PERMISSION MATRIX */}
       {activeTab === 'permissions' && (
-        <div className="bg-[#121826] border border-[#1F293D] rounded-2xl overflow-hidden shadow-xl">
-          <div className="p-4 border-b border-[#1F293D]">
+        <div className="bg-[#FFFFFF] border border-[#E2E8F0] rounded-2xl overflow-hidden shadow-xl">
+          <div className="p-4 border-b border-[#E2E8F0]">
             <h3 className="font-bold text-sm text-white">System Role & Security Capabilities</h3>
-            <p className="text-xs text-[#A3A3A3] mt-0.5">Permissions are strictly enforced on client actions and backend mutations.</p>
+            <p className="text-xs text-slate-500 mt-0.5">Permissions are strictly enforced on client actions and backend mutations.</p>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#161F32] text-[#A3A3A3] font-mono uppercase text-[10px] border-b border-[#1F293D]">
+              <thead className="bg-[#F8FAFC] text-slate-500 font-mono uppercase text-[10px] border-b border-[#E2E8F0]">
                 <tr>
                   <th className="p-3.5">Capability / Operation</th>
                   {roles.map(r => (
@@ -171,7 +171,7 @@ export default function StaffPage() {
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#1F293D]">
+              <tbody className="divide-y divide-[#E2E8F0]">
                 {[
                   { key: 'view_dashboard', label: 'View Dashboard & Telemetry' },
                   { key: 'view_stations', label: 'Inspect 3D Venue & Stations' },
@@ -186,16 +186,16 @@ export default function StaffPage() {
                   { key: 'manage_staff', label: 'Staff Management & Handover' },
                   { key: 'manage_settings', label: 'Cafe Rates & 3D Layout Editor' },
                 ].map(item => (
-                  <tr key={item.key} className="hover:bg-[#161F32] transition-colors">
+                  <tr key={item.key} className="hover:bg-[#F8FAFC] transition-colors">
                     <td className="p-3.5 font-semibold text-white">{item.label}</td>
                     {roles.map(r => {
                       const allowed = (ROLE_PERMISSIONS[r] as string[]).includes(item.key);
                       return (
                         <td key={r} className="p-3.5 text-center">
                           {allowed ? (
-                            <span className="inline-block w-5 h-5 rounded-full bg-[#00D2FF]/15 text-[#00D2FF] border border-[#00D2FF]/40 text-[11px] leading-5 font-bold">✓</span>
+                            <span className="inline-block w-5 h-5 rounded-full bg-[#2563EB]/15 text-[#2563EB] border border-[#2563EB]/40 text-[11px] leading-5 font-bold">✓</span>
                           ) : (
-                            <span className="inline-block w-5 h-5 rounded-full bg-[#161F32] text-gray-600 text-[11px] leading-5 font-bold">—</span>
+                            <span className="inline-block w-5 h-5 rounded-full bg-[#F8FAFC] text-gray-600 text-[11px] leading-5 font-bold">—</span>
                           )}
                         </td>
                       );
@@ -213,19 +213,19 @@ export default function StaffPage() {
         <div className="space-y-4">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
-              <Search className="w-4 h-4 text-[#A3A3A3] absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Search audit actions, operators, or target IDs..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-[#121826] border border-[#1F293D] rounded-xl pl-9 pr-3 py-2.5 text-xs text-white focus:border-[#00D2FF] outline-none"
+                className="w-full bg-[#FFFFFF] border border-[#E2E8F0] rounded-xl pl-9 pr-3 py-2.5 text-xs text-white focus:border-[#2563EB] outline-none"
               />
             </div>
             <select
               value={auditFilter}
               onChange={(e) => setAuditFilter(e.target.value)}
-              className="bg-[#121826] border border-[#1F293D] rounded-xl px-3 py-2.5 text-xs text-white focus:border-[#00D2FF] outline-none"
+              className="bg-[#FFFFFF] border border-[#E2E8F0] rounded-xl px-3 py-2.5 text-xs text-white focus:border-[#2563EB] outline-none"
             >
               <option value="all">All Event Domains</option>
               <option value="session">Gaming Sessions</option>
@@ -238,10 +238,10 @@ export default function StaffPage() {
             </select>
           </div>
 
-          <div className="bg-[#121826] border border-[#1F293D] rounded-2xl overflow-hidden shadow-xl">
+          <div className="bg-[#FFFFFF] border border-[#E2E8F0] rounded-2xl overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-[#161F32] text-[#A3A3A3] font-mono uppercase text-[10px] border-b border-[#1F293D]">
+                <thead className="bg-[#F8FAFC] text-slate-500 font-mono uppercase text-[10px] border-b border-[#E2E8F0]">
                   <tr>
                     <th className="p-3.5">Timestamp</th>
                     <th className="p-3.5">Staff Operator</th>
@@ -251,23 +251,23 @@ export default function StaffPage() {
                     <th className="p-3.5">Audit Details</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#1F293D] font-mono">
+                <tbody className="divide-y divide-[#E2E8F0] font-mono">
                   {filteredLogs.map(log => (
-                    <tr key={log.id} className="hover:bg-[#161F32] transition-colors">
-                      <td className="p-3.5 text-[#A3A3A3] whitespace-nowrap">
+                    <tr key={log.id} className="hover:bg-[#F8FAFC] transition-colors">
+                      <td className="p-3.5 text-slate-500 whitespace-nowrap">
                         {formatDateTime(log.timestamp, mounted)}
                       </td>
                       <td className="p-3.5 font-sans font-semibold text-white">
-                        {log.staffName} <span className="text-[10px] text-[#00D2FF] font-mono">({log.role})</span>
+                        {log.staffName} <span className="text-[10px] text-[#2563EB] font-mono">({log.role})</span>
                       </td>
                       <td className="p-3.5">
-                        <span className="px-2 py-0.5 rounded bg-[#6366F1]/15 text-[#C084FC] border border-[#6366F1]/40 text-[10px] font-bold">
+                        <span className="px-2 py-0.5 rounded bg-[#4F46E5]/15 text-[#C084FC] border border-[#4F46E5]/40 text-[10px] font-bold">
                           {log.action}
                         </span>
                       </td>
-                      <td className="p-3.5 uppercase text-[10px] text-[#A3A3A3]">{log.targetType}</td>
-                      <td className="p-3.5 text-[#A3A3A3]">{log.targetId}</td>
-                      <td className="p-3.5 font-sans text-gray-200">{log.details}</td>
+                      <td className="p-3.5 uppercase text-[10px] text-slate-500">{log.targetType}</td>
+                      <td className="p-3.5 text-slate-500">{log.targetId}</td>
+                      <td className="p-3.5 font-sans text-slate-800">{log.details}</td>
                     </tr>
                   ))}
                 </tbody>

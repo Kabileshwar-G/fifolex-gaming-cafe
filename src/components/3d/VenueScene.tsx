@@ -16,11 +16,11 @@ interface VenueSceneProps {
   onSelectStation: (id: string | null) => void;
 }
 
-// Clear, collision-free walkways for roaming characters (matching the reference art palette)
+// Clear, collision-free walkways for roaming characters (vibrant colors standing out against light room)
 const ROAMING_PATHS: { name: string; neonColor: string; waypoints: [number, number, number][] }[] = [
   {
-    name: "Cyan Sapphire Avatar",
-    neonColor: "#00D2FF", // Electric Cyan
+    name: "Sky Cyan Avatar",
+    neonColor: "#0284C7", // Sky Blue
     waypoints: [
       [-7.5, 0, -2.75],
       [-3.5, 0, -2.75],
@@ -34,8 +34,8 @@ const ROAMING_PATHS: { name: string; neonColor: string; waypoints: [number, numb
     ]
   },
   {
-    name: "Indigo Energy Avatar",
-    neonColor: "#6366F1", // Royal Indigo
+    name: "Royal Purple Avatar",
+    neonColor: "#7C3AED", // Royal Purple
     waypoints: [
       [-6.5, 0, 3.5],
       [-2.0, 0, 3.5],
@@ -48,7 +48,7 @@ const ROAMING_PATHS: { name: string; neonColor: string; waypoints: [number, numb
   },
   {
     name: "Emerald Mint Avatar",
-    neonColor: "#10B981", // Emerald Mint
+    neonColor: "#059669", // Emerald Green
     waypoints: [
       [0, 0, -4.5],
       [0, 0, -2.75],
@@ -61,8 +61,8 @@ const ROAMING_PATHS: { name: string; neonColor: string; waypoints: [number, numb
     ]
   },
   {
-    name: "Magenta Avatar",
-    neonColor: "#EC4899", // Magenta
+    name: "Hot Magenta Avatar",
+    neonColor: "#E11D48", // Rose Red
     waypoints: [
       [6.5, 0, 6.2],
       [6.5, 0, 0.5],
@@ -77,55 +77,55 @@ const ROAMING_PATHS: { name: string; neonColor: string; waypoints: [number, numb
 const ZoneFloorMarkers: React.FC = () => {
   return (
     <group position={[0, -0.01, 0]}>
-      {/* Main Floor Base - Deep Midnight Obsidian #0A0E17 */}
+      {/* Main Architectural Studio Floor - Polished Light Terrazzo #E8EEF5 */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[26, 20]} />
-        <meshStandardMaterial color="#0A0E17" roughness={0.85} metalness={0.2} />
+        <meshStandardMaterial color="#E8EEF5" roughness={0.25} metalness={0.08} />
       </mesh>
 
-      {/* Zone 1: Main PC Arena Perimeter (Cyan border accent) */}
+      {/* Zone 1: Main PC Arena Perimeter (Clean White Pod Deck with Sky Blue border) */}
       <mesh position={[0, 0.005, -2.75]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[16, 5]} />
-        <meshBasicMaterial color="#121826" transparent opacity={0.8} />
+        <meshStandardMaterial color="#FFFFFF" roughness={0.3} />
       </mesh>
       <mesh position={[0, 0.008, -2.75]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[7.8, 8, 4]} />
-        <meshBasicMaterial color="#00D2FF" transparent opacity={0.3} />
+        <meshBasicMaterial color="#0284C7" transparent opacity={0.4} />
       </mesh>
 
-      {/* Zone 2: VIP Console Lounge Perimeter (Indigo accent) */}
+      {/* Zone 2: VIP Console Lounge Perimeter (Clean White Deck with Violet border) */}
       <mesh position={[0, 0.005, 2]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[16, 3]} />
-        <meshBasicMaterial color="#121826" transparent opacity={0.8} />
+        <meshStandardMaterial color="#FFFFFF" roughness={0.3} />
       </mesh>
       <mesh position={[0, 0.008, 2]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[7.8, 8, 4]} />
-        <meshBasicMaterial color="#6366F1" transparent opacity={0.35} />
+        <meshBasicMaterial color="#7C3AED" transparent opacity={0.4} />
       </mesh>
 
       {/* Zone 3: Sim Racing Paddock */}
       <mesh position={[-3.75, 0.005, 5]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[6.5, 2.5]} />
-        <meshBasicMaterial color="#121826" transparent opacity={0.8} />
+        <meshStandardMaterial color="#FFFFFF" roughness={0.3} />
       </mesh>
 
       {/* Zone 4: VR Holo-Bay */}
       <mesh position={[4.4, 0.005, 5]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[6, 2.5]} />
-        <meshBasicMaterial color="#121826" transparent opacity={0.8} />
+        <meshStandardMaterial color="#FFFFFF" roughness={0.3} />
       </mesh>
 
-      {/* Grid - Refined Slate Mesh */}
+      {/* Grid - Refined Silver Architectural Grid */}
       <Grid
         position={[0, 0.01, 0]}
         args={[26, 20]}
         cellSize={1}
-        cellThickness={0.5}
-        cellColor="#1A2438"
+        cellThickness={0.6}
+        cellColor="#CBD5E1"
         sectionSize={5}
-        sectionThickness={1.2}
-        sectionColor="#24334F"
-        fadeDistance={32}
+        sectionThickness={1.4}
+        sectionColor="#94A3B8"
+        fadeDistance={34}
       />
     </group>
   );
@@ -149,21 +149,21 @@ export const VenueScene: React.FC<VenueSceneProps> = ({
   };
 
   return (
-    <div className="relative w-full h-full min-h-[500px] bg-[#0A0E17] select-none overflow-hidden">
+    <div className="relative w-full h-full min-h-[500px] bg-[#F1F5F9] select-none overflow-hidden">
       {/* 3D Canvas */}
       <Canvas
         shadows
         camera={{ position: [0, 16, 18], fov: 45 }}
         onPointerMissed={() => onSelectStation(null)}
       >
-        <color attach="background" args={['#0A0E17']} />
-        <fog attach="fog" args={['#0A0E17', 22, 52]} />
+        <color attach="background" args={['#F1F5F9']} />
+        <fog attach="fog" args={['#F1F5F9', 24, 56]} />
 
-        {/* Ambient & Directional Lighting */}
-        <ambientLight intensity={0.55} />
+        {/* Studio Daylight & Ambient Lighting - Crisp, Bright Visibility */}
+        <ambientLight intensity={1.1} />
         <directionalLight
-          position={[10, 22, 15]}
-          intensity={1.25}
+          position={[12, 26, 18]}
+          intensity={1.65}
           castShadow
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
@@ -173,10 +173,10 @@ export const VenueScene: React.FC<VenueSceneProps> = ({
           shadow-camera-top={15}
           shadow-camera-bottom={-15}
         />
-        {/* Professional Esports Arena Accent Lights */}
-        <pointLight position={[-8, 9, -5]} color="#00D2FF" intensity={1.2} />
-        <pointLight position={[8, 9, 5]} color="#6366F1" intensity={1.1} />
-        <pointLight position={[0, 8, 2]} color="#10B981" intensity={0.7} />
+        {/* Soft fill lights */}
+        <pointLight position={[-8, 12, -5]} color="#E0F2FE" intensity={0.9} />
+        <pointLight position={[8, 12, 5]} color="#EDE9FE" intensity={0.8} />
+        <pointLight position={[0, 10, 2]} color="#FFFFFF" intensity={0.8} />
 
         {/* Scene Objects */}
         <Suspense fallback={null}>
@@ -222,40 +222,40 @@ export const VenueScene: React.FC<VenueSceneProps> = ({
         />
       </Canvas>
 
-      {/* Floating Camera Reset and Instructions */}
+      {/* Floating Camera Reset and Controls */}
       <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
-        <div className="px-3.5 py-2 bg-[#121826]/90 backdrop-blur border border-[#1F293D] rounded-xl text-xs text-[#F8FAFC] shadow-2xl">
-          <span className="font-bold text-[#00D2FF]">Controls:</span> Left Click Orbit &bull;{' '}
+        <div className="px-3.5 py-2 bg-white/95 backdrop-blur border border-slate-200 rounded-xl text-xs text-slate-800 shadow-xl">
+          <span className="font-bold text-[#2563EB]">Controls:</span> Left Click Orbit &bull;{' '}
           Right Click Pan &bull; Scroll Zoom &bull; Click Pod to Inspect
         </div>
         <button
           onClick={resetCamera}
-          className="self-start px-3.5 py-1.5 bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17] rounded-xl text-xs font-bold transition-all shadow-lg shadow-[#00D2FF]/20"
+          className="self-start px-3.5 py-1.5 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-[#2563EB]/25"
         >
           Reset Camera
         </button>
       </div>
 
       {/* Legend with Status and Humanoid Characters indication */}
-      <div className="absolute bottom-4 left-4 z-10 flex flex-wrap gap-2 text-[11px] bg-[#121826]/95 backdrop-blur p-3 rounded-2xl border border-[#1F293D] shadow-2xl">
-        <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/40 font-mono font-bold">
-          <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
+      <div className="absolute bottom-4 left-4 z-10 flex flex-wrap gap-2 text-[11px] bg-white/95 backdrop-blur p-3 rounded-2xl border border-slate-200 shadow-xl">
+        <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-bold">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           Available
         </span>
-        <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#00D2FF]/15 text-[#00D2FF] border border-[#00D2FF]/40 font-mono font-bold">
-          <span className="w-2 h-2 rounded-full bg-[#00D2FF]" />
+        <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 font-mono font-bold">
+          <span className="w-2 h-2 rounded-full bg-blue-600" />
           Occupied (Seated Gamer)
         </span>
-        <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#F59E0B]/15 text-[#F59E0B] border border-[#F59E0B]/40 font-mono font-bold">
-          <span className="w-2 h-2 rounded-full bg-[#F59E0B]" />
+        <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-50 text-amber-700 border border-amber-200 font-mono font-bold">
+          <span className="w-2 h-2 rounded-full bg-amber-500" />
           Reserved
         </span>
-        <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#8B5CF6]/15 text-[#C084FC] border border-[#8B5CF6]/40 font-mono font-bold">
-          <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+        <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-purple-50 text-purple-700 border border-purple-200 font-mono font-bold">
+          <span className="w-2 h-2 rounded-full bg-purple-600" />
           Cleaning
         </span>
-        <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#EF4444]/15 text-[#EF4444] border border-[#EF4444]/40 font-mono font-bold">
-          <span className="w-2 h-2 rounded-full bg-[#EF4444]" />
+        <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 border border-rose-200 font-mono font-bold">
+          <span className="w-2 h-2 rounded-full bg-rose-600" />
           Maintenance
         </span>
       </div>

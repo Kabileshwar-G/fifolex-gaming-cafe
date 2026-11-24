@@ -161,15 +161,15 @@ export default function PosPage() {
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto bg-[#0A0E17] text-white">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto bg-[#F8FAFC] text-white">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#1F293D]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E2E8F0]">
         <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-wide flex items-center gap-2.5">
-            <UtensilsCrossed className="w-5 h-5 text-[#00D2FF]" />
+          <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-wide flex items-center gap-2.5">
+            <UtensilsCrossed className="w-5 h-5 text-[#2563EB]" />
             Cafe Point of Sale & Food Service
           </h1>
-          <p className="text-xs sm:text-sm text-gray-400 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Beverage inventory, snack checkout, kitchen dispatch, and split-bill payments.
           </p>
         </div>
@@ -177,7 +177,7 @@ export default function PosPage() {
         <div className="flex items-center gap-2">
           <Link
             href="/kitchen"
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-[#6366F1]/20 hover:bg-[#6366F1]/30 border border-[#6366F1]/40 rounded-xl text-xs font-bold text-[#818CF8] transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-[#4F46E5]/20 hover:bg-[#4F46E5]/30 border border-[#4F46E5]/40 rounded-xl text-xs font-bold text-[#6366F1] transition-colors"
           >
             Kitchen Display System (KDS) &rarr;
           </Link>
@@ -191,13 +191,13 @@ export default function PosPage() {
           {/* Search & Category Filter Pills */}
           <div className="space-y-3">
             <div className="relative">
-              <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Search food, energy drinks, snacks..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-[#121826] border border-[#1F293D] rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#00D2FF]"
+                className="w-full bg-[#FFFFFF] border border-[#E2E8F0] rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#2563EB]"
               />
             </div>
 
@@ -208,8 +208,8 @@ export default function PosPage() {
                   onClick={() => setCategoryFilter(cat.key)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                     categoryFilter === cat.key
-                      ? 'bg-[#00D2FF] text-[#0A0E17] shadow-md shadow-[#00D2FF]/20'
-                      : 'bg-[#121826] text-gray-400 hover:text-white border border-[#1F293D]'
+                      ? 'bg-[#2563EB] text-[#F8FAFC] shadow-md shadow-[#2563EB]/20'
+                      : 'bg-[#FFFFFF] text-slate-500 hover:text-white border border-[#E2E8F0]'
                   }`}
                 >
                   {cat.label}
@@ -230,19 +230,19 @@ export default function PosPage() {
                   onClick={() => !isOutOfStock && addToCart(product)}
                   className={`p-3.5 rounded-xl border flex flex-col justify-between transition-all select-none ${
                     isOutOfStock
-                      ? 'bg-[#181818] border-[#1F293D] opacity-50 cursor-not-allowed'
-                      : 'bg-[#121826] border-[#1F293D] hover:border-[#00D2FF] hover:bg-[#161F32] cursor-pointer'
+                      ? 'bg-[#181818] border-[#E2E8F0] opacity-50 cursor-not-allowed'
+                      : 'bg-[#FFFFFF] border-[#E2E8F0] hover:border-[#2563EB] hover:bg-[#F8FAFC] cursor-pointer'
                   }`}
                 >
                   <div>
                     <div className="flex items-start justify-between">
-                      <span className="font-extrabold text-white text-xs leading-snug line-clamp-2">
+                      <span className="font-extrabold text-slate-900 text-xs leading-snug line-clamp-2">
                         {product.name}
                       </span>
                     </div>
 
                     <div className="mt-2 flex items-center justify-between text-xs">
-                      <span className="font-mono font-extrabold text-[#00D2FF] text-sm">
+                      <span className="font-mono font-extrabold text-[#2563EB] text-sm">
                         {formatCurrency(product.priceCents, settings.currencySymbol)}
                       </span>
                       <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
@@ -250,7 +250,7 @@ export default function PosPage() {
                           ? 'bg-[#EF4444]/20 text-[#EF4444]'
                           : isLowStock
                           ? 'bg-[#FF8C00]/20 text-[#FF8C00]'
-                          : 'bg-[#1F293D] text-gray-300'
+                          : 'bg-[#E2E8F0] text-slate-700'
                       }`}>
                         {isOutOfStock ? 'Sold Out' : `${product.stockQuantity} in stock`}
                       </span>
@@ -259,7 +259,7 @@ export default function PosPage() {
 
                   <button
                     disabled={isOutOfStock}
-                    className="mt-3 w-full py-1.5 bg-[#161F32] hover:bg-[#00D2FF] hover:text-[#0A0E17] disabled:opacity-30 text-[#00D2FF] text-xs font-bold rounded-lg flex items-center justify-center gap-1 transition-colors border border-[#1F293D]"
+                    className="mt-3 w-full py-1.5 bg-[#F8FAFC] hover:bg-[#2563EB] hover:text-[#F8FAFC] disabled:opacity-30 text-[#2563EB] text-xs font-bold rounded-lg flex items-center justify-center gap-1 transition-colors border border-[#E2E8F0]"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     Add
@@ -271,11 +271,11 @@ export default function PosPage() {
         </div>
 
         {/* Right Column: Active Order Cart & Billing (5 Cols) */}
-        <div className="lg:col-span-5 bg-[#121826] border border-[#1F293D] rounded-2xl p-4 flex flex-col justify-between shadow-xl space-y-4">
+        <div className="lg:col-span-5 bg-[#FFFFFF] border border-[#E2E8F0] rounded-2xl p-4 flex flex-col justify-between shadow-xl space-y-4">
           <div className="space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#1F293D]">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E2E8F0]">
               <h2 className="font-bold text-sm text-white flex items-center gap-2">
-                <ShoppingBag className="w-4 h-4 text-[#00D2FF]" />
+                <ShoppingBag className="w-4 h-4 text-[#2563EB]" />
                 Current Order ({cartItems.reduce((acc, i) => acc + i.quantity, 0)} items)
               </h2>
               {cartItems.length > 0 && (
@@ -289,13 +289,13 @@ export default function PosPage() {
             </div>
 
             {/* Destination Selection (Session or Walk-in) */}
-            <div className="space-y-2 p-3 rounded-xl bg-[#141414] border border-[#1F293D] text-xs">
+            <div className="space-y-2 p-3 rounded-xl bg-[#141414] border border-[#E2E8F0] text-xs">
               <div>
-                <label className="text-[11px] text-gray-400 block mb-1">Deliver to Gaming Station (Optional)</label>
+                <label className="text-[11px] text-slate-500 block mb-1">Deliver to Gaming Station (Optional)</label>
                 <select
                   value={linkedSessionId}
                   onChange={(e) => setLinkedSessionId(e.target.value)}
-                  className="w-full bg-[#121826] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#FFFFFF] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
                 >
                   <option value="">-- Over-the-counter walk-in --</option>
                   {sessions.filter(s => s.status === 'active').map(s => (
@@ -308,13 +308,13 @@ export default function PosPage() {
 
               {!linkedSessionId && (
                 <div>
-                  <label className="text-[11px] text-gray-400 block mb-1">Customer / Member</label>
+                  <label className="text-[11px] text-slate-500 block mb-1">Customer / Member</label>
                   <input
                     type="text"
                     placeholder="Guest Name or Table"
                     value={walkinGuestName}
                     onChange={(e) => setWalkinGuestName(e.target.value)}
-                    className="w-full bg-[#121826] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#FFFFFF] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
                   />
                 </div>
               )}
@@ -323,7 +323,7 @@ export default function PosPage() {
             {/* Cart Items List */}
             {cartItems.length === 0 ? (
               <div className="py-12 text-center text-gray-500">
-                <UtensilsCrossed className="w-8 h-8 mx-auto mb-2 opacity-30 text-gray-400" />
+                <UtensilsCrossed className="w-8 h-8 mx-auto mb-2 opacity-30 text-slate-500" />
                 <p className="text-xs">Cart is empty. Click items on the left to add.</p>
               </div>
             ) : (
@@ -331,35 +331,35 @@ export default function PosPage() {
                 {cartItems.map(item => (
                   <div
                     key={item.product.id}
-                    className="p-2.5 rounded-xl bg-[#141414] border border-[#1F293D] flex items-center justify-between text-xs"
+                    className="p-2.5 rounded-xl bg-[#141414] border border-[#E2E8F0] flex items-center justify-between text-xs"
                   >
                     <div className="min-w-0 flex-1 mr-2">
-                      <span className="font-bold text-white block truncate">{item.product.name}</span>
-                      <span className="text-[11px] text-gray-400 font-mono">
+                      <span className="font-bold text-slate-900 block truncate">{item.product.name}</span>
+                      <span className="text-[11px] text-slate-500 font-mono">
                         {formatCurrency(item.product.priceCents, settings.currencySymbol)} each
                       </span>
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <div className="flex items-center rounded-lg bg-[#222222] border border-[#1F293D]">
+                      <div className="flex items-center rounded-lg bg-[#222222] border border-[#E2E8F0]">
                         <button
                           onClick={() => updateCartQuantity(item.product.id, -1)}
-                          className="p-1 hover:text-white text-gray-400"
+                          className="p-1 hover:text-white text-slate-500"
                         >
                           <Minus className="w-3 h-3" />
                         </button>
-                        <span className="w-6 text-center font-mono font-bold text-white text-xs">
+                        <span className="w-6 text-center font-mono font-bold text-slate-900 text-xs">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() => updateCartQuantity(item.product.id, 1)}
-                          className="p-1 hover:text-white text-gray-400"
+                          className="p-1 hover:text-white text-slate-500"
                         >
                           <Plus className="w-3 h-3" />
                         </button>
                       </div>
 
-                      <span className="w-14 text-right font-mono font-bold text-[#00D2FF]">
+                      <span className="w-14 text-right font-mono font-bold text-[#2563EB]">
                         {formatCurrency(item.product.priceCents * item.quantity, settings.currencySymbol)}
                       </span>
 
@@ -378,15 +378,15 @@ export default function PosPage() {
 
           {/* Pricing Summary & Checkout Button */}
           {cartItems.length > 0 && (
-            <div className="space-y-3 pt-3 border-t border-[#1F293D]">
+            <div className="space-y-3 pt-3 border-t border-[#E2E8F0]">
               {/* Discount & Split Bill options */}
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div>
-                  <label className="text-[11px] text-gray-400 block mb-1">Discount %</label>
+                  <label className="text-[11px] text-slate-500 block mb-1">Discount %</label>
                   <select
                     value={discountPercent}
                     onChange={(e) => setDiscountPercent(Number(e.target.value))}
-                    className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-1.5 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-1.5 text-xs text-white"
                   >
                     <option value={0}>No Discount (0%)</option>
                     <option value={5}>VIP Member (5%)</option>
@@ -397,14 +397,14 @@ export default function PosPage() {
                 </div>
 
                 <div>
-                  <label className="text-[11px] text-gray-400 block mb-1 flex items-center gap-1 font-bold">
-                    <Split className="w-3 h-3 text-[#00D2FF]" />
+                  <label className="text-[11px] text-slate-500 block mb-1 flex items-center gap-1 font-bold">
+                    <Split className="w-3 h-3 text-[#2563EB]" />
                     Split Bill
                   </label>
                   <select
                     value={splitCount}
                     onChange={(e) => setSplitCount(Number(e.target.value))}
-                    className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-1.5 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-1.5 text-xs text-white"
                   >
                     <option value={1}>Single Payer (1x)</option>
                     <option value={2}>Split 2 Ways</option>
@@ -415,27 +415,27 @@ export default function PosPage() {
               </div>
 
               {/* Price Breakdown */}
-              <div className="p-3 rounded-xl bg-[#141414] border border-[#1F293D] text-xs space-y-1.5">
-                <div className="flex justify-between text-gray-400">
+              <div className="p-3 rounded-xl bg-[#141414] border border-[#E2E8F0] text-xs space-y-1.5">
+                <div className="flex justify-between text-slate-500">
                   <span>Subtotal:</span>
                   <span className="font-mono text-white">{formatCurrency(subtotalCents, settings.currencySymbol)}</span>
                 </div>
                 {discountAmountCents > 0 && (
-                  <div className="flex justify-between text-[#00D2FF]">
+                  <div className="flex justify-between text-[#2563EB]">
                     <span>Discount ({discountPercent}%):</span>
                     <span className="font-mono">-{formatCurrency(discountAmountCents, settings.currencySymbol)}</span>
                   </div>
                 )}
-                <div className="flex justify-between text-gray-400">
+                <div className="flex justify-between text-slate-500">
                   <span>Tax ({settings.taxRatePercent}%):</span>
                   <span className="font-mono text-white">{formatCurrency(taxAmountCents, settings.currencySymbol)}</span>
                 </div>
-                <div className="flex justify-between text-sm font-bold text-white pt-1.5 border-t border-[#1F293D]">
+                <div className="flex justify-between text-sm font-bold text-slate-900 pt-1.5 border-t border-[#E2E8F0]">
                   <span>Total Due:</span>
-                  <span className="font-mono text-[#00D2FF] font-extrabold">{formatCurrency(grandTotalCents, settings.currencySymbol)}</span>
+                  <span className="font-mono text-[#2563EB] font-extrabold">{formatCurrency(grandTotalCents, settings.currencySymbol)}</span>
                 </div>
                 {splitCount > 1 && (
-                  <div className="flex justify-between text-xs text-[#818CF8] font-bold pt-1 border-t border-[#1F293D]">
+                  <div className="flex justify-between text-xs text-[#6366F1] font-bold pt-1 border-t border-[#E2E8F0]">
                     <span>Each Player ({splitCount}x):</span>
                     <span className="font-mono">{formatCurrency(splitAmountCents, settings.currencySymbol)}</span>
                   </div>
@@ -444,11 +444,11 @@ export default function PosPage() {
 
               {/* Payment Method Selector */}
               <div>
-                <label className="text-[11px] text-gray-400 block mb-1">Payment Method</label>
+                <label className="text-[11px] text-slate-500 block mb-1">Payment Method</label>
                 <select
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
                 >
                   {settings.acceptedPaymentMethods.map(pm => (
                     <option key={pm} value={pm}>{pm}</option>
@@ -459,7 +459,7 @@ export default function PosPage() {
               {/* Checkout Action Button */}
               <button
                 onClick={handleCheckout}
-                className="w-full py-3 bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17] font-extrabold text-xs rounded-xl shadow-lg shadow-[#00D2FF]/25 flex items-center justify-center gap-2 transition-all"
+                className="w-full py-3 bg-[#2563EB] hover:bg-[#1D4ED8] text-[#F8FAFC] font-extrabold text-xs rounded-xl shadow-lg shadow-[#2563EB]/25 flex items-center justify-center gap-2 transition-all"
               >
                 <CreditCard className="w-4 h-4" />
                 Charge {formatCurrency(grandTotalCents, settings.currencySymbol)} & Print Receipt
@@ -471,7 +471,7 @@ export default function PosPage() {
 
       {/* COMPLETED RECEIPT MODAL */}
       {showReceiptModal && lastCompletedOrder && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="w-full max-w-sm bg-white text-gray-900 rounded-2xl p-6 shadow-2xl space-y-4 font-mono">
             <div className="text-center pb-3 border-b border-gray-200">
               <h3 className="font-bold text-lg tracking-wider uppercase">{settings.cafeName}</h3>
@@ -523,7 +523,7 @@ export default function PosPage() {
                 <span>Tax ({settings.taxRatePercent}%):</span>
                 <span>{formatCurrency(lastCompletedOrder.taxAmountCents, settings.currencySymbol)}</span>
               </div>
-              <div className="flex justify-between text-sm font-bold border-t border-gray-800 pt-1">
+              <div className="flex justify-between text-sm font-bold border-t border-slate-200 pt-1">
                 <span>TOTAL:</span>
                 <span>{formatCurrency(lastCompletedOrder.grandTotalCents, settings.currencySymbol)}</span>
               </div>
@@ -539,7 +539,7 @@ export default function PosPage() {
               )}
             </div>
 
-            <div className="text-center pt-2 text-[10px] text-gray-400 border-t border-gray-100">
+            <div className="text-center pt-2 text-[10px] text-slate-500 border-t border-gray-100">
               Thank you for gaming with us! &bull; GG WP
             </div>
 

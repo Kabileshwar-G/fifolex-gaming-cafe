@@ -14,30 +14,30 @@ export default function VenuePage() {
   const selectedStation = stations.find(s => s.id === selectedStationId);
 
   return (
-    <div className="flex h-full relative overflow-hidden bg-[#0A0E17]">
+    <div className="flex h-full relative overflow-hidden bg-[#F8FAFC]">
       {/* Main View Area */}
       <div className="flex-1 flex flex-col min-w-0 relative h-full">
         {/* Top Control Bar */}
-        <div className="h-14 px-4 border-b border-[#1F293D] bg-[#0E1422]/95 backdrop-blur flex items-center justify-between z-10">
+        <div className="h-14 px-4 border-b border-slate-200 bg-white/95 backdrop-blur flex items-center justify-between z-10">
           <div className="flex items-center gap-3">
-            <h2 className="text-sm font-bold text-white tracking-wide flex items-center gap-2">
-              <Box className="w-4 h-4 text-[#00D2FF]" />
+            <h2 className="text-sm font-bold text-slate-900 tracking-wide flex items-center gap-2">
+              <Box className="w-4 h-4 text-[#2563EB]" />
               3D Venue & Station Control Surface
             </h2>
-            <span className="text-xs text-[#94A3B8] hidden md:inline font-mono">
+            <span className="text-xs text-slate-500 hidden md:inline font-mono">
               &bull; Click any pod to inspect, launch sessions, or manage hardware.
             </span>
           </div>
 
           <div className="flex items-center gap-2">
             {/* 3D vs 2D Toggle */}
-            <div className="flex p-0.5 rounded-xl bg-[#121826] border border-[#1F293D]">
+            <div className="flex p-0.5 rounded-xl bg-slate-100 border border-slate-200">
               <button
                 onClick={() => setViewMode('3d')}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
                   viewMode === '3d'
-                    ? 'bg-[#00D2FF] text-[#0A0E17] shadow-sm shadow-[#00D2FF]/20'
-                    : 'text-[#94A3B8] hover:text-white'
+                    ? 'bg-[#2563EB] text-white shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 <Box className="w-3.5 h-3.5" />
@@ -47,8 +47,8 @@ export default function VenuePage() {
                 onClick={() => setViewMode('2d')}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
                   viewMode === '2d'
-                    ? 'bg-[#00D2FF] text-[#0A0E17] shadow-sm shadow-[#00D2FF]/20'
-                    : 'text-[#94A3B8] hover:text-white'
+                    ? 'bg-[#2563EB] text-white shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 <Layers className="w-3.5 h-3.5" />

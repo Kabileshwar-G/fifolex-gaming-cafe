@@ -100,13 +100,13 @@ export default function ReportsPage() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#1F293D]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E2E8F0]">
         <div>
-          <h1 className="text-xl sm:text-2xl font-black text-white tracking-wide flex items-center gap-2.5">
-            <BarChart3 className="w-5 h-5 text-[#00D2FF]" />
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-wide flex items-center gap-2.5">
+            <BarChart3 className="w-5 h-5 text-[#2563EB]" />
             Operations Analytics & Financial Reports
           </h1>
-          <p className="text-xs sm:text-sm text-[#A3A3A3] mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Revenue breakdown, station utilization, and downloadable management reports.
           </p>
         </div>
@@ -114,14 +114,14 @@ export default function ReportsPage() {
         <div className="flex items-center gap-2 self-start sm:self-auto">
           <button
             onClick={handleExportCSV}
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-[#121826] hover:bg-[#161F32] border border-[#1F293D] rounded-xl text-xs font-bold text-white transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-[#FFFFFF] hover:bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-xs font-bold text-slate-900 transition-colors"
           >
-            <Download className="w-3.5 h-3.5 text-[#6366F1]" />
+            <Download className="w-3.5 h-3.5 text-[#4F46E5]" />
             Export CSV
           </button>
           <button
             onClick={handleExportJSON}
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17] rounded-xl text-xs font-black shadow-lg shadow-[#00D2FF]/20 transition-all"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-[#F8FAFC] rounded-xl text-xs font-black shadow-lg shadow-[#2563EB]/20 transition-all"
           >
             <Download className="w-3.5 h-3.5" />
             Export JSON
@@ -130,15 +130,15 @@ export default function ReportsPage() {
       </div>
 
       {/* Date Range Selector */}
-      <div className="flex p-1 bg-[#121826] border border-[#1F293D] rounded-xl self-start w-fit">
+      <div className="flex p-1 bg-[#FFFFFF] border border-[#E2E8F0] rounded-xl self-start w-fit">
         {(['today', 'week', 'month'] as const).map(range => (
           <button
             key={range}
             onClick={() => setDateRange(range)}
             className={`px-4 py-1.5 rounded-lg text-xs font-bold capitalize transition-colors ${
               dateRange === range
-                ? 'bg-[#00D2FF] text-[#0A0E17] shadow-md'
-                : 'text-[#A3A3A3] hover:text-white'
+                ? 'bg-[#2563EB] text-[#F8FAFC] shadow-md'
+                : 'text-slate-500 hover:text-white'
             }`}
           >
             {range === 'today' ? 'Today' : range === 'week' ? 'This Week' : 'This Month'}
@@ -148,45 +148,45 @@ export default function ReportsPage() {
 
       {/* KPI Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-[#121826] border border-[#1F293D]">
-          <span className="text-xs font-bold text-[#A3A3A3] uppercase tracking-wider font-mono">Gross Revenue</span>
-          <div className="mt-2 text-2xl font-black text-[#00D2FF] font-mono">
+        <div className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E2E8F0]">
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">Gross Revenue</span>
+          <div className="mt-2 text-2xl font-black text-[#2563EB] font-mono">
             {formatCurrency(totalGrossRevenueCents, settings.currencySymbol)}
           </div>
-          <p className="text-[11px] text-[#A3A3A3] mt-1">Sessions + Food & Beverage POS</p>
+          <p className="text-[11px] text-slate-500 mt-1">Sessions + Food & Beverage POS</p>
         </div>
 
-        <div className="p-5 rounded-2xl bg-[#121826] border border-[#1F293D]">
-          <span className="text-xs font-bold text-[#A3A3A3] uppercase tracking-wider font-mono">Total Gaming Hours</span>
-          <div className="mt-2 text-2xl font-black text-white font-mono">
+        <div className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E2E8F0]">
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">Total Gaming Hours</span>
+          <div className="mt-2 text-2xl font-black text-slate-900 font-mono">
             {totalSessionHours} hrs
           </div>
-          <p className="text-[11px] text-[#A3A3A3] mt-1">Across 26 pod units</p>
+          <p className="text-[11px] text-slate-500 mt-1">Across 26 pod units</p>
         </div>
 
-        <div className="p-5 rounded-2xl bg-[#121826] border border-[#1F293D]">
-          <span className="text-xs font-bold text-[#A3A3A3] uppercase tracking-wider font-mono">POS Food Sales</span>
-          <div className="mt-2 text-2xl font-black text-[#6366F1] font-mono">
+        <div className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E2E8F0]">
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">POS Food Sales</span>
+          <div className="mt-2 text-2xl font-black text-[#4F46E5] font-mono">
             {formatCurrency(totalOrderRevenueCents, settings.currencySymbol)}
           </div>
-          <p className="text-[11px] text-[#A3A3A3] mt-1">{orders.length} orders served</p>
+          <p className="text-[11px] text-slate-500 mt-1">{orders.length} orders served</p>
         </div>
 
-        <div className="p-5 rounded-2xl bg-[#121826] border border-[#1F293D]">
-          <span className="text-xs font-bold text-[#A3A3A3] uppercase tracking-wider font-mono">Active Members</span>
-          <div className="mt-2 text-2xl font-black text-white font-mono">
+        <div className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E2E8F0]">
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">Active Members</span>
+          <div className="mt-2 text-2xl font-black text-slate-900 font-mono">
             {customers.length}
           </div>
-          <p className="text-[11px] text-[#A3A3A3] mt-1">VIP & registered guests</p>
+          <p className="text-[11px] text-slate-500 mt-1">VIP & registered guests</p>
         </div>
       </div>
 
       {/* Popular Platforms & Utilization Breakdown */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Platform Share */}
-        <div className="p-5 rounded-2xl bg-[#121826] border border-[#1F293D] space-y-4">
+        <div className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E2E8F0] space-y-4">
           <h2 className="font-bold text-sm text-white flex items-center gap-2">
-            <Monitor className="w-4 h-4 text-[#00D2FF]" />
+            <Monitor className="w-4 h-4 text-[#2563EB]" />
             Station Platform Hours Share
           </h2>
 
@@ -198,12 +198,12 @@ export default function ReportsPage() {
               return (
                 <div key={platform} className="space-y-1">
                   <div className="flex justify-between text-xs font-medium">
-                    <span className="text-[#A3A3A3] uppercase tracking-wider font-mono">{platform}</span>
-                    <span className="font-mono text-[#00D2FF] font-bold">{hours.toFixed(1)} hrs</span>
+                    <span className="text-slate-500 uppercase tracking-wider font-mono">{platform}</span>
+                    <span className="font-mono text-[#2563EB] font-bold">{hours.toFixed(1)} hrs</span>
                   </div>
-                  <div className="w-full bg-[#161F32] h-2.5 rounded-full overflow-hidden">
+                  <div className="w-full bg-[#F8FAFC] h-2.5 rounded-full overflow-hidden">
                     <div
-                      className="bg-gradient-to-r from-[#6366F1] to-[#00D2FF] h-full rounded-full transition-all duration-500"
+                      className="bg-gradient-to-r from-[#4F46E5] to-[#2563EB] h-full rounded-full transition-all duration-500"
                       style={{ width: `${Math.max(5, pct)}%` }}
                     />
                   </div>
@@ -214,28 +214,28 @@ export default function ReportsPage() {
         </div>
 
         {/* Peak Hours Distribution */}
-        <div className="p-5 rounded-2xl bg-[#121826] border border-[#1F293D] space-y-4">
+        <div className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E2E8F0] space-y-4">
           <h2 className="font-bold text-sm text-white flex items-center gap-2">
-            <Clock className="w-4 h-4 text-[#6366F1]" />
+            <Clock className="w-4 h-4 text-[#4F46E5]" />
             Peak Operational Traffic Window
           </h2>
 
           <div className="space-y-2 text-xs pt-1">
-            <div className="flex justify-between p-2.5 rounded-xl bg-[#161F32] border border-[#1F293D] text-gray-300">
+            <div className="flex justify-between p-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-slate-700">
               <span>Prime Peak Hours (High Demand):</span>
               <span className="font-mono font-bold text-[#EF4444]">18:00 - 23:00 (92% Occ.)</span>
             </div>
-            <div className="flex justify-between p-2.5 rounded-xl bg-[#161F32] border border-[#1F293D] text-gray-300">
+            <div className="flex justify-between p-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-slate-700">
               <span>Afternoon Esports Wave:</span>
               <span className="font-mono font-bold text-[#FF8C00]">14:00 - 18:00 (68% Occ.)</span>
             </div>
-            <div className="flex justify-between p-2.5 rounded-xl bg-[#161F32] border border-[#1F293D] text-gray-300">
+            <div className="flex justify-between p-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-slate-700">
               <span>Morning Casual Play:</span>
-              <span className="font-mono font-bold text-[#00D2FF]">10:00 - 14:00 (35% Occ.)</span>
+              <span className="font-mono font-bold text-[#2563EB]">10:00 - 14:00 (35% Occ.)</span>
             </div>
-            <div className="flex justify-between p-2.5 rounded-xl bg-[#161F32] border border-[#1F293D] text-gray-300">
+            <div className="flex justify-between p-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-slate-700">
               <span>Late Night Hardcore:</span>
-              <span className="font-mono font-bold text-[#6366F1]">23:00 - 03:00 (74% Occ.)</span>
+              <span className="font-mono font-bold text-[#4F46E5]">23:00 - 03:00 (74% Occ.)</span>
             </div>
           </div>
         </div>
