@@ -298,11 +298,11 @@ export default function CustomerPortalPage() {
                 )}
 
                 <div>
-                  <label className="text-xs text-white block mb-1 font-semibold">Select Gaming Pod</label>
+                  <label className="text-xs text-slate-700 block mb-1 font-semibold">Select Gaming Pod</label>
                   <select
                     value={selectedStationId}
                     onChange={(e) => setSelectedStationId(e.target.value)}
-                    className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2.5 text-xs text-white focus:border-[#2563EB] outline-none"
+                    className="w-full bg-[#F8FAFC] border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:bg-white focus:border-[#2563EB] outline-none"
                     required
                   >
                     <option value="">-- Choose station pod --</option>
@@ -316,24 +316,24 @@ export default function CustomerPortalPage() {
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs text-white block mb-1 font-semibold">Your Full Name</label>
+                    <label className="text-xs text-slate-700 block mb-1 font-semibold">Your Full Name</label>
                     <input
                       type="text"
-                      placeholder="e.g. Kai Jensen"
+                      placeholder="e.g. Aarav Sharma"
                       value={customerName}
                       onChange={(e) => setCustomerName(e.target.value)}
-                      className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2.5 text-xs text-white focus:border-[#2563EB] outline-none"
+                      className="w-full bg-[#F8FAFC] border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:bg-white focus:border-[#2563EB] outline-none"
                       required
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-white block mb-1 font-semibold">Phone Number</label>
+                    <label className="text-xs text-slate-700 block mb-1 font-semibold">Phone Number</label>
                     <input
                       type="tel"
-                      placeholder="+1 (555) 000-0000"
+                      placeholder="+91 98765 43210"
                       value={customerPhone}
                       onChange={(e) => setCustomerPhone(e.target.value)}
-                      className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2.5 text-xs text-white focus:border-[#2563EB] outline-none"
+                      className="w-full bg-[#F8FAFC] border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:bg-white focus:border-[#2563EB] outline-none"
                       required
                     />
                   </div>
@@ -341,31 +341,31 @@ export default function CustomerPortalPage() {
 
                 <div className="grid grid-cols-3 gap-3">
                   <div>
-                    <label className="text-xs text-white block mb-1 font-semibold">Date</label>
+                    <label className="text-xs text-slate-700 block mb-1 font-semibold">Date</label>
                     <input
                       type="date"
                       value={bookingDate}
                       onChange={(e) => setBookingDate(e.target.value)}
-                      className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2 text-xs text-white font-mono focus:border-[#2563EB] outline-none"
+                      className="w-full bg-[#F8FAFC] border border-slate-300 rounded-xl p-2 text-xs text-slate-900 font-mono focus:bg-white focus:border-[#2563EB] outline-none"
                       required
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-white block mb-1 font-semibold">Start Time</label>
+                    <label className="text-xs text-slate-700 block mb-1 font-semibold">Start Time</label>
                     <input
                       type="time"
                       value={bookingTime}
                       onChange={(e) => setBookingTime(e.target.value)}
-                      className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2 text-xs text-white font-mono focus:border-[#2563EB] outline-none"
+                      className="w-full bg-[#F8FAFC] border border-slate-300 rounded-xl p-2 text-xs text-slate-900 font-mono focus:bg-white focus:border-[#2563EB] outline-none"
                       required
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-white block mb-1 font-semibold">Duration</label>
+                    <label className="text-xs text-slate-700 block mb-1 font-semibold">Duration</label>
                     <select
                       value={durationMinutes}
                       onChange={(e) => setDurationMinutes(Number(e.target.value))}
-                      className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2 text-xs text-white focus:border-[#2563EB] outline-none"
+                      className="w-full bg-[#F8FAFC] border border-slate-300 rounded-xl p-2 text-xs text-slate-900 focus:bg-white focus:border-[#2563EB] outline-none"
                     >
                       <option value={60}>1 hour</option>
                       <option value={120}>2 hours</option>
@@ -376,18 +376,18 @@ export default function CustomerPortalPage() {
                 </div>
 
                 {selectedStation && (
-                  <div className="p-3.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs space-y-1.5">
+                  <div className="p-3.5 rounded-xl bg-[#F8FAFC] border border-slate-200 text-xs space-y-1.5">
                     <div className="flex justify-between text-slate-500">
                       <span>Rate:</span>
                       <span>{formatCurrency(selectedStation.hourlyRateCents, settings.currencySymbol)}/hr</span>
                     </div>
                     <div className="flex justify-between text-slate-500">
                       <span>Total Session Cost:</span>
-                      <span className="font-mono text-white font-bold">
+                      <span className="font-mono text-slate-900 font-bold">
                         {formatCurrency((durationMinutes / 60) * selectedStation.hourlyRateCents, settings.currencySymbol)}
                       </span>
                     </div>
-                    <div className="flex justify-between text-[#2563EB] font-black pt-1.5 border-t border-[#E2E8F0]">
+                    <div className="flex justify-between text-[#2563EB] font-black pt-1.5 border-t border-slate-200">
                       <span>Required Deposit (50%):</span>
                       <span className="font-mono">
                         {formatCurrency(Math.round(((durationMinutes / 60) * selectedStation.hourlyRateCents) * 0.5), settings.currencySymbol)}

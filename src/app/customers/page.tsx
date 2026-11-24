@@ -234,11 +234,11 @@ export default function CustomersPage() {
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="w-full max-w-md bg-[#FFFFFF] border border-[#E2E8F0] rounded-2xl p-6 shadow-2xl space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-[#E2E8F0]">
-              <h3 className="font-bold text-base text-white flex items-center gap-2">
+              <h3 className="font-bold text-base text-slate-900 flex items-center gap-2">
                 <Users className="w-4 h-4 text-[#2563EB]" />
                 Register New Customer Profile
               </h3>
-              <button onClick={() => setShowCreateModal(false)} className="text-slate-500 hover:text-white">
+              <button onClick={() => setShowCreateModal(false)} className="text-slate-400 hover:text-slate-700">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -248,10 +248,10 @@ export default function CustomersPage() {
                 <label className="text-xs text-slate-700 block mb-1 font-semibold">Full Name</label>
                 <input
                   type="text"
-                  placeholder="e.g. Maya Lin"
+                  placeholder="e.g. Aarav Sharma"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                   required
                 />
               </div>
@@ -261,10 +261,10 @@ export default function CustomersPage() {
                   <label className="text-xs text-slate-700 block mb-1 font-semibold">Phone Number</label>
                   <input
                     type="tel"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+91 98765 43210"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                     required
                   />
                 </div>
@@ -272,10 +272,10 @@ export default function CustomersPage() {
                   <label className="text-xs text-slate-700 block mb-1 font-semibold">Email (Optional)</label>
                   <input
                     type="email"
-                    placeholder="maya@example.com"
+                    placeholder="aarav@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                   />
                 </div>
               </div>
@@ -285,7 +285,7 @@ export default function CustomersPage() {
                 <select
                   value={tier}
                   onChange={(e) => setTier(e.target.value as MembershipTier)}
-                  className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                 >
                   <option value="standard">Standard Member (0% discount)</option>
                   <option value="silver">Silver Tier (10% discount on rates)</option>
@@ -295,13 +295,13 @@ export default function CustomersPage() {
               </div>
 
               <div>
-                <label className="text-xs text-slate-700 block mb-1 font-semibold">Initial Wallet Deposit (Cents)</label>
+                <label className="text-xs text-slate-700 block mb-1 font-semibold">Initial Wallet Deposit (Paise)</label>
                 <input
                   type="number"
-                  placeholder="e.g. 2000 for $20.00"
+                  placeholder="e.g. 50000 for ₹500.00"
                   value={initialWalletCents || ''}
                   onChange={(e) => setInitialWalletCents(Number(e.target.value))}
-                  className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white font-mono"
+                  className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 font-mono focus:bg-white focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
@@ -312,7 +312,7 @@ export default function CustomersPage() {
                   placeholder="e.g. Prefers PC-03, plays CS2 & Valorant"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
@@ -320,7 +320,7 @@ export default function CustomersPage() {
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="flex-1 py-2.5 rounded-lg bg-[#F8FAFC] text-xs font-semibold text-slate-700"
+                  className="flex-1 py-2.5 rounded-lg bg-[#F8FAFC] border border-slate-200 hover:bg-slate-100 text-xs font-semibold text-slate-700"
                 >
                   Cancel
                 </button>
@@ -341,11 +341,11 @@ export default function CustomersPage() {
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="w-full max-w-sm bg-[#FFFFFF] border border-[#E2E8F0] rounded-2xl p-6 shadow-2xl space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-[#E2E8F0]">
-              <h3 className="font-bold text-base text-white flex items-center gap-2">
+              <h3 className="font-bold text-base text-slate-900 flex items-center gap-2">
                 <Wallet className="w-4 h-4 text-[#2563EB]" />
                 Add Credits to Wallet
               </h3>
-              <button onClick={() => setTopUpCustomerTarget(null)} className="text-slate-500 hover:text-white">
+              <button onClick={() => setTopUpCustomerTarget(null)} className="text-slate-400 hover:text-slate-700">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -358,17 +358,17 @@ export default function CustomersPage() {
             </p>
 
             <div>
-              <label className="text-xs text-slate-500 block mb-1 font-semibold">Select Credit Package</label>
+              <label className="text-xs text-slate-600 block mb-1 font-semibold">Select Credit Package</label>
               <div className="grid grid-cols-3 gap-2">
-                {[1000, 2500, 5000].map(cents => (
+                {[20000, 50000, 100000].map(cents => (
                   <button
                     key={cents}
                     type="button"
                     onClick={() => setTopUpAmountCents(cents)}
                     className={`py-2 rounded-lg border text-xs font-mono font-bold transition-all ${
                       topUpAmountCents === cents
-                        ? 'bg-[#2563EB] text-[#F8FAFC] border-[#2563EB] font-extrabold'
-                        : 'bg-[#141414] text-slate-700 border-[#E2E8F0] hover:bg-[#F8FAFC]'
+                        ? 'bg-[#2563EB] text-[#F8FAFC] border-[#2563EB] font-extrabold shadow-sm'
+                        : 'bg-[#F8FAFC] text-slate-700 border-slate-200 hover:bg-slate-100'
                     }`}
                   >
                     {formatCurrency(cents, settings.currencySymbol)}
@@ -378,19 +378,20 @@ export default function CustomersPage() {
             </div>
 
             <div>
-              <label className="text-xs text-slate-500 block mb-1 font-semibold">Or Custom Amount (Cents)</label>
+              <label className="text-xs text-slate-600 block mb-1 font-semibold">Or Custom Amount (Paise)</label>
               <input
                 type="number"
                 value={topUpAmountCents || ''}
                 onChange={(e) => setTopUpAmountCents(Number(e.target.value))}
-                className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white font-mono"
+                placeholder="e.g. 25000 for ₹250.00"
+                className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 font-mono focus:bg-white focus:outline-none focus:border-[#2563EB]"
               />
             </div>
 
             <div className="flex gap-2 pt-2">
               <button
                 onClick={() => setTopUpCustomerTarget(null)}
-                className="flex-1 py-2.5 rounded-lg bg-[#F8FAFC] text-xs font-semibold text-slate-700"
+                className="flex-1 py-2.5 rounded-lg bg-[#F8FAFC] border border-slate-200 hover:bg-slate-100 text-xs font-semibold text-slate-700"
               >
                 Cancel
               </button>

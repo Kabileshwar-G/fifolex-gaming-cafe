@@ -275,16 +275,16 @@ export default function SessionsPage() {
                       </div>
 
                       {/* Session Info Grid */}
-                      <div className="grid grid-cols-2 gap-2 mt-4 p-2.5 rounded-xl bg-[#141414] border border-[#E2E8F0] text-xs">
+                      <div className="grid grid-cols-2 gap-2 mt-4 p-2.5 rounded-xl bg-[#F8FAFC] border border-slate-200 text-xs">
                         <div>
                           <span className="text-[10px] text-slate-500 block">Start Time</span>
-                          <span className="font-mono text-white">
+                          <span className="font-mono text-slate-900 font-semibold">
                             {formatTimeOnly(sess.startTime, mounted)}
                           </span>
                         </div>
                         <div>
                           <span className="text-[10px] text-slate-500 block">Expected End</span>
-                          <span className="font-mono text-white">
+                          <span className="font-mono text-slate-900 font-semibold">
                             {formatTimeOnly(sess.expectedEndTime, mounted)}
                           </span>
                         </div>
@@ -528,7 +528,7 @@ export default function SessionsPage() {
                 <select
                   value={selectedStationId}
                   onChange={(e) => setSelectedStationId(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                   required
                 >
                   <option value="">-- Choose an available station --</option>
@@ -552,7 +552,7 @@ export default function SessionsPage() {
                       setGuestPhone(c.phone);
                     }
                   }}
-                  className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                 >
                   <option value="">-- Or enter walk-in guest below --</option>
                   {customers.map(c => (
@@ -568,10 +568,10 @@ export default function SessionsPage() {
                   <label className="text-xs text-slate-700 block mb-1 font-semibold">Guest Name</label>
                   <input
                     type="text"
-                    placeholder="e.g. Alex Mercer"
+                    placeholder="e.g. Rahul Verma"
                     value={guestName}
                     onChange={(e) => setGuestName(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                     required={!selectedCustomerId}
                   />
                 </div>
@@ -579,10 +579,10 @@ export default function SessionsPage() {
                   <label className="text-xs text-slate-700 block mb-1 font-semibold">Phone (Optional)</label>
                   <input
                     type="tel"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+91 98765 43210"
                     value={guestPhone}
                     onChange={(e) => setGuestPhone(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                   />
                 </div>
               </div>
@@ -652,7 +652,7 @@ export default function SessionsPage() {
                 <select
                   value={newStationId}
                   onChange={(e) => setNewStationId(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                 >
                   <option value="">Select available pod...</option>
                   {availableStations.map(st => (
@@ -670,7 +670,7 @@ export default function SessionsPage() {
                   placeholder="e.g. Controller issue, friend group moving"
                   value={transferReason}
                   onChange={(e) => setTransferReason(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
             </div>
@@ -699,16 +699,16 @@ export default function SessionsPage() {
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="w-full max-w-md bg-[#FFFFFF] border border-[#E2E8F0] rounded-2xl p-6 shadow-2xl space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-[#E2E8F0]">
-              <h3 className="font-bold text-base text-white flex items-center gap-2">
+              <h3 className="font-bold text-base text-slate-900 flex items-center gap-2">
                 <Receipt className="w-4 h-4 text-[#2563EB]" />
                 Session Checkout & Billing
               </h3>
-              <button onClick={() => setCheckoutSessionTarget(null)} className="text-slate-500 hover:text-white">
+              <button onClick={() => setCheckoutSessionTarget(null)} className="text-slate-400 hover:text-slate-700">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="p-3 bg-[#141414] rounded-xl border border-[#E2E8F0] space-y-2 text-xs">
+            <div className="p-3 bg-[#F8FAFC] rounded-xl border border-slate-200 space-y-2 text-xs">
               <div className="flex justify-between text-slate-700">
                 <span>Player:</span>
                 <span className="font-bold text-slate-900">{checkoutSessionTarget.customerName}</span>
@@ -719,7 +719,7 @@ export default function SessionsPage() {
               </div>
               <div className="flex justify-between text-slate-700">
                 <span>Total Duration:</span>
-                <span className="font-mono">{formatDuration(checkoutSessionTarget.durationMinutes)}</span>
+                <span className="font-mono text-slate-900">{formatDuration(checkoutSessionTarget.durationMinutes)}</span>
               </div>
               {checkoutSessionTarget.discountCents > 0 && (
                 <div className="flex justify-between text-[#2563EB]">
@@ -728,27 +728,27 @@ export default function SessionsPage() {
                 </div>
               )}
               {canRefundOrOverride && (
-                <div className="pt-2 border-t border-[#E2E8F0] space-y-1.5">
+                <div className="pt-2 border-t border-slate-200 space-y-1.5">
                   <span className="text-[10px] text-slate-500 block font-semibold">Staff Override / Courtesy Discount</span>
                   <div className="flex gap-2">
                     <input
                       type="number"
-                      placeholder="Discount in cents"
+                      placeholder="Discount in paise"
                       value={manualDiscountCents || ''}
                       onChange={(e) => setManualDiscountCents(Number(e.target.value))}
-                      className="w-28 bg-[#1A1A1A] border border-[#E2E8F0] rounded px-2 py-1 text-xs text-white"
+                      className="w-32 bg-white border border-slate-300 rounded px-2 py-1 text-xs text-slate-900 font-mono focus:border-[#2563EB]"
                     />
                     <input
                       type="text"
-                      placeholder="Reason (e.g. game crash)"
+                      placeholder="Reason (e.g. technical pause)"
                       value={manualDiscountReason}
                       onChange={(e) => setManualDiscountReason(e.target.value)}
-                      className="flex-1 bg-[#1A1A1A] border border-[#E2E8F0] rounded px-2 py-1 text-xs text-white"
+                      className="flex-1 bg-white border border-slate-300 rounded px-2 py-1 text-xs text-slate-900 focus:border-[#2563EB]"
                     />
                   </div>
                 </div>
               )}
-              <div className="flex justify-between text-sm font-bold text-slate-900 pt-2 border-t border-[#E2E8F0]">
+              <div className="flex justify-between text-sm font-bold text-slate-900 pt-2 border-t border-slate-200">
                 <span>Total Payable:</span>
                 <span className="font-mono text-[#2563EB] font-extrabold">
                   {formatCurrency(Math.max(0, checkoutSessionTarget.totalChargedCents - manualDiscountCents), settings.currencySymbol)}
@@ -761,7 +761,7 @@ export default function SessionsPage() {
               <select
                 value={checkoutPaymentMethod}
                 onChange={(e) => setCheckoutPaymentMethod(e.target.value)}
-                className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
               >
                 {settings.acceptedPaymentMethods.map(pm => (
                   <option key={pm} value={pm}>{pm}</option>
@@ -772,7 +772,7 @@ export default function SessionsPage() {
             <div className="flex gap-2 pt-2">
               <button
                 onClick={() => setCheckoutSessionTarget(null)}
-                className="flex-1 py-2.5 rounded-lg bg-[#F8FAFC] text-xs font-semibold text-slate-700"
+                className="flex-1 py-2.5 rounded-lg bg-[#F8FAFC] border border-slate-200 hover:bg-slate-100 text-xs font-semibold text-slate-700"
               >
                 Cancel
               </button>

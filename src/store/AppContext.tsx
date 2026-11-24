@@ -29,7 +29,7 @@ import {
   initialAuditLogs,
   initialSettings
 } from './initialData';
-import { timeStringToMinutes, checkIntervalOverlap } from '@/lib/formatters';
+import { timeStringToMinutes, checkIntervalOverlap, formatCurrency } from '@/lib/formatters';
 
 interface AppContextType {
   stations: Station[];
@@ -92,7 +92,7 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'fifolex_state_v1';
+const STORAGE_KEY = 'fifolex_state_v2_inr';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [stations, setStations] = useState<Station[]>(initialStations);
@@ -582,7 +582,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       persistState({ customers: updated });
       return updated;
     });
-    addAuditLog("WALLET_TOPUP", "payment", customerId, `Topped up customer wallet by $${(amountCents / 100).toFixed(2)}`);
+    addAuditLog("WALLET_TOPUP", "payment", customerId, `Topped up customer wallet by ${formatCurrency(amountCents, settings.currencySymbol)}`);
   }, [addAuditLog, persistState]);
 
   const createOrder = useCallback((orderData: Omit<Order, 'id' | 'orderNumber' | 'createdAt'>): Order => {
@@ -613,7 +613,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return updated;
     });
 
-    addAuditLog("ORDER_CREATE", "inventory", newOrder.id, `Created ${newOrder.orderNumber} ($${(newOrder.totalCents / 100).toFixed(2)}) for ${newOrder.customerName}`);
+    addAuditLog("ORDER_CREATE", "inventory", newOrder.id, `Created ${newOrder.orderNumber} (${formatCurrency(newOrder.totalCents, settings.currencySymbol)}) for ${newOrder.customerName}`);
     return newOrder;
   }, [addAuditLog, persistState]);
 

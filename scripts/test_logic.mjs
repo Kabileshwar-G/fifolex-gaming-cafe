@@ -5,33 +5,33 @@ console.log('====================================================');
 console.log('FIFOLEX DOMAIN LOGIC & STATE MACHINE TEST SUITE');
 console.log('====================================================\n');
 
-// 1. Pricing Engine & Minor Unit Precision Test
-console.log('1. Testing Pricing Engine...');
-const hourlyRateCents = 600; // $6.00/hr
+// 1. Pricing Engine & Minor Unit Precision Test (Indian Rupees - Paise & 18% GST)
+console.log('1. Testing Pricing Engine (INR / Paise & 18% GST)...');
+const hourlyRateCents = 10000; // ₹100.00/hr
 const durationMinutes = 90; // 1.5 hrs
 const grossChargeCents = Math.round((durationMinutes / 60) * hourlyRateCents);
-assert.strictEqual(grossChargeCents, 900, "90-minute session at $6/hr should equal 900 cents ($9.00)");
+assert.strictEqual(grossChargeCents, 15000, "90-minute session at ₹100/hr should equal 15000 paise (₹150.00)");
 
 // Gold member 20% discount
 const memberDiscountPct = 20;
 const discountCents = Math.round((grossChargeCents * memberDiscountPct) / 100);
-assert.strictEqual(discountCents, 180, "20% discount on 900 cents should be 180 cents ($1.80)");
+assert.strictEqual(discountCents, 3000, "20% discount on 15000 paise should be 3000 paise (₹30.00)");
 const netSessionCents = grossChargeCents - discountCents;
-assert.strictEqual(netSessionCents, 720, "Net session charge should be 720 cents ($7.20)");
+assert.strictEqual(netSessionCents, 12000, "Net session charge should be 12000 paise (₹120.00)");
 
-// POS items
-const posItemsCents = 350 + 650; // Red Bull (350) + Truffle Fries (650) = 1000 cents
-const taxableTotalCents = netSessionCents + posItemsCents; // 1720 cents
-const taxRatePct = 8.5;
-const taxCents = Math.round((taxableTotalCents * taxRatePct) / 100); // 146.2 -> 146 cents
-assert.strictEqual(taxCents, 146, "8.5% tax on 1720 cents should be 146 cents");
-const grandTotalCents = taxableTotalCents + taxCents;
-assert.strictEqual(grandTotalCents, 1866, "Grand total should be 1866 cents ($18.66)");
+// POS items (Red Bull ₹125 + Peri-Peri Fries ₹90 = ₹215 = 21500 paise)
+const posItemsCents = 12500 + 9000;
+const taxableTotalCents = netSessionCents + posItemsCents; // 12000 + 21500 = 33500 paise (₹335.00)
+const taxRatePct = 18.0; // 18% GST
+const taxCents = Math.round((taxableTotalCents * taxRatePct) / 100); // 6030 paise (₹60.30)
+assert.strictEqual(taxCents, 6030, "18% GST on 33500 paise should be 6030 paise (₹60.30)");
+const grandTotalCents = taxableTotalCents + taxCents; // 39530 paise (₹395.30)
+assert.strictEqual(grandTotalCents, 39530, "Grand total should be 39530 paise (₹395.30)");
 
-// Split Bill 2 ways
+// Split Bill 2 ways via UPI
 const split2Cents = Math.round(grandTotalCents / 2);
-assert.strictEqual(split2Cents, 933, "1866 split 2 ways should be 933 cents each");
-console.log('✓ Pricing engine minor unit tests passed cleanly.\n');
+assert.strictEqual(split2Cents, 19765, "39530 split 2 ways should be 19765 paise (₹197.65) each");
+console.log('✓ Pricing engine minor unit tests (INR / paise / GST) passed cleanly.\n');
 
 // 2. Booking Overlap Conflict Detection Test (Interval-based)
 console.log('2. Testing Booking Conflict Prevention (Intervals)...');

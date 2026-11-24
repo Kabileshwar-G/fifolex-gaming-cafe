@@ -289,13 +289,13 @@ export default function PosPage() {
             </div>
 
             {/* Destination Selection (Session or Walk-in) */}
-            <div className="space-y-2 p-3 rounded-xl bg-[#141414] border border-[#E2E8F0] text-xs">
+            <div className="space-y-2 p-3 rounded-xl bg-[#F8FAFC] border border-slate-200 text-xs">
               <div>
                 <label className="text-[11px] text-slate-500 block mb-1">Deliver to Gaming Station (Optional)</label>
                 <select
                   value={linkedSessionId}
                   onChange={(e) => setLinkedSessionId(e.target.value)}
-                  className="w-full bg-[#FFFFFF] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-white border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:outline-none focus:border-[#2563EB]"
                 >
                   <option value="">-- Over-the-counter walk-in --</option>
                   {sessions.filter(s => s.status === 'active').map(s => (
@@ -314,7 +314,7 @@ export default function PosPage() {
                     placeholder="Guest Name or Table"
                     value={walkinGuestName}
                     onChange={(e) => setWalkinGuestName(e.target.value)}
-                    className="w-full bg-[#FFFFFF] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-white border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:outline-none focus:border-[#2563EB]"
                   />
                 </div>
               )}
@@ -323,7 +323,7 @@ export default function PosPage() {
             {/* Cart Items List */}
             {cartItems.length === 0 ? (
               <div className="py-12 text-center text-gray-500">
-                <UtensilsCrossed className="w-8 h-8 mx-auto mb-2 opacity-30 text-slate-500" />
+                <UtensilsCrossed className="w-8 h-8 mx-auto mb-2 opacity-30 text-slate-400" />
                 <p className="text-xs">Cart is empty. Click items on the left to add.</p>
               </div>
             ) : (
@@ -331,7 +331,7 @@ export default function PosPage() {
                 {cartItems.map(item => (
                   <div
                     key={item.product.id}
-                    className="p-2.5 rounded-xl bg-[#141414] border border-[#E2E8F0] flex items-center justify-between text-xs"
+                    className="p-2.5 rounded-xl bg-[#F8FAFC] border border-slate-200 flex items-center justify-between text-xs"
                   >
                     <div className="min-w-0 flex-1 mr-2">
                       <span className="font-bold text-slate-900 block truncate">{item.product.name}</span>
@@ -341,10 +341,10 @@ export default function PosPage() {
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <div className="flex items-center rounded-lg bg-[#222222] border border-[#E2E8F0]">
+                      <div className="flex items-center rounded-lg bg-white border border-slate-300">
                         <button
                           onClick={() => updateCartQuantity(item.product.id, -1)}
-                          className="p-1 hover:text-white text-slate-500"
+                          className="p-1 hover:text-slate-900 text-slate-500"
                         >
                           <Minus className="w-3 h-3" />
                         </button>
@@ -353,7 +353,7 @@ export default function PosPage() {
                         </span>
                         <button
                           onClick={() => updateCartQuantity(item.product.id, 1)}
-                          className="p-1 hover:text-white text-slate-500"
+                          className="p-1 hover:text-slate-900 text-slate-500"
                         >
                           <Plus className="w-3 h-3" />
                         </button>
@@ -365,7 +365,7 @@ export default function PosPage() {
 
                       <button
                         onClick={() => removeFromCart(item.product.id)}
-                        className="text-gray-500 hover:text-[#EF4444] p-1"
+                        className="text-gray-400 hover:text-[#EF4444] p-1"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -386,7 +386,7 @@ export default function PosPage() {
                   <select
                     value={discountPercent}
                     onChange={(e) => setDiscountPercent(Number(e.target.value))}
-                    className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-1.5 text-xs text-white"
+                    className="w-full bg-white border border-slate-300 rounded-lg p-1.5 text-xs text-slate-900 focus:outline-none focus:border-[#2563EB]"
                   >
                     <option value={0}>No Discount (0%)</option>
                     <option value={5}>VIP Member (5%)</option>
@@ -404,7 +404,7 @@ export default function PosPage() {
                   <select
                     value={splitCount}
                     onChange={(e) => setSplitCount(Number(e.target.value))}
-                    className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-1.5 text-xs text-white"
+                    className="w-full bg-white border border-slate-300 rounded-lg p-1.5 text-xs text-slate-900 focus:outline-none focus:border-[#2563EB]"
                   >
                     <option value={1}>Single Payer (1x)</option>
                     <option value={2}>Split 2 Ways</option>
@@ -415,10 +415,10 @@ export default function PosPage() {
               </div>
 
               {/* Price Breakdown */}
-              <div className="p-3 rounded-xl bg-[#141414] border border-[#E2E8F0] text-xs space-y-1.5">
+              <div className="p-3 rounded-xl bg-[#F8FAFC] border border-slate-200 text-xs space-y-1.5">
                 <div className="flex justify-between text-slate-500">
                   <span>Subtotal:</span>
-                  <span className="font-mono text-white">{formatCurrency(subtotalCents, settings.currencySymbol)}</span>
+                  <span className="font-mono text-slate-900 font-semibold">{formatCurrency(subtotalCents, settings.currencySymbol)}</span>
                 </div>
                 {discountAmountCents > 0 && (
                   <div className="flex justify-between text-[#2563EB]">
@@ -428,14 +428,14 @@ export default function PosPage() {
                 )}
                 <div className="flex justify-between text-slate-500">
                   <span>Tax ({settings.taxRatePercent}%):</span>
-                  <span className="font-mono text-white">{formatCurrency(taxAmountCents, settings.currencySymbol)}</span>
+                  <span className="font-mono text-slate-900 font-semibold">{formatCurrency(taxAmountCents, settings.currencySymbol)}</span>
                 </div>
-                <div className="flex justify-between text-sm font-bold text-slate-900 pt-1.5 border-t border-[#E2E8F0]">
+                <div className="flex justify-between text-sm font-bold text-slate-900 pt-1.5 border-t border-slate-200">
                   <span>Total Due:</span>
                   <span className="font-mono text-[#2563EB] font-extrabold">{formatCurrency(grandTotalCents, settings.currencySymbol)}</span>
                 </div>
                 {splitCount > 1 && (
-                  <div className="flex justify-between text-xs text-[#6366F1] font-bold pt-1 border-t border-[#E2E8F0]">
+                  <div className="flex justify-between text-xs text-[#2563EB] font-bold pt-1 border-t border-slate-200">
                     <span>Each Player ({splitCount}x):</span>
                     <span className="font-mono">{formatCurrency(splitAmountCents, settings.currencySymbol)}</span>
                   </div>
@@ -448,7 +448,7 @@ export default function PosPage() {
                 <select
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-white border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:outline-none focus:border-[#2563EB]"
                 >
                   {settings.acceptedPaymentMethods.map(pm => (
                     <option key={pm} value={pm}>{pm}</option>

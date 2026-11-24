@@ -5,9 +5,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatCurrency(cents: number, symbol: string = "$"): string {
-  const value = (cents / 100).toFixed(2);
-  return `${symbol}${value}`;
+export function formatCurrency(cents: number, symbol: string = "₹"): string {
+  const rupees = cents / 100;
+  return `${symbol}${rupees.toLocaleString('en-IN', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })}`;
 }
 
 export function formatDuration(minutes: number): string {

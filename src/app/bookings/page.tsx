@@ -192,12 +192,12 @@ export default function BookingsPage() {
             type="date"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
-            className="bg-[#141414] border border-[#E2E8F0] rounded-lg px-3 py-1.5 text-xs text-white font-mono"
+            className="bg-[#F8FAFC] border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-900 font-mono focus:bg-white focus:outline-none focus:border-[#2563EB]"
           />
 
           <button
             onClick={() => changeDate(1)}
-            className="p-2 rounded-lg bg-[#F8FAFC] hover:bg-[#2C2C2C] text-slate-700 border border-[#E2E8F0]"
+            className="p-2 rounded-lg bg-[#F8FAFC] hover:bg-slate-100 text-slate-700 border border-[#E2E8F0]"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
@@ -212,20 +212,20 @@ export default function BookingsPage() {
 
         <div className="flex items-center gap-2">
           <div className="relative flex-1 sm:w-64">
-            <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search player, pod, phone..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#2563EB]"
+              className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-[#2563EB]"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-[#141414] border border-[#E2E8F0] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-[#2563EB]"
+            className="bg-[#F8FAFC] border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
           >
             <option value="all">All Statuses</option>
             <option value="confirmed">Confirmed</option>
@@ -388,7 +388,7 @@ export default function BookingsPage() {
                 <select
                   value={stationId}
                   onChange={(e) => setStationId(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                   required
                 >
                   <option value="">-- Choose station pod --</option>
@@ -413,7 +413,7 @@ export default function BookingsPage() {
                       setCustomerEmail(c.email || '');
                     }
                   }}
-                  className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                 >
                   <option value="">-- Or enter guest contact details below --</option>
                   {customers.map(c => (
@@ -429,10 +429,10 @@ export default function BookingsPage() {
                   <label className="text-xs text-slate-700 block mb-1 font-semibold">Customer Name</label>
                   <input
                     type="text"
-                    placeholder="e.g. Liam Walker"
+                    placeholder="e.g. Rahul Verma"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                     required={!customerId}
                   />
                 </div>
@@ -440,10 +440,10 @@ export default function BookingsPage() {
                   <label className="text-xs text-slate-700 block mb-1 font-semibold">Phone Number</label>
                   <input
                     type="tel"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+91 98765 43210"
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                     required
                   />
                 </div>
@@ -456,7 +456,7 @@ export default function BookingsPage() {
                     type="date"
                     value={bookingDate}
                     onChange={(e) => setBookingDate(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white font-mono"
+                    className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 font-mono focus:bg-white focus:outline-none focus:border-[#2563EB]"
                     required
                   />
                 </div>
@@ -466,7 +466,7 @@ export default function BookingsPage() {
                     type="time"
                     value={bookingTime}
                     onChange={(e) => setBookingTime(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white font-mono"
+                    className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 font-mono focus:bg-white focus:outline-none focus:border-[#2563EB]"
                     required
                   />
                 </div>
@@ -475,7 +475,7 @@ export default function BookingsPage() {
                   <select
                     value={durationMinutes}
                     onChange={(e) => setDurationMinutes(Number(e.target.value))}
-                    className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                   >
                     <option value={60}>1 hour</option>
                     <option value={90}>1.5 hours</option>
@@ -487,16 +487,16 @@ export default function BookingsPage() {
               </div>
 
               <div>
-                <label className="text-xs text-slate-700 block mb-1 font-semibold">Deposit Amount (Optional)</label>
+                <label className="text-xs text-slate-700 block mb-1 font-semibold">Deposit Amount (Optional, in Paise)</label>
                 <div className="flex gap-2">
                   <input
                     type="number"
-                    placeholder="Deposit in cents"
+                    placeholder="e.g. 10000 for ₹100.00"
                     value={depositAmountCents || ''}
                     onChange={(e) => setDepositAmountCents(Number(e.target.value))}
-                    className="w-36 bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white font-mono"
+                    className="w-52 bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 font-mono focus:bg-white focus:outline-none focus:border-[#2563EB]"
                   />
-                  <span className="text-xs text-slate-500 self-center font-mono">
+                  <span className="text-xs text-slate-600 self-center font-mono">
                     = {formatCurrency(depositAmountCents, settings.currencySymbol)}
                   </span>
                 </div>
@@ -509,7 +509,7 @@ export default function BookingsPage() {
                   placeholder="e.g. VIP tournament setup, controller preferences"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
@@ -517,7 +517,7 @@ export default function BookingsPage() {
                 <button
                   type="button"
                   onClick={() => setShowNewModal(false)}
-                  className="flex-1 py-2.5 rounded-lg bg-[#F8FAFC] text-xs font-semibold text-slate-700"
+                  className="flex-1 py-2.5 rounded-lg bg-[#F8FAFC] border border-slate-200 hover:bg-slate-100 text-xs font-semibold text-slate-700"
                 >
                   Cancel
                 </button>
@@ -565,7 +565,7 @@ export default function BookingsPage() {
                   type="date"
                   value={rescheduleDate}
                   onChange={(e) => setRescheduleDate(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white font-mono"
+                  className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 font-mono focus:bg-white focus:outline-none focus:border-[#2563EB]"
                   required
                 />
               </div>
@@ -577,7 +577,7 @@ export default function BookingsPage() {
                     type="time"
                     value={rescheduleTime}
                     onChange={(e) => setRescheduleTime(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white font-mono"
+                    className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 font-mono focus:bg-white focus:outline-none focus:border-[#2563EB]"
                     required
                   />
                 </div>
@@ -586,7 +586,7 @@ export default function BookingsPage() {
                   <select
                     value={rescheduleDuration}
                     onChange={(e) => setRescheduleDuration(Number(e.target.value))}
-                    className="w-full bg-[#141414] border border-[#E2E8F0] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#F8FAFC] border border-slate-300 rounded-lg p-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-[#2563EB]"
                   >
                     <option value={60}>1 hour</option>
                     <option value={90}>1.5 hours</option>
@@ -601,7 +601,7 @@ export default function BookingsPage() {
             <div className="flex gap-2 pt-2">
               <button
                 onClick={() => setRescheduleTarget(null)}
-                className="flex-1 py-2.5 rounded-lg bg-[#F8FAFC] text-xs font-semibold text-slate-700"
+                className="flex-1 py-2.5 rounded-lg bg-[#F8FAFC] border border-slate-200 hover:bg-slate-100 text-xs font-semibold text-slate-700"
               >
                 Cancel
               </button>

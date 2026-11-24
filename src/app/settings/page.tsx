@@ -85,62 +85,62 @@ export default function SettingsPage() {
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* Section 1: Venue Profile */}
-        <div className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E2E8F0] space-y-4">
-          <h2 className="font-bold text-sm text-white flex items-center gap-2 pb-2 border-b border-[#E2E8F0]">
+        <div className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E2E8F0] space-y-4 shadow-sm">
+          <h2 className="font-bold text-sm text-slate-900 flex items-center gap-2 pb-2 border-b border-[#E2E8F0]">
             <Building className="w-4 h-4 text-[#2563EB]" />
             Cafe Venue Profile
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs text-white block mb-1 font-semibold">Venue / Business Name</label>
+              <label className="text-xs text-slate-700 block mb-1 font-semibold">Venue / Business Name</label>
               <input
                 type="text"
                 value={form.cafeName}
                 onChange={(e) => setForm({ ...form, cafeName: e.target.value })}
-                className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2.5 text-xs text-white focus:border-[#2563EB] outline-none"
+                className="w-full bg-[#F8FAFC] border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:bg-white focus:border-[#2563EB] outline-none"
                 disabled={!canManageSettings}
                 required
               />
             </div>
             <div>
-              <label className="text-xs text-white block mb-1 font-semibold">Tagline</label>
+              <label className="text-xs text-slate-700 block mb-1 font-semibold">Tagline</label>
               <input
                 type="text"
                 value={form.tagline}
                 onChange={(e) => setForm({ ...form, tagline: e.target.value })}
-                className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2.5 text-xs text-white focus:border-[#2563EB] outline-none"
+                className="w-full bg-[#F8FAFC] border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:bg-white focus:border-[#2563EB] outline-none"
                 disabled={!canManageSettings}
               />
             </div>
             <div>
-              <label className="text-xs text-white block mb-1 font-semibold">Physical Street Address</label>
+              <label className="text-xs text-slate-700 block mb-1 font-semibold">Physical Street Address</label>
               <input
                 type="text"
                 value={form.address}
                 onChange={(e) => setForm({ ...form, address: e.target.value })}
-                className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2.5 text-xs text-white focus:border-[#2563EB] outline-none"
+                className="w-full bg-[#F8FAFC] border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:bg-white focus:border-[#2563EB] outline-none"
                 disabled={!canManageSettings}
               />
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="text-xs text-white block mb-1 font-semibold">Phone</label>
+                <label className="text-xs text-slate-700 block mb-1 font-semibold">Phone</label>
                 <input
                   type="text"
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2.5 text-xs text-white focus:border-[#2563EB] outline-none"
+                  className="w-full bg-[#F8FAFC] border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:bg-white focus:border-[#2563EB] outline-none"
                   disabled={!canManageSettings}
                 />
               </div>
               <div>
-                <label className="text-xs text-white block mb-1 font-semibold">Operations Email</label>
+                <label className="text-xs text-slate-700 block mb-1 font-semibold">Operations Email</label>
                 <input
                   type="email"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2.5 text-xs text-white focus:border-[#2563EB] outline-none"
+                  className="w-full bg-[#F8FAFC] border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:bg-white focus:border-[#2563EB] outline-none"
                   disabled={!canManageSettings}
                 />
               </div>
@@ -149,10 +149,10 @@ export default function SettingsPage() {
         </div>
 
         {/* Section 2: Hourly Pricing per Platform */}
-        <div className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E2E8F0] space-y-4">
-          <h2 className="font-bold text-sm text-white flex items-center gap-2 pb-2 border-b border-[#E2E8F0]">
+        <div className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E2E8F0] space-y-4 shadow-sm">
+          <h2 className="font-bold text-sm text-slate-900 flex items-center gap-2 pb-2 border-b border-[#E2E8F0]">
             <DollarSign className="w-4 h-4 text-[#2563EB]" />
-            Hourly Station Rates (Cents / Minor Units)
+            Hourly Station Rates (Paise / Minor Units)
           </h2>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
@@ -163,14 +163,14 @@ export default function SettingsPage() {
               { type: 'vr' as StationType, label: 'VR Holo-Bay' },
               { type: 'racing' as StationType, label: 'Sim Racing Rig' },
             ].map(item => (
-              <div key={item.type} className="p-3 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl space-y-1">
+              <div key={item.type} className="p-3 bg-[#F8FAFC] border border-slate-200 rounded-xl space-y-1">
                 <span className="text-xs font-semibold text-slate-700 block">{item.label}</span>
                 <div className="flex items-center gap-1.5">
                   <input
                     type="number"
                     value={form.ratesPerHourCents[item.type]}
                     onChange={(e) => handleRateChange(item.type, Number(e.target.value))}
-                    className="w-full bg-[#FFFFFF] border border-[#E2E8F0] rounded p-1.5 text-xs text-white font-mono font-bold focus:border-[#2563EB] outline-none"
+                    className="w-full bg-white border border-slate-300 rounded p-1.5 text-xs text-slate-900 font-mono font-bold focus:border-[#2563EB] outline-none"
                     disabled={!canManageSettings}
                   />
                   <span className="text-xs text-[#2563EB] font-mono font-bold whitespace-nowrap">
@@ -183,63 +183,63 @@ export default function SettingsPage() {
         </div>
 
         {/* Section 3: Timezone, Currency & Session Buffer Rules */}
-        <div className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E2E8F0] space-y-4">
-          <h2 className="font-bold text-sm text-white flex items-center gap-2 pb-2 border-b border-[#E2E8F0]">
-            <Clock className="w-4 h-4 text-[#4F46E5]" />
+        <div className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E2E8F0] space-y-4 shadow-sm">
+          <h2 className="font-bold text-sm text-slate-900 flex items-center gap-2 pb-2 border-b border-[#E2E8F0]">
+            <Clock className="w-4 h-4 text-[#2563EB]" />
             Session Scheduling & Buffer Rules
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <div>
-              <label className="text-xs text-white block mb-1 font-semibold">Currency Symbol & Code</label>
+              <label className="text-xs text-slate-700 block mb-1 font-semibold">Currency Symbol & Code</label>
               <div className="flex gap-2">
                 <input
                   type="text"
                   value={form.currencySymbol}
                   onChange={(e) => setForm({ ...form, currencySymbol: e.target.value })}
-                  className="w-16 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2.5 text-xs text-white text-center font-mono focus:border-[#2563EB] outline-none"
+                  className="w-16 bg-[#F8FAFC] border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 text-center font-mono focus:bg-white focus:border-[#2563EB] outline-none"
                   disabled={!canManageSettings}
                 />
                 <input
                   type="text"
                   value={form.currencyCode}
                   onChange={(e) => setForm({ ...form, currencyCode: e.target.value })}
-                  className="flex-1 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2.5 text-xs text-white font-mono focus:border-[#2563EB] outline-none"
+                  className="flex-1 bg-[#F8FAFC] border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 font-mono focus:bg-white focus:border-[#2563EB] outline-none"
                   disabled={!canManageSettings}
                 />
               </div>
             </div>
 
             <div>
-              <label className="text-xs text-white block mb-1 font-semibold">Tax Rate (%)</label>
+              <label className="text-xs text-slate-700 block mb-1 font-semibold">GST / Tax Rate (%)</label>
               <input
                 type="number"
                 step="0.1"
                 value={form.taxRatePercent}
                 onChange={(e) => setForm({ ...form, taxRatePercent: Number(e.target.value) })}
-                className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2.5 text-xs text-white font-mono focus:border-[#2563EB] outline-none"
+                className="w-full bg-[#F8FAFC] border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 font-mono focus:bg-white focus:border-[#2563EB] outline-none"
                 disabled={!canManageSettings}
               />
             </div>
 
             <div>
-              <label className="text-xs text-white block mb-1 font-semibold">Grace Period (Minutes)</label>
+              <label className="text-xs text-slate-700 block mb-1 font-semibold">Grace Period (Minutes)</label>
               <input
                 type="number"
                 value={form.gracePeriodMinutes}
                 onChange={(e) => setForm({ ...form, gracePeriodMinutes: Number(e.target.value) })}
-                className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2.5 text-xs text-white font-mono focus:border-[#2563EB] outline-none"
+                className="w-full bg-[#F8FAFC] border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 font-mono focus:bg-white focus:border-[#2563EB] outline-none"
                 disabled={!canManageSettings}
               />
             </div>
 
             <div>
-              <label className="text-xs text-white block mb-1 font-semibold">Clean Buffer Between (Mins)</label>
+              <label className="text-xs text-slate-700 block mb-1 font-semibold">Clean Buffer Between (Mins)</label>
               <input
                 type="number"
                 value={form.bufferBetweenSessionsMinutes}
                 onChange={(e) => setForm({ ...form, bufferBetweenSessionsMinutes: Number(e.target.value) })}
-                className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2.5 text-xs text-white font-mono focus:border-[#2563EB] outline-none"
+                className="w-full bg-[#F8FAFC] border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 font-mono focus:bg-white focus:border-[#2563EB] outline-none"
                 disabled={!canManageSettings}
               />
             </div>
