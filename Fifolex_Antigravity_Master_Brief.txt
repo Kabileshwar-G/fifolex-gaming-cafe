@@ -1,0 +1,406 @@
+FIFOLEX — ANTIGRAVITY PROJECT MASTER BRIEF
+Version: 1.0
+Purpose: Paste this document into Google Antigravity as the project brief and implementation guide.
+
+======================================================================
+1. YOUR ROLE AND WORKING RULES
+======================================================================
+
+You are the senior product engineer and product designer building Fifolex, a professional gaming cafe management web application that will be tailored for and delivered to a real gaming cafe.
+
+Work in the currently opened Fifolex project folder only. Begin by inspecting the existing files and preserving useful work. If the folder is empty, initialize the project cleanly. Do not overwrite or delete unrelated files. Keep changes reviewable and use Git checkpoints.
+
+Build the complete Fifolex product described in this brief. Do not stop at an MVP, v1, proof of concept, visual prototype, or partially working shell. The phases below are an implementation order only: every required feature and every phase must be completed before reporting the deliverable as complete. Record decisions and open questions in the project documentation. When cafe-specific requirements are missing, implement configurable settings with clearly labeled synthetic defaults; do not invent actual prices, policies, customer data, or operational facts.
+
+Before making a change, understand the relevant files. After each meaningful stage, run the project, inspect the real interface in a browser, fix visible problems, and summarize what changed and what remains. Use the browser to check desktop, tablet, and mobile layouts. Do not claim a feature works unless you have exercised it or clearly label it as a mock/demo.
+
+Keep Antigravity permissions at Default/Ask. Do not switch to unrestricted/Turbo mode. Keep agent actions inside the project workspace. Do not expose secrets in source code, logs, prompts, screenshots, or commits. Never place a service-role key, database password, API token, or payment secret in browser code or a public repository.
+
+Do not connect to a real cafe's production systems, import real customer data, publish/deploy the app, send messages, charge a payment, create paid resources, or change account permissions without the project owner's explicit approval. Use a local development environment and synthetic demo data. Use test/sandbox mode for any future payment integration.
+
+Do not add a large set of MCP servers or extensions just because they are available. Use only the tools needed for the current stage. Keep MCP approvals enabled, especially for database or external-service actions. Prefer official documentation and supported integrations.
+
+======================================================================
+2. PRODUCT VISION
+======================================================================
+
+Fifolex is an operations dashboard for a gaming cafe. Its signature interface is an interactive 3D view of the venue where staff can see and manage each gaming station. It should also provide the practical tools needed to run sessions, bookings, customer records, checkout, equipment, and cafe operations.
+
+The product must be both:
+- Visually memorable: polished 3D cafe layout, clear station states, refined gaming atmosphere.
+- Operationally useful: staff can quickly answer what is free, what is booked, who is playing, when a session ends, and what needs attention.
+
+The 3D view is a working control surface connected to the same station and session data as the rest of the app. It is not just a decorative landing page. Include a clear 2D/list fallback for smaller screens, reduced-motion preferences, or devices that cannot render 3D smoothly.
+
+Primary users:
+- Owner: configures the cafe, prices, staff access, reports, and venue layout.
+- Manager: oversees daily operations, bookings, staff, stations, inventory, and reports.
+- Cashier: checks in guests, starts sessions, handles checkout, and takes payments recorded by the app.
+- Floor staff: views station status, assists customers, moves sessions, and reports equipment issues.
+- Customer (required for completion): browses availability, books, manages memberships, and receives updates.
+
+======================================================================
+3. RECOMMENDED TECHNICAL DIRECTION
+======================================================================
+
+Use this as a starting recommendation, not a reason to fight the existing codebase. If the project already has a sound stack, inspect it and explain before proposing a migration.
+
+Recommended initial stack:
+- Next.js App Router with React and TypeScript.
+- React Three Fiber and Three.js for the interactive 3D venue view. Use the current stable compatible versions; do not select alpha packages without a clear need.
+- Tailwind CSS for responsive styling, with a small reusable design system.
+- Supabase/PostgreSQL for hosted database, authentication, and realtime updates if the project owner chooses Supabase. During early UI work, support a local/mock-data mode so the app is demonstrable without external credentials.
+- Zod or equivalent schema validation at input boundaries.
+- Use a well-maintained form library only if forms become complex.
+- Use the app's package manager consistently and pin dependency versions through its lockfile.
+
+Keep the 3D scene isolated from business logic. The database/domain layer owns truth; the 3D map and 2D list are two presentations of the same venue/station data. Build reusable components and typed domain models. Avoid giant components, duplicated business rules, and hard-coded data inside visual components.
+
+Potential project areas (adapt to the chosen framework conventions):
+- app/ or src/app/: routes and layouts
+- components/: shared interface and domain components
+- features/: stations, sessions, bookings, customers, checkout, reports
+- lib/: database client, auth, validation, formatting, permissions
+- server/: server-only actions and integrations
+- types/ or domain/: typed entities and state transitions
+- public/: locally owned static assets
+- docs/: product decisions, data model, setup, operations
+
+======================================================================
+4. DESIGN AND EXPERIENCE DIRECTION
+======================================================================
+
+Create a premium gaming-cafe control room aesthetic: dark neutral surfaces, restrained neon accents, readable typography, strong contrast, purposeful depth, and clear hierarchy. Use neon as a state accent rather than covering the whole screen in glowing effects. Prioritize legibility and fast staff workflows over visual effects.
+
+The interface should feel like a real operations product, not a generic admin template. Use believable cafe content and synthetic demo data. Make the default experience understandable to a first-time staff member.
+
+3D floor view requirements:
+- Show a perspective/isometric venue layout with rooms/areas and recognizable station pods.
+- Show PS5/console, PC, VR, and other station types as configurable data; do not assume every cafe has all types.
+- Allow pan, zoom, and orbit with sensible limits; include a reset-camera control.
+- Select a station to open a side panel with station name, type, status, price, equipment, current session, customer/booking, and quick actions allowed for the user's role.
+- Include a visible legend and text status labels.
+- Encode status using color plus text/icon/pattern; never use color alone.
+- Provide loading, empty, error, and no-3D/fallback states.
+- Avoid excessive animation; respect reduced-motion preferences and keep the dashboard responsive.
+- On mobile, default to a compact 2D station list or simplified map and retain all essential controls.
+- Ensure controls can be reached by keyboard where practical and have accessible names.
+
+Global interface requirements:
+- Responsive desktop, tablet, and phone layouts.
+- Consistent spacing, typography, colors, button states, modals, toasts, and empty states.
+- Confirm destructive or financially meaningful actions inside the product UI.
+- Clear success/error feedback and validation messages.
+- Search, filters, and sorting for long station/customer/product lists.
+- Useful skeleton/loading states and graceful errors.
+
+======================================================================
+5. COMPLETE FEATURE SCOPE
+======================================================================
+
+A. Venue map and setup
+[ ] Interactive 3D venue/floor plan
+[ ] 2D map/list fallback
+[ ] Rooms, areas, floors, seating, counters, and configurable station types
+[ ] Create, edit, move, rename, disable, and archive stations
+[ ] Configure station equipment, platform, available games, and hourly/session pricing
+[ ] Station states: available, occupied, reserved, cleaning, maintenance/out of service
+[ ] Selected-station details and quick actions
+[ ] Layout edit mode separated from daily operations
+[ ] Legend, camera controls, responsive and reduced-motion behavior
+
+B. Live station and session management
+[ ] Start, pause, resume, extend, transfer, and end a session
+[ ] Session timer, elapsed time, remaining time, and ending/overdue alerts
+[ ] Link session to customer, booking, station, and staff member
+[ ] Configure duration, minimum charge, time increments, grace periods, and extension rules
+[ ] Show what is currently in use and upcoming station availability
+[ ] Move a guest/session to another station with a recorded reason
+[ ] Mark stations for cleaning or maintenance
+[ ] Prevent accidental double-booking/session conflicts
+[ ] Record session history and adjustments
+
+C. Bookings and walk-ins
+[ ] Booking calendar with day/week view and station availability
+[ ] Create booking for date, time, duration, platform/station type, and party size if relevant
+[ ] Assign a specific station or let staff choose an eligible station
+[ ] Register walk-ins and convert a booking to a checked-in session
+[ ] Booking statuses: pending, confirmed, checked in, completed, cancelled, no-show
+[ ] Check in, reschedule, cancel, and mark no-show
+[ ] Optional deposits, booking fees, cancellation windows, and buffer periods
+[ ] Configurable opening hours, booking horizon, and booking limits
+[ ] Customer-facing booking page as part of the complete build
+[ ] Confirmation and reminder notifications as part of the complete build
+
+D. Customers and memberships
+[ ] Customer profiles with only necessary contact details
+[ ] Search customers and view booking/session history
+[ ] Record customer preferences/notes with role-based access
+[ ] Membership plans and member pricing
+[ ] Prepaid hours, gaming credits, wallet, or passes (required for completion)
+[ ] Loyalty points, rewards, discounts, and coupons (required for completion)
+[ ] Customer communication preferences and consent records
+[ ] Avoid storing sensitive personal data that the cafe does not need
+
+E. Checkout and payments
+[ ] Calculate charges based on configured pricing and session duration
+[ ] Add products/services and discounts to an order
+[ ] Apply membership rate, coupon, tax, and manual adjustment with permission checks
+[ ] Split bills when supported by cafe workflow
+[ ] Record payment method and transaction reference
+[ ] Issue printable/downloadable receipt
+[ ] Track deposits, unpaid balances, voids, and refunds
+[ ] Daily checkout and payment summaries
+[ ] Keep a clear audit trail for charge changes, refunds, and overrides
+[ ] Do not store card numbers or payment credentials
+[ ] Integrate a real payment provider only after the cafe chooses one; use sandbox/test mode first and obtain approval before live mode
+
+F. Food, drinks, and point of sale
+[ ] Menu/product catalog with category, price, tax, and availability
+[ ] Add food/drink orders to a customer, session, or table
+[ ] Order workflow: new, preparing, ready, served, cancelled
+[ ] Optional kitchen/counter screen
+[ ] Inventory counts, stock adjustments, and low-stock alerts
+[ ] Sales by item/category and stock movement history
+
+G. Games, equipment, and maintenance
+[ ] Game library by platform and station
+[ ] Track installed/available/requested games if useful to the cafe
+[ ] Equipment inventory: PCs, consoles, controllers, headsets, screens, accessories
+[ ] Equipment condition and service history
+[ ] Report faults, damage, or missing items
+[ ] Mark station out of service and record repair/cleaning reason
+[ ] Maintenance schedule and game/system update reminders (required for completion)
+
+H. Staff, roles, and audit history
+[ ] Secure staff sign-in
+[ ] Roles: owner, manager, cashier, floor staff; customize only if needed
+[ ] Role/permission matrix for configuration, bookings, sessions, refunds, reports, and staff management
+[ ] Restrict actions on the server as well as hiding unavailable buttons in the interface
+[ ] Staff shifts/attendance if requested by the cafe
+[ ] Record important actions with who/when/what and relevant entity
+[ ] Optional shift handover notes and staff sales summary
+
+I. Dashboard and reports
+[ ] Today's bookings, walk-ins, active sessions, and ending-soon alerts
+[ ] Station occupancy and availability counts
+[ ] Revenue/session hours with clear date range and timezone
+[ ] Popular platforms, games, and time slots
+[ ] Customer visits and membership activity when memberships exist
+[ ] Product sales and stock alerts when POS exists
+[ ] Daily, weekly, and monthly reports
+[ ] Export reports in a suitable format when requested
+[ ] Make metrics traceable to the underlying records; do not fabricate sample analytics as real data
+
+J. Cafe settings
+[ ] Cafe name, logo, address, contact details, opening hours, timezone
+[ ] Currency, tax rules, station types, session pricing, and booking rules
+[ ] Payment methods the cafe accepts
+[ ] Cancellation, deposit, grace period, and session extension policies
+[ ] Notification settings if messaging is added
+[ ] Configure the 3D layout and venue details
+[ ] Defaults should be configurable rather than embedded across code
+
+K. Customer-facing experience (required for completion)
+[ ] Browse venue/platforms and availability
+[ ] Create an account or book as guest, according to cafe preference
+[ ] Book, cancel, and view upcoming sessions under configured rules
+[ ] Pay booking deposit if enabled
+[ ] View membership and prepaid balance if enabled
+[ ] Place food/drink order if enabled
+[ ] Receive confirmation/reminder/status notifications
+[ ] Submit post-visit feedback
+
+L. Reliability, privacy, and security
+[ ] Responsive layout and accessible controls
+[ ] Clear behavior during network interruptions
+[ ] Authentication and authorization checks on server operations
+[ ] Database row-level access policies if Supabase is used
+[ ] Validate inputs and enforce business rules on the server
+[ ] Safe database migrations and synthetic seed data
+[ ] Backups and restore guidance for the chosen hosting/database plan
+[ ] Keep secrets in environment variables or managed secret storage
+[ ] Do not commit .env files or real personal/customer data
+[ ] Basic rate limiting and abuse protection on public endpoints when relevant
+[ ] Structured error handling and useful logs without secrets
+[ ] Audit history for sensitive operational changes
+
+======================================================================
+6. DATA AND BUSINESS RULES
+======================================================================
+
+Design a normalized data model and document it before wiring complex screens. Likely entities include:
+- Cafe / venue
+- Room or area
+- Station / equipment
+- Game / platform
+- Customer
+- Staff user / role / permission
+- Booking
+- Session
+- Order / order line / product
+- Payment record (provider reference only, no card data)
+- Membership / credit ledger (if enabled)
+- Maintenance issue
+- Audit event
+
+Add venue_id/cafe_id scoping where a future multi-cafe setup might be required, but do not overbuild a complex multi-tenant SaaS platform unless requested. Preserve a clear path to more than one cafe without making the first client setup difficult.
+
+Define status transitions explicitly. Prevent a station from having overlapping confirmed bookings or active sessions. Use server-side transactions/constraints where needed to prevent race conditions. All timestamps must have a documented timezone policy; store timestamps consistently and display them in the cafe's configured timezone. Store money as integer minor units or an equivalent exact decimal approach, never floating-point arithmetic.
+
+Keep a human-readable audit event for booking/session status changes, session extensions, price overrides, refunds, and station maintenance state. Do not silently rewrite financial history; use adjustments or reversals.
+
+Use synthetic demo data only. Add a clear demo mode/banner so demo data is not mistaken for live cafe records.
+
+======================================================================
+7. BUILD PLAN AND ACCEPTANCE CHECKS
+======================================================================
+
+PHASE 0 — Inspect, plan, and document
+[ ] Inspect repository and current Antigravity environment
+[ ] Write README with purpose, prerequisites, setup, run, and environment variable instructions
+[ ] Write docs/PRODUCT_DECISIONS.md and docs/OPEN_QUESTIONS.md
+[ ] Record the chosen stack and reasons; note alternatives or dependencies
+[ ] Establish Git checkpoint before major implementation if Git is available
+Acceptance: owner can understand what is being built, what's assumed, and what's intentionally deferred.
+
+PHASE 1 — Visual foundation and navigable shell
+[ ] Create polished responsive app shell and navigation
+[ ] Create design tokens and reusable components
+[ ] Create synthetic cafe, rooms, stations, customers, and session data
+[ ] Build dashboard summary cards and basic station list/map
+[ ] Build first interactive 3D floor view with selection and state legend
+[ ] Add 2D/mobile fallback and loading/error/empty states
+Acceptance: app runs locally; user can navigate the screens and inspect/select demo stations on desktop and mobile.
+
+PHASE 2 — Stations and live sessions
+[ ] Define typed domain model and station/session states
+[ ] Implement station list, filters, status changes, and station details
+[ ] Implement start/end/extend session flows with clear timer behavior
+[ ] Connect 3D selection and 2D list to the same state source
+[ ] Add conflict checks and activity history
+Acceptance: starting or ending a session updates every view consistently; unavailable stations cannot be started; a session has clear pricing and timing behavior.
+
+PHASE 3 — Bookings and customer records
+[ ] Add customer search/create/edit with minimum necessary data
+[ ] Add booking calendar and booking creation/check-in flows
+[ ] Implement booking statuses and reschedule/cancel/no-show flow
+[ ] Prevent overlapping booking/session conflicts
+Acceptance: staff can create a booking, check it in, start a session, and see it in station views.
+
+PHASE 4 — Checkout and cafe configuration
+[ ] Add configurable pricing and checkout calculation
+[ ] Add receipt view and payment recording without storing payment credentials
+[ ] Add cafe/station settings and role-based access checks
+[ ] Add audit records for adjustments and sensitive actions
+Acceptance: staff can close a demo session, calculate a correct total, record a test payment method, and view a receipt; unauthorized roles cannot access restricted actions.
+
+PHASE 5 — Backend integration (only after provider is selected)
+[ ] Set up development database/auth environment
+[ ] Create versioned migrations and seed scripts
+[ ] Configure access control and server-only secrets
+[ ] Replace mock data incrementally, preserving demo mode
+[ ] Verify data behavior and failure states locally
+Acceptance: app works against a development environment with no production data or secrets in the client.
+
+PHASE 6 — Complete remaining required modules
+[ ] Memberships and prepaid credits
+[ ] Food/drink POS and stock management
+[ ] Notifications and customer-facing bookings
+[ ] Maintenance planning
+[ ] Advanced reports and exports
+Acceptance: every module in the agreed feature scope is implemented end to end. Where cafe decisions or third-party credentials are unavailable, provide configurable setup, a safe sandbox/mock adapter, and clear handoff instructions; do not silently omit the feature.
+
+PHASE 7 — Complete handoff and release readiness (before any launch)
+[ ] Review roles and access boundaries
+[ ] Review data retention, backups, and recovery approach
+[ ] Test desktop/tablet/mobile and common browser sizes
+[ ] Test 3D fallback, keyboard access, reduced motion, and performance
+[ ] Review error states and empty states
+[ ] Document deployment, environment variables, rollback, and support steps
+[ ] Use a staging/demo environment and synthetic data
+[ ] Obtain explicit owner approval before production deployment, live payments, or real customer-data import
+Acceptance: owner can demonstrate daily workflows; setup and rollback are documented; live release actions have explicit approval.
+
+======================================================================
+8. QUALITY AND VERIFICATION EXPECTATIONS
+======================================================================
+
+For each feature, define and verify the main user flow, failure flow, role permissions, and responsive behavior. Prefer focused unit tests for pricing, booking conflict detection, and state transitions; integration tests for persistence and authorization; and browser tests for key user journeys. Use the project's existing test tools if present; introduce new tooling only when it clearly adds value.
+
+At minimum, manually verify these demo journeys in the running browser:
+1. Open dashboard and find an available station.
+2. Select a station in 3D, then locate the same station in the 2D/list view.
+3. Create or select a synthetic customer and start a walk-in session.
+4. Extend the session and confirm the timer/price updates correctly.
+5. End the session and review the checkout/receipt.
+6. Create a booking and verify a conflicting booking cannot be created.
+7. Mark a station for maintenance and verify it cannot be booked/started.
+8. Check a narrow mobile viewport and ensure all actions remain reachable.
+9. Review browser console and failed network requests.
+
+Never report a check as passing unless it was actually performed. Clearly separate verified features, mocked features, and not-yet-built features.
+
+======================================================================
+9. TOOLS AND CONNECTIONS
+======================================================================
+
+Recommended minimal tools:
+- Git and private GitHub repository for history and backup.
+- Antigravity browser tools for live visual inspection; use /browser where supported.
+- GitHub MCP only if repository/issue/PR context is useful; use the official server and grant the narrowest necessary access.
+- Supabase MCP only after Supabase is selected; connect a development project, scope it to that project, keep approvals on, and do not give it production access during development.
+- Google Developer Knowledge MCP only if Google APIs/services are selected.
+- Figma MCP only if Figma becomes part of the design process and Antigravity support is confirmed.
+
+Do not configure a broad wildcard permission for all MCP tools. Review each server's available capabilities and approve only the actions needed. Do not paste API keys or secrets into prompts or commits.
+
+If using ChatGPT Go, use Codex as a separate reviewer for architecture, bug investigation, or code review. Do not assume the ChatGPT Go subscription itself is an API key or a direct model provider inside Antigravity. Keep Antigravity as the primary implementation environment unless the owner decides otherwise.
+
+======================================================================
+10. OPEN QUESTIONS FOR THE CAFE
+======================================================================
+
+Track these as open decisions. Use documented demo defaults until answered:
+[ ] What platforms are available (PS5, PC, Xbox, VR, other)?
+[ ] How many stations, rooms, and floors are in the cafe?
+[ ] What are station names, equipment, and games?
+[ ] What are session rates, durations, extension rules, and grace periods?
+[ ] Does the cafe accept reservations, walk-ins, or both?
+[ ] What are booking deposits and cancellation/no-show policies?
+[ ] What payment methods/provider does the cafe use?
+[ ] Does it sell food, drinks, or merchandise?
+[ ] Does it need memberships, prepaid hours, or loyalty rewards?
+[ ] Which staff roles are needed and what can each role do?
+[ ] Should customers book online in the first release?
+[ ] What timezone, currency, and tax rules apply?
+[ ] What visual style, branding, and layout match the cafe?
+[ ] What hardware will run the staff dashboard and 3D map?
+[ ] What is the desired delivery date and support arrangement?
+
+======================================================================
+11. FIRST TASK TO PERFORM IN ANTIGRAVITY
+======================================================================
+
+Complete the full product end to end. Use Phase 0 through Phase 7 as a sequence for organizing the work, not as alternative release scopes.
+
+1. Inspect the current workspace and report the detected stack/files.
+2. Create a concise implementation plan and identify decisions that block safe implementation. Continue with documented configurable defaults for all non-blocking unknowns. Put non-blocking unknowns in docs/OPEN_QUESTIONS.md with safe demo defaults.
+3. If the workspace is empty, scaffold the recommended stack using current stable releases and a maintainable project structure.
+4. Build and finish the entire product in this brief, including every feature section, the full staff workflows, customer-facing booking/account flows, configurable cafe settings, reports, food/drink POS and inventory, memberships/credits, maintenance, permissions, audit history, responsive 3D/2D views, and integrations. Use synthetic data and sandbox adapters until real cafe configuration is supplied.
+5. Run the complete app locally, use the browser to inspect all major workflows on desktop/tablet/mobile, exercise validation and permission/error states, correct issues, and report exactly what was verified.
+6. Implement provider adapters and setup paths for the selected services, but do not connect production services, create paid resources, deploy, or use real customer data without explicit owner approval.
+7. Continue through every phase in Section 7 and implement all features in Section 5. Do not stop after the shell, 3D map, MVP, or any interim phase. Finish only when all agreed features work end to end, all acceptance checks have been exercised, and remaining external setup requirements are clearly documented. Then provide a short completion report: features delivered, local run instructions, verified journeys, assumptions, any cafe credentials/configuration still needed, and deployment steps.
+
+Useful official references:
+- Antigravity MCP and permissions: https://antigravity.google/docs/ide-mcp and https://antigravity.google/docs/permissions
+- Antigravity browser: https://antigravity.google/docs/browser
+- Next.js App Router: https://nextjs.org/docs/app
+- React Three Fiber: https://r3f.docs.pmnd.rs/getting-started/introduction
+- Supabase MCP security guidance: https://supabase.com/docs/guides/ai-tools/mcp
+- GitHub official MCP server: https://github.com/github/github-mcp-server
+- Google Developer Knowledge MCP: https://developers.google.com/knowledge/mcp
+
+END OF PROJECT MASTER BRIEF
+
+
