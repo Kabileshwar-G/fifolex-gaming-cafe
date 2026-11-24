@@ -23,10 +23,10 @@ import {
 } from 'lucide-react';
 
 const TIER_BADGE: Record<MembershipTier, { label: string; bg: string; text: string; border: string }> = {
-  vip: { label: 'VIP Titan', bg: 'bg-[#8A2BE2]/20', text: 'text-[#c084fc]', border: 'border-[#8A2BE2]/50' },
-  gold: { label: 'Gold Pro', bg: 'bg-[#CCFF00]/15', text: 'text-[#CCFF00]', border: 'border-[#CCFF00]/40' },
-  silver: { label: 'Silver Elite', bg: 'bg-[#252525]', text: 'text-gray-200', border: 'border-[#3A3A3A]' },
-  standard: { label: 'Standard', bg: 'bg-[#181818]', text: 'text-gray-400', border: 'border-[#2E2E2E]' },
+  vip: { label: 'VIP Titan', bg: 'bg-[#6366F1]/20', text: 'text-[#818CF8]', border: 'border-[#6366F1]/50' },
+  gold: { label: 'Gold Pro', bg: 'bg-[#00D2FF]/15', text: 'text-[#00D2FF]', border: 'border-[#00D2FF]/40' },
+  silver: { label: 'Silver Elite', bg: 'bg-[#161F32]', text: 'text-gray-200', border: 'border-[#3A3A3A]' },
+  standard: { label: 'Standard', bg: 'bg-[#181818]', text: 'text-gray-400', border: 'border-[#1F293D]' },
 };
 
 export default function CustomersPage() {
@@ -93,12 +93,12 @@ export default function CustomersPage() {
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto bg-[#111111] text-white">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto bg-[#0A0E17] text-white">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#2E2E2E]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#1F293D]">
         <div>
           <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-wide flex items-center gap-2.5">
-            <Users className="w-5 h-5 text-[#CCFF00]" />
+            <Users className="w-5 h-5 text-[#00D2FF]" />
             Customer Profiles & Memberships
           </h1>
           <p className="text-xs sm:text-sm text-gray-400 mt-1">
@@ -109,7 +109,7 @@ export default function CustomersPage() {
         {canManageCustomers && (
           <button
             onClick={() => setShowCreateModal(true)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] font-extrabold rounded-xl text-xs shadow-lg shadow-[#CCFF00]/25 transition-all self-start sm:self-auto"
+            className="flex items-center gap-2 px-4 py-2.5 bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17] font-extrabold rounded-xl text-xs shadow-lg shadow-[#00D2FF]/25 transition-all self-start sm:self-auto"
           >
             <Plus className="w-4 h-4" />
             Register Customer
@@ -126,14 +126,14 @@ export default function CustomersPage() {
             placeholder="Search by name, phone, or email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-[#1E1E1E] border border-[#2E2E2E] rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#CCFF00]"
+            className="w-full bg-[#121826] border border-[#1F293D] rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#00D2FF]"
           />
         </div>
 
         <select
           value={tierFilter}
           onChange={(e) => setTierFilter(e.target.value)}
-          className="bg-[#1E1E1E] border border-[#2E2E2E] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#CCFF00]"
+          className="bg-[#121826] border border-[#1F293D] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00D2FF]"
         >
           <option value="all">All Tiers</option>
           <option value="vip">VIP Titan (30% off)</option>
@@ -152,14 +152,14 @@ export default function CustomersPage() {
           return (
             <div
               key={cust.id}
-              className="p-4 rounded-2xl bg-[#1E1E1E] border border-[#2E2E2E] hover:border-[#CCFF00]/50 transition-all flex flex-col justify-between space-y-4 shadow-xl"
+              className="p-4 rounded-2xl bg-[#121826] border border-[#1F293D] hover:border-[#00D2FF]/50 transition-all flex flex-col justify-between space-y-4 shadow-xl"
             >
               <div className="space-y-3">
                 <div className="flex items-start justify-between">
                   <div>
                     <h3 className="font-extrabold text-white text-base leading-tight">{cust.name}</h3>
                     <div className="flex items-center gap-2 mt-1 text-xs text-gray-400">
-                      <Phone className="w-3 h-3 text-[#CCFF00]" />
+                      <Phone className="w-3 h-3 text-[#00D2FF]" />
                       <span>{cust.phone}</span>
                     </div>
                   </div>
@@ -169,10 +169,10 @@ export default function CustomersPage() {
                 </div>
 
                 {/* Wallet Balance & Loyalty Stats */}
-                <div className="grid grid-cols-3 gap-2 p-3 rounded-xl bg-[#141414] border border-[#2E2E2E] text-xs">
+                <div className="grid grid-cols-3 gap-2 p-3 rounded-xl bg-[#141414] border border-[#1F293D] text-xs">
                   <div>
                     <span className="text-[10px] text-gray-400 block font-mono">Wallet</span>
-                    <span className="font-mono font-extrabold text-[#CCFF00] text-sm">
+                    <span className="font-mono font-extrabold text-[#00D2FF] text-sm">
                       {formatCurrency(cust.walletBalanceCents, settings.currencySymbol)}
                     </span>
                   </div>
@@ -191,23 +191,23 @@ export default function CustomersPage() {
                 </div>
 
                 {discountPct > 0 && (
-                  <p className="text-[11px] text-[#c084fc] bg-[#8A2BE2]/15 px-2 py-1 rounded border border-[#8A2BE2]/30 font-mono font-bold">
+                  <p className="text-[11px] text-[#818CF8] bg-[#6366F1]/15 px-2 py-1 rounded border border-[#6366F1]/30 font-mono font-bold">
                     &bull; {discountPct}% automatic discount on all station sessions
                   </p>
                 )}
 
                 {cust.notes && (
-                  <p className="text-xs text-gray-400 italic bg-[#141414] p-2 rounded-lg border border-[#2E2E2E]">
+                  <p className="text-xs text-gray-400 italic bg-[#141414] p-2 rounded-lg border border-[#1F293D]">
                     &ldquo;{cust.notes}&rdquo;
                   </p>
                 )}
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-3 border-t border-[#2E2E2E] flex items-center justify-between gap-2">
+              <div className="pt-3 border-t border-[#1F293D] flex items-center justify-between gap-2">
                 <button
                   onClick={() => setTopUpCustomerTarget(cust)}
-                  className="flex-1 py-1.5 bg-[#CCFF00]/15 hover:bg-[#CCFF00]/25 text-[#CCFF00] border border-[#CCFF00]/40 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
+                  className="flex-1 py-1.5 bg-[#00D2FF]/15 hover:bg-[#00D2FF]/25 text-[#00D2FF] border border-[#00D2FF]/40 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
                 >
                   <Wallet className="w-3.5 h-3.5" />
                   Top-Up Wallet
@@ -216,7 +216,7 @@ export default function CustomersPage() {
                 <select
                   value={cust.membershipTier}
                   onChange={(e) => updateCustomer(cust.id, { membershipTier: e.target.value as MembershipTier })}
-                  className="bg-[#141414] border border-[#333333] rounded-lg px-2 py-1.5 text-xs text-white"
+                  className="bg-[#141414] border border-[#1F293D] rounded-lg px-2 py-1.5 text-xs text-white"
                 >
                   <option value="standard">Standard</option>
                   <option value="silver">Silver Tier</option>
@@ -232,10 +232,10 @@ export default function CustomersPage() {
       {/* MODAL: REGISTER CUSTOMER */}
       {showCreateModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#2E2E2E]">
+          <div className="w-full max-w-md bg-[#121826] border border-[#1F293D] rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1F293D]">
               <h3 className="font-bold text-base text-white flex items-center gap-2">
-                <Users className="w-4 h-4 text-[#CCFF00]" />
+                <Users className="w-4 h-4 text-[#00D2FF]" />
                 Register New Customer Profile
               </h3>
               <button onClick={() => setShowCreateModal(false)} className="text-gray-400 hover:text-white">
@@ -251,7 +251,7 @@ export default function CustomersPage() {
                   placeholder="e.g. Maya Lin"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
                   required
                 />
               </div>
@@ -264,7 +264,7 @@ export default function CustomersPage() {
                     placeholder="+1 (555) 000-0000"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
                     required
                   />
                 </div>
@@ -275,7 +275,7 @@ export default function CustomersPage() {
                     placeholder="maya@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
                   />
                 </div>
               </div>
@@ -285,7 +285,7 @@ export default function CustomersPage() {
                 <select
                   value={tier}
                   onChange={(e) => setTier(e.target.value as MembershipTier)}
-                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
                 >
                   <option value="standard">Standard Member (0% discount)</option>
                   <option value="silver">Silver Tier (10% discount on rates)</option>
@@ -301,7 +301,7 @@ export default function CustomersPage() {
                   placeholder="e.g. 2000 for $20.00"
                   value={initialWalletCents || ''}
                   onChange={(e) => setInitialWalletCents(Number(e.target.value))}
-                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white font-mono"
+                  className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white font-mono"
                 />
               </div>
 
@@ -312,7 +312,7 @@ export default function CustomersPage() {
                   placeholder="e.g. Prefers PC-03, plays CS2 & Valorant"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
                 />
               </div>
 
@@ -320,13 +320,13 @@ export default function CustomersPage() {
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="flex-1 py-2.5 rounded-lg bg-[#252525] text-xs font-semibold text-gray-300"
+                  className="flex-1 py-2.5 rounded-lg bg-[#161F32] text-xs font-semibold text-gray-300"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-lg bg-[#CCFF00] hover:bg-[#b8e600] text-xs font-extrabold text-[#111111] shadow-lg shadow-[#CCFF00]/25"
+                  className="flex-1 py-2.5 rounded-lg bg-[#00D2FF] hover:bg-[#00B4D8] text-xs font-extrabold text-[#0A0E17] shadow-lg shadow-[#00D2FF]/25"
                 >
                   Save Profile
                 </button>
@@ -339,10 +339,10 @@ export default function CustomersPage() {
       {/* MODAL: TOP UP WALLET */}
       {topUpCustomerTarget && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-sm bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#2E2E2E]">
+          <div className="w-full max-w-sm bg-[#121826] border border-[#1F293D] rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1F293D]">
               <h3 className="font-bold text-base text-white flex items-center gap-2">
-                <Wallet className="w-4 h-4 text-[#CCFF00]" />
+                <Wallet className="w-4 h-4 text-[#00D2FF]" />
                 Add Credits to Wallet
               </h3>
               <button onClick={() => setTopUpCustomerTarget(null)} className="text-gray-400 hover:text-white">
@@ -352,7 +352,7 @@ export default function CustomersPage() {
 
             <p className="text-xs text-gray-300">
               Customer: <span className="font-bold text-white">{topUpCustomerTarget.name}</span> &bull; Current Balance:{' '}
-              <span className="font-bold text-[#CCFF00] font-mono">
+              <span className="font-bold text-[#00D2FF] font-mono">
                 {formatCurrency(topUpCustomerTarget.walletBalanceCents, settings.currencySymbol)}
               </span>
             </p>
@@ -367,8 +367,8 @@ export default function CustomersPage() {
                     onClick={() => setTopUpAmountCents(cents)}
                     className={`py-2 rounded-lg border text-xs font-mono font-bold transition-all ${
                       topUpAmountCents === cents
-                        ? 'bg-[#CCFF00] text-[#111111] border-[#CCFF00] font-extrabold'
-                        : 'bg-[#141414] text-gray-300 border-[#333333] hover:bg-[#252525]'
+                        ? 'bg-[#00D2FF] text-[#0A0E17] border-[#00D2FF] font-extrabold'
+                        : 'bg-[#141414] text-gray-300 border-[#1F293D] hover:bg-[#161F32]'
                     }`}
                   >
                     {formatCurrency(cents, settings.currencySymbol)}
@@ -383,20 +383,20 @@ export default function CustomersPage() {
                 type="number"
                 value={topUpAmountCents || ''}
                 onChange={(e) => setTopUpAmountCents(Number(e.target.value))}
-                className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white font-mono"
+                className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white font-mono"
               />
             </div>
 
             <div className="flex gap-2 pt-2">
               <button
                 onClick={() => setTopUpCustomerTarget(null)}
-                className="flex-1 py-2.5 rounded-lg bg-[#252525] text-xs font-semibold text-gray-300"
+                className="flex-1 py-2.5 rounded-lg bg-[#161F32] text-xs font-semibold text-gray-300"
               >
                 Cancel
               </button>
               <button
                 onClick={handleTopUpSubmit}
-                className="flex-1 py-2.5 rounded-lg bg-[#CCFF00] hover:bg-[#b8e600] text-xs font-extrabold text-[#111111] shadow-lg shadow-[#CCFF00]/25"
+                className="flex-1 py-2.5 rounded-lg bg-[#00D2FF] hover:bg-[#00B4D8] text-xs font-extrabold text-[#0A0E17] shadow-lg shadow-[#00D2FF]/25"
               >
                 Add Credits
               </button>

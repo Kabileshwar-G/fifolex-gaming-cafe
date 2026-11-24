@@ -9,40 +9,40 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "#111111", // Matte Carbon
-        foreground: "#FFFFFF", // White
+        background: "#0A0E17", // Deep Midnight Obsidian
+        foreground: "#F8FAFC", // Pure Crisp White
         surface: {
-          50: "#2A2A2A",
-          100: "#242424",
-          200: "#1E1E1E", // Dark Gunmetal
-          border: "#2E2E2E",
-          card: "#1E1E1E",
+          50: "#1A2338",
+          100: "#161F32",
+          200: "#121826", // Dark Slate Navy Card
+          border: "#1F293D",
+          card: "#121826",
         },
-        acid: {
-          DEFAULT: "#CCFF00", // Acid Yellow-Green (Primary Accent / CTAs)
-          hover: "#B8E600",
-          light: "#E5FF66",
-          dark: "#99BF00",
-          glow: "rgba(204, 255, 0, 0.4)",
+        cyan: {
+          DEFAULT: "#00D2FF", // Electric Cyber Cyan (Primary Accent / CTAs)
+          hover: "#00B4D8",
+          light: "#66E5FF",
+          dark: "#0099CC",
+          glow: "rgba(0, 210, 255, 0.35)",
         },
-        ultra: {
-          DEFAULT: "#8A2BE2", // Ultraviolet (Secondary Accent)
-          hover: "#7A20CE",
-          light: "#A855F7",
-          dark: "#6B21A8",
-          glow: "rgba(138, 43, 226, 0.4)",
+        indigo: {
+          DEFAULT: "#6366F1", // Royal Indigo (Secondary Accent)
+          hover: "#4F46E5",
+          light: "#818CF8",
+          dark: "#4338CA",
+          glow: "rgba(99, 102, 241, 0.35)",
         },
         brand: {
-          DEFAULT: "#CCFF00",
-          glow: "#D4FF33",
-          dark: "#99BF00",
+          DEFAULT: "#00D2FF",
+          glow: "#33DDFF",
+          dark: "#0088B3",
         },
         status: {
-          available: "#CCFF00", // Acid Yellow-Green
-          occupied: "#8A2BE2", // Ultraviolet
-          reserved: "#FF8C00", // Neon Amber/Orange
-          cleaning: "#00F0FF", // Electric Cyan
-          maintenance: "#FF0055", // Neon Crimson
+          available: "#10B981", // Emerald Green
+          occupied: "#00D2FF", // Electric Cyan
+          reserved: "#F59E0B", // Warm Amber
+          cleaning: "#8B5CF6", // Amethyst Purple
+          maintenance: "#EF4444", // Crimson Red
         },
       },
       fontFamily: {

@@ -60,20 +60,20 @@ export default function DashboardPage() {
   const todayBookings = bookings.filter(b => b.date === todayStr);
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto bg-[#111111] text-white">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto bg-[#0A0E17] text-[#F8FAFC]">
       {/* Top Banner / Welcome Row */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#2E2E2E]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#1F293D]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-[#CCFF00]/15 text-[#CCFF00] border border-[#CCFF00]/40">
-              Edgy & Rebel Dark
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-[#00D2FF]/15 text-[#00D2FF] border border-[#00D2FF]/30">
+              Esports Arena Pro
             </span>
-            <span className="text-xs text-gray-400 font-mono">Live Operations Hub</span>
+            <span className="text-xs text-[#94A3B8] font-mono">Live Operations Hub</span>
           </div>
           <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-wide mt-1 flex items-center gap-2">
             Control Room Telemetry
           </h1>
-          <p className="text-xs sm:text-sm text-gray-400">
+          <p className="text-xs sm:text-sm text-[#94A3B8]">
             Real-time session timers, 3D venue occupancy, food orders, and station state machines.
           </p>
         </div>
@@ -81,94 +81,94 @@ export default function DashboardPage() {
         <div className="flex items-center gap-2.5">
           <Link
             href="/venue"
-            className="flex items-center gap-2 px-4 py-2 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] font-extrabold rounded-xl text-xs shadow-lg shadow-[#CCFF00]/25 transition-all"
+            className="flex items-center gap-2 px-4 py-2 bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17] font-bold rounded-xl text-xs shadow-lg shadow-[#00D2FF]/20 transition-all"
           >
             <Activity className="w-4 h-4" />
             Launch 3D Floor View
           </Link>
           <Link
             href="/sessions"
-            className="flex items-center gap-2 px-4 py-2 bg-[#1E1E1E] hover:bg-[#282828] border border-[#333333] text-white font-bold rounded-xl text-xs transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-[#121826] hover:bg-[#161F32] border border-[#1F293D] text-white font-bold rounded-xl text-xs transition-colors"
           >
-            <Play className="w-3.5 h-3.5 text-[#CCFF00] fill-current" />
+            <Play className="w-3.5 h-3.5 text-[#00D2FF] fill-current" />
             Start Session
           </Link>
         </div>
       </div>
 
-      {/* METRIC KPI CARDS - Gunmetal Surfaces with Neon Accents */}
+      {/* METRIC KPI CARDS - Slate Navy Surfaces with Cyan & Indigo Accents */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Active Sessions */}
-        <div className="p-4 rounded-2xl bg-[#1E1E1E] border border-[#2E2E2E] hover:border-[#CCFF00]/50 transition-all relative overflow-hidden">
+        <div className="p-4 rounded-2xl bg-[#121826] border border-[#1F293D] hover:border-[#00D2FF]/50 transition-all relative overflow-hidden">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider font-mono">Live Sessions</span>
-            <div className="w-8 h-8 rounded-lg bg-[#CCFF00]/15 border border-[#CCFF00]/30 flex items-center justify-center text-[#CCFF00]">
+            <span className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider font-mono">Live Sessions</span>
+            <div className="w-8 h-8 rounded-lg bg-[#00D2FF]/15 border border-[#00D2FF]/30 flex items-center justify-center text-[#00D2FF]">
               <Monitor className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3 flex items-baseline gap-2">
             <span className="text-2xl sm:text-3xl font-extrabold text-white font-mono">{activeSessions.length}</span>
-            <span className="text-xs text-[#CCFF00] font-bold">/{stations.length} Pods</span>
+            <span className="text-xs text-[#00D2FF] font-bold">/{stations.length} Pods</span>
           </div>
-          <p className="text-[11px] text-gray-400 mt-1">
+          <p className="text-[11px] text-[#94A3B8] mt-1">
             {availableStations.length} pods ready for walk-ins
           </p>
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#CCFF00]" />
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#00D2FF]" />
         </div>
 
         {/* Card 2: Occupancy Rate */}
-        <div className="p-4 rounded-2xl bg-[#1E1E1E] border border-[#2E2E2E] hover:border-[#8A2BE2]/50 transition-all relative overflow-hidden">
+        <div className="p-4 rounded-2xl bg-[#121826] border border-[#1F293D] hover:border-[#6366F1]/50 transition-all relative overflow-hidden">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider font-mono">Floor Occupancy</span>
-            <div className="w-8 h-8 rounded-lg bg-[#8A2BE2]/20 border border-[#8A2BE2]/40 flex items-center justify-center text-[#c084fc]">
+            <span className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider font-mono">Floor Occupancy</span>
+            <div className="w-8 h-8 rounded-lg bg-[#6366F1]/15 border border-[#6366F1]/30 flex items-center justify-center text-[#818CF8]">
               <TrendingUp className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3 flex items-baseline gap-2">
             <span className="text-2xl sm:text-3xl font-extrabold text-white font-mono">{occupancyPercent}%</span>
-            <span className="text-xs text-[#c084fc] font-bold">Peak Rate</span>
+            <span className="text-xs text-[#818CF8] font-bold">Peak Rate</span>
           </div>
-          <p className="text-[11px] text-gray-400 mt-1">
+          <p className="text-[11px] text-[#94A3B8] mt-1">
             {cleaningStations.length} cleaning &bull; {maintenanceStations.length} maintenance
           </p>
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#8A2BE2]" />
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#6366F1]" />
         </div>
 
         {/* Card 3: Revenue Today */}
-        <div className="p-4 rounded-2xl bg-[#1E1E1E] border border-[#2E2E2E] hover:border-[#CCFF00]/50 transition-all relative overflow-hidden">
+        <div className="p-4 rounded-2xl bg-[#121826] border border-[#1F293D] hover:border-[#10B981]/50 transition-all relative overflow-hidden">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider font-mono">Revenue Today</span>
-            <div className="w-8 h-8 rounded-lg bg-[#CCFF00]/15 border border-[#CCFF00]/30 flex items-center justify-center text-[#CCFF00]">
+            <span className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider font-mono">Revenue Today</span>
+            <div className="w-8 h-8 rounded-lg bg-[#10B981]/15 border border-[#10B981]/30 flex items-center justify-center text-[#10B981]">
               <DollarSign className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-[#CCFF00] font-mono">
+            <span className="text-2xl sm:text-3xl font-extrabold text-[#10B981] font-mono">
               {formatCurrency(totalRevenueToday, settings.currencySymbol)}
             </span>
           </div>
-          <p className="text-[11px] text-gray-400 mt-1">
+          <p className="text-[11px] text-[#94A3B8] mt-1">
             Sessions: {formatCurrency(sessionRevenueCents, settings.currencySymbol)} &bull; POS: {formatCurrency(orderRevenueCents, settings.currencySymbol)}
           </p>
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#CCFF00]" />
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#10B981]" />
         </div>
 
         {/* Card 4: Bookings Today */}
-        <div className="p-4 rounded-2xl bg-[#1E1E1E] border border-[#2E2E2E] hover:border-[#FF8C00]/50 transition-all relative overflow-hidden">
+        <div className="p-4 rounded-2xl bg-[#121826] border border-[#1F293D] hover:border-[#F59E0B]/50 transition-all relative overflow-hidden">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider font-mono">Today's Bookings</span>
-            <div className="w-8 h-8 rounded-lg bg-[#FF8C00]/20 border border-[#FF8C00]/40 flex items-center justify-center text-[#FF8C00]">
+            <span className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider font-mono">Today's Bookings</span>
+            <div className="w-8 h-8 rounded-lg bg-[#F59E0B]/15 border border-[#F59E0B]/30 flex items-center justify-center text-[#F59E0B]">
               <Calendar className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3 flex items-baseline gap-2">
             <span className="text-2xl sm:text-3xl font-extrabold text-white font-mono">{todayBookings.length}</span>
-            <span className="text-xs text-[#FF8C00] font-bold">Scheduled</span>
+            <span className="text-xs text-[#F59E0B] font-bold">Scheduled</span>
           </div>
-          <p className="text-[11px] text-gray-400 mt-1">
+          <p className="text-[11px] text-[#94A3B8] mt-1">
             {todayBookings.filter(b => b.status === 'confirmed').length} confirmed &bull; {todayBookings.filter(b => b.status === 'pending').length} pending
           </p>
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#FF8C00]" />
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#F59E0B]" />
         </div>
       </div>
 
@@ -178,49 +178,49 @@ export default function DashboardPage() {
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <Activity className="w-4 h-4 text-[#CCFF00]" />
+              <Activity className="w-4 h-4 text-[#00D2FF]" />
               Live Gaming Sessions ({activeSessions.length})
             </h2>
-            <Link href="/sessions" className="text-xs text-[#CCFF00] hover:underline flex items-center gap-1 font-bold">
+            <Link href="/sessions" className="text-xs text-[#00D2FF] hover:underline flex items-center gap-1 font-bold">
               View All Sessions <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          <div className="bg-[#1E1E1E] border border-[#2E2E2E] rounded-2xl overflow-hidden shadow-xl">
+          <div className="bg-[#121826] border border-[#1F293D] rounded-2xl overflow-hidden shadow-xl">
             {activeSessions.length === 0 ? (
-              <div className="p-8 text-center text-gray-400">
-                <Monitor className="w-8 h-8 mx-auto mb-2 opacity-40 text-gray-400" />
+              <div className="p-8 text-center text-[#94A3B8]">
+                <Monitor className="w-8 h-8 mx-auto mb-2 opacity-40 text-[#94A3B8]" />
                 <p className="text-sm">No active sessions at the moment.</p>
                 <Link
                   href="/sessions"
-                  className="mt-3 inline-block px-4 py-2 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] text-xs font-extrabold rounded-lg shadow-md"
+                  className="mt-3 inline-block px-4 py-2 bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17] text-xs font-bold rounded-xl shadow-md"
                 >
                   Start Walk-In Guest
                 </Link>
               </div>
             ) : (
-              <div className="divide-y divide-[#2E2E2E]">
+              <div className="divide-y divide-[#1F293D]">
                 {activeSessions.map(sess => {
                   const timing = getTimeRemaining(sess.expectedEndTime, mounted);
                   return (
                     <div
                       key={sess.id}
-                      className="p-4 hover:bg-[#252525] transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                      className="p-4 hover:bg-[#161F32] transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-[#282828] border border-[#3A3A3A] flex items-center justify-center font-bold text-[#CCFF00] font-mono text-sm">
+                        <div className="w-10 h-10 rounded-xl bg-[#161F32] border border-[#1F293D] flex items-center justify-center font-bold text-[#00D2FF] font-mono text-sm">
                           {sess.stationName}
                         </div>
                         <div>
                           <div className="flex items-center gap-2">
                             <span className="font-bold text-white text-sm">{sess.customerName}</span>
                             {sess.discountCents > 0 && (
-                              <span className="text-[10px] font-bold text-[#CCFF00] bg-[#CCFF00]/15 px-1.5 py-0.5 rounded border border-[#CCFF00]/30 font-mono">
+                              <span className="text-[10px] font-bold text-[#00D2FF] bg-[#00D2FF]/15 px-1.5 py-0.5 rounded border border-[#00D2FF]/30 font-mono">
                                 Member Rate
                               </span>
                             )}
                           </div>
-                          <span className="text-xs text-gray-400">
+                          <span className="text-xs text-[#94A3B8]">
                             Started {formatTimeOnly(sess.startTime, mounted)} &bull;{' '}
                             {formatDuration(sess.durationMinutes)} total
                           </span>
@@ -230,16 +230,16 @@ export default function DashboardPage() {
                       <div className="flex items-center justify-between sm:justify-end gap-3">
                         {/* Countdown Pill */}
                         <div className="text-right">
-                          <span className={`inline-block px-2.5 py-1 rounded-md text-xs font-mono font-bold ${
+                          <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-mono font-bold ${
                             timing.isOverdue
-                              ? 'bg-[#FF0055]/20 text-[#FF0055] border border-[#FF0055]/50 animate-pulse'
+                              ? 'bg-[#EF4444]/20 text-[#EF4444] border border-[#EF4444]/40 animate-pulse'
                               : timing.isEndingSoon
-                              ? 'bg-[#FF8C00]/20 text-[#FF8C00] border border-[#FF8C00]/50'
-                              : 'bg-[#CCFF00]/15 text-[#CCFF00] border border-[#CCFF00]/40'
+                              ? 'bg-[#F59E0B]/20 text-[#F59E0B] border border-[#F59E0B]/40'
+                              : 'bg-[#00D2FF]/15 text-[#00D2FF] border border-[#00D2FF]/30'
                           }`}>
                             {timing.text}
                           </span>
-                          <span className="block text-[10px] text-gray-400 mt-0.5 font-mono">
+                          <span className="block text-[10px] text-[#94A3B8] mt-0.5 font-mono">
                             Charge: {formatCurrency(sess.totalChargedCents, settings.currencySymbol)}
                           </span>
                         </div>
@@ -250,7 +250,7 @@ export default function DashboardPage() {
                             <button
                               onClick={() => pauseSession(sess.id)}
                               title="Pause Session"
-                              className="p-1.5 rounded-lg bg-[#252525] hover:bg-[#2C2C2C] text-gray-300 border border-[#333333]"
+                              className="p-2 rounded-xl bg-[#161F32] hover:bg-[#1A2438] text-gray-300 border border-[#1F293D]"
                             >
                               <Pause className="w-3.5 h-3.5" />
                             </button>
@@ -258,7 +258,7 @@ export default function DashboardPage() {
                             <button
                               onClick={() => resumeSession(sess.id)}
                               title="Resume Session"
-                              className="p-1.5 rounded-lg bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111]"
+                              className="p-2 rounded-xl bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17]"
                             >
                               <Play className="w-3.5 h-3.5 fill-current" />
                             </button>
@@ -266,7 +266,7 @@ export default function DashboardPage() {
                           <button
                             onClick={() => extendSession(sess.id, 30)}
                             title="+30m Extension"
-                            className="px-2 py-1.5 rounded-lg bg-[#8A2BE2]/20 hover:bg-[#8A2BE2]/35 border border-[#8A2BE2]/40 text-[#c084fc] text-xs font-mono font-bold"
+                            className="px-2.5 py-2 rounded-xl bg-[#6366F1]/15 hover:bg-[#6366F1]/25 border border-[#6366F1]/30 text-[#818CF8] text-xs font-mono font-bold"
                           >
                             +30m
                           </button>
@@ -284,21 +284,21 @@ export default function DashboardPage() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <Monitor className="w-4 h-4 text-[#8A2BE2]" />
+              <Monitor className="w-4 h-4 text-[#6366F1]" />
               Venue Stations ({stations.length})
             </h2>
-            <Link href="/venue" className="text-xs text-[#CCFF00] font-bold hover:underline">
+            <Link href="/venue" className="text-xs text-[#00D2FF] font-bold hover:underline">
               Interactive 3D &rarr;
             </Link>
           </div>
 
-          <div className="bg-[#1E1E1E] border border-[#2E2E2E] rounded-2xl p-4 shadow-xl space-y-3">
+          <div className="bg-[#121826] border border-[#1F293D] rounded-2xl p-4 shadow-xl space-y-3">
             {/* Legend mini bar */}
-            <div className="flex items-center justify-between text-[11px] text-gray-400 pb-2 border-b border-[#2E2E2E] font-mono font-bold">
-              <span className="text-[#CCFF00]">{availableStations.length} Available</span>
-              <span className="text-[#8A2BE2]">{occupiedStations.length} Occupied</span>
-              <span className="text-[#00F0FF]">{cleaningStations.length} Cleaning</span>
-              <span className="text-[#FF0055]">{maintenanceStations.length} Maint.</span>
+            <div className="flex items-center justify-between text-[11px] text-[#94A3B8] pb-2 border-b border-[#1F293D] font-mono font-bold">
+              <span className="text-[#10B981]">{availableStations.length} Available</span>
+              <span className="text-[#00D2FF]">{occupiedStations.length} Occupied</span>
+              <span className="text-[#8B5CF6]">{cleaningStations.length} Cleaning</span>
+              <span className="text-[#EF4444]">{maintenanceStations.length} Maint.</span>
             </div>
 
             {/* Quick Pod Matrix Grid */}
@@ -314,16 +314,16 @@ export default function DashboardPage() {
                     key={st.id}
                     href="/venue"
                     onClick={() => selectStation(st.id)}
-                    className={`p-2 rounded-lg text-center border transition-all ${
+                    className={`p-2 rounded-xl text-center border transition-all ${
                       isOccupied
-                        ? 'bg-[#8A2BE2]/20 border-[#8A2BE2]/50 text-[#c084fc] hover:bg-[#8A2BE2]/30'
+                        ? 'bg-[#00D2FF]/15 border-[#00D2FF]/40 text-[#00D2FF] hover:bg-[#00D2FF]/25'
                         : isAvailable
-                        ? 'bg-[#CCFF00]/15 border-[#CCFF00]/40 text-[#CCFF00] hover:bg-[#CCFF00]/25'
+                        ? 'bg-[#10B981]/15 border-[#10B981]/40 text-[#10B981] hover:bg-[#10B981]/25'
                         : isCleaning
-                        ? 'bg-[#00F0FF]/15 border-[#00F0FF]/40 text-[#00F0FF]'
+                        ? 'bg-[#8B5CF6]/15 border-[#8B5CF6]/40 text-[#C084FC]'
                         : isMaint
-                        ? 'bg-[#FF0055]/20 border-[#FF0055]/50 text-[#FF0055]'
-                        : 'bg-[#FF8C00]/20 border-[#FF8C00]/50 text-[#FF8C00]'
+                        ? 'bg-[#EF4444]/15 border-[#EF4444]/40 text-[#EF4444]'
+                        : 'bg-[#F59E0B]/15 border-[#F59E0B]/40 text-[#F59E0B]'
                     }`}
                   >
                     <span className="block font-mono font-extrabold text-xs truncate">{st.name}</span>
@@ -333,12 +333,12 @@ export default function DashboardPage() {
               })}
             </div>
 
-            <div className="pt-2 border-t border-[#2E2E2E]">
+            <div className="pt-2 border-t border-[#1F293D]">
               <Link
                 href="/bookings"
-                className="w-full py-2 bg-[#252525] hover:bg-[#2C2C2C] border border-[#333333] rounded-xl text-xs font-bold text-white flex items-center justify-center gap-2 transition-colors"
+                className="w-full py-2 bg-[#161F32] hover:bg-[#1A2438] border border-[#1F293D] rounded-xl text-xs font-bold text-white flex items-center justify-center gap-2 transition-colors"
               >
-                <Calendar className="w-3.5 h-3.5 text-[#FF8C00]" />
+                <Calendar className="w-3.5 h-3.5 text-[#F59E0B]" />
                 Manage Today's Bookings ({todayBookings.length})
               </Link>
             </div>
@@ -347,29 +347,29 @@ export default function DashboardPage() {
       </div>
 
       {/* LOWER SECTION: Recent Audit Trail Feed */}
-      <div className="bg-[#1E1E1E] border border-[#2E2E2E] rounded-2xl p-5 shadow-xl space-y-3">
-        <div className="flex items-center justify-between pb-2 border-b border-[#2E2E2E]">
+      <div className="bg-[#121826] border border-[#1F293D] rounded-2xl p-5 shadow-xl space-y-3">
+        <div className="flex items-center justify-between pb-2 border-b border-[#1F293D]">
           <h3 className="font-bold text-sm text-white flex items-center gap-2">
-            <Clock className="w-4 h-4 text-[#8A2BE2]" />
+            <Clock className="w-4 h-4 text-[#6366F1]" />
             Operations Audit Log & Station Activity
           </h3>
-          <Link href="/staff" className="text-xs text-[#CCFF00] font-bold hover:underline">
+          <Link href="/staff" className="text-xs text-[#00D2FF] font-bold hover:underline">
             Full Audit History &rarr;
           </Link>
         </div>
 
-        <div className="divide-y divide-[#2E2E2E] max-h-48 overflow-y-auto">
+        <div className="divide-y divide-[#1F293D] max-h-48 overflow-y-auto">
           {auditLogs.slice(0, 5).map(log => (
-            <div key={log.id} className="py-2 flex items-center justify-between text-xs">
+            <div key={log.id} className="py-2.5 flex items-center justify-between text-xs">
               <div className="flex items-center gap-3">
-                <span className="font-mono text-[#CCFF00] font-bold px-2 py-0.5 rounded bg-[#CCFF00]/10 border border-[#CCFF00]/30 text-[10px]">
+                <span className="font-mono text-[#00D2FF] font-bold px-2 py-0.5 rounded bg-[#00D2FF]/10 border border-[#00D2FF]/30 text-[10px]">
                   {log.action}
                 </span>
                 <span className="text-gray-200">{log.details}</span>
               </div>
-              <div className="flex items-center gap-3 text-gray-400 font-mono text-[11px]">
+              <div className="flex items-center gap-3 text-[#94A3B8] font-mono text-[11px]">
                 <span className="text-white font-semibold">{log.staffName} ({log.role})</span>
-                <span className="text-[#CCFF00]">{formatTimeOnly(log.timestamp, mounted)}</span>
+                <span className="text-[#00D2FF]">{formatTimeOnly(log.timestamp, mounted)}</span>
               </div>
             </div>
           ))}

@@ -22,11 +22,11 @@ interface VenueMap2DProps {
 }
 
 const STATUS_PILL: Record<StationStatus, { label: string; bg: string; text: string }> = {
-  available: { label: 'Available', bg: 'bg-[#CCFF00]/15 border-[#CCFF00]/40', text: 'text-[#CCFF00]' },
-  occupied: { label: 'Occupied', bg: 'bg-[#8A2BE2]/20 border-[#8A2BE2]/40', text: 'text-[#c084fc]' },
-  reserved: { label: 'Reserved', bg: 'bg-[#FF8C00]/20 border-[#FF8C00]/40', text: 'text-[#FF8C00]' },
-  cleaning: { label: 'Cleaning', bg: 'bg-[#00F0FF]/15 border-[#00F0FF]/40', text: 'text-[#00F0FF]' },
-  maintenance: { label: 'Maintenance', bg: 'bg-[#FF0055]/20 border-[#FF0055]/40', text: 'text-[#FF0055]' },
+  available: { label: 'Available', bg: 'bg-[#10B981]/15 border-[#10B981]/40', text: 'text-[#10B981]' },
+  occupied: { label: 'Occupied', bg: 'bg-[#00D2FF]/15 border-[#00D2FF]/40', text: 'text-[#00D2FF]' },
+  reserved: { label: 'Reserved', bg: 'bg-[#F59E0B]/15 border-[#F59E0B]/40', text: 'text-[#F59E0B]' },
+  cleaning: { label: 'Cleaning', bg: 'bg-[#8B5CF6]/15 border-[#8B5CF6]/40', text: 'text-[#C084FC]' },
+  maintenance: { label: 'Maintenance', bg: 'bg-[#EF4444]/15 border-[#EF4444]/40', text: 'text-[#EF4444]' },
 };
 
 export const VenueMap2D: React.FC<VenueMap2DProps> = ({
@@ -55,17 +55,17 @@ export const VenueMap2D: React.FC<VenueMap2DProps> = ({
   ];
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 bg-[#111111] text-white">
+    <div className="p-4 sm:p-6 space-y-6 bg-[#0A0E17] text-white">
       {/* Search and Filters Bar */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-[#94A3B8] absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Search stations, platforms, or games..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-[#1E1E1E] border border-[#2E2E2E] rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#CCFF00]"
+            className="w-full bg-[#121826] border border-[#1F293D] rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#00D2FF]"
           />
         </div>
 
@@ -73,7 +73,7 @@ export const VenueMap2D: React.FC<VenueMap2DProps> = ({
           <select
             value={zoneFilter}
             onChange={(e) => setZoneFilter(e.target.value)}
-            className="bg-[#1E1E1E] border border-[#2E2E2E] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#CCFF00]"
+            className="bg-[#121826] border border-[#1F293D] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00D2FF]"
           >
             <option value="all">All Zones</option>
             {zones.map(z => <option key={z} value={z}>{z}</option>)}
@@ -82,7 +82,7 @@ export const VenueMap2D: React.FC<VenueMap2DProps> = ({
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-[#1E1E1E] border border-[#2E2E2E] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#CCFF00]"
+            className="bg-[#121826] border border-[#1F293D] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00D2FF]"
           >
             <option value="all">All Statuses</option>
             <option value="available">Available</option>
@@ -102,53 +102,42 @@ export const VenueMap2D: React.FC<VenueMap2DProps> = ({
 
           return (
             <div key={zoneName} className="space-y-3">
-              <div className="flex items-center justify-between border-b border-[#2E2E2E] pb-2">
-                <h3 className="font-extrabold text-sm text-white tracking-wide">{zoneName}</h3>
-                <span className="text-xs text-[#CCFF00] font-mono font-bold">
-                  {zoneStations.filter(s => s.status === 'available').length}/{zoneStations.length} Free
+              <div className="flex items-center justify-between pb-2 border-b border-[#1F293D]">
+                <h3 className="font-bold text-sm text-white flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#00D2FF]" />
+                  {zoneName}
+                </h3>
+                <span className="text-xs text-[#94A3B8] font-mono">
+                  {zoneStations.filter(s => s.status === 'available').length}/{zoneStations.length} Pods Free
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
-                {zoneStations.map(st => {
-                  const isSelected = st.id === selectedStationId;
-                  const pill = STATUS_PILL[st.status];
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                {zoneStations.map(station => {
+                  const isSelected = station.id === selectedStationId;
+                  const statusInfo = STATUS_PILL[station.status];
 
                   return (
                     <div
-                      key={st.id}
-                      onClick={() => onSelectStation(st.id)}
-                      className={`p-3.5 rounded-xl border transition-all cursor-pointer relative ${
+                      key={station.id}
+                      onClick={() => onSelectStation(station.id)}
+                      className={`p-3.5 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between space-y-2 ${
                         isSelected
-                          ? 'bg-[#252525] border-[#CCFF00] shadow-lg shadow-[#CCFF00]/20'
-                          : 'bg-[#1E1E1E] border-[#2E2E2E] hover:border-gray-500 hover:bg-[#252525]'
+                          ? 'bg-[#161F32] border-[#00D2FF] shadow-lg shadow-[#00D2FF]/20 scale-102'
+                          : 'bg-[#121826] border-[#1F293D] hover:border-[#2D3E5D]'
                       }`}
                     >
-                      <div className="flex items-start justify-between mb-2">
-                        <div>
-                          <span className="font-extrabold text-white text-sm font-mono">{st.name}</span>
-                          <span className="block text-[11px] text-gray-400 capitalize">{st.type}</span>
-                        </div>
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase tracking-wider ${pill.bg} ${pill.text}`}>
-                          {pill.label}
+                      <div className="flex items-start justify-between">
+                        <span className="font-mono font-bold text-sm text-white">{station.name}</span>
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase tracking-wider ${statusInfo.bg} ${statusInfo.text}`}>
+                          {statusInfo.label}
                         </span>
                       </div>
 
-                      <div className="text-xs space-y-1 text-gray-400 my-2">
-                        {st.specs.gpu && (
-                          <div className="truncate"><span className="text-gray-400">GPU:</span> {st.specs.gpu}</div>
-                        )}
-                        {st.specs.screen && (
-                          <div className="truncate"><span className="text-gray-400">Screen:</span> {st.specs.screen}</div>
-                        )}
-                      </div>
-
-                      <div className="flex items-center justify-between pt-2 border-t border-[#2E2E2E] text-xs">
-                        <span className="font-extrabold text-white font-mono">
-                          {formatCurrency(st.hourlyRateCents, currencySymbol)}/hr
-                        </span>
-                        <span className="text-[11px] text-[#CCFF00] font-bold hover:underline">
-                          Inspect &rarr;
+                      <div className="text-[11px] text-[#94A3B8]">
+                        <span className="block truncate">{station.specs.gpu || station.specs.platform}</span>
+                        <span className="font-mono font-bold text-[#10B981] mt-1 block">
+                          {formatCurrency(station.hourlyRateCents, currencySymbol)}/hr
                         </span>
                       </div>
                     </div>

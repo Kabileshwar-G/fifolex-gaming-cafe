@@ -14,30 +14,30 @@ export default function VenuePage() {
   const selectedStation = stations.find(s => s.id === selectedStationId);
 
   return (
-    <div className="flex h-full relative overflow-hidden bg-[#111111]">
+    <div className="flex h-full relative overflow-hidden bg-[#0A0E17]">
       {/* Main View Area */}
       <div className="flex-1 flex flex-col min-w-0 relative h-full">
         {/* Top Control Bar */}
-        <div className="h-14 px-4 border-b border-[#262626] bg-[#161616]/95 backdrop-blur flex items-center justify-between z-10">
+        <div className="h-14 px-4 border-b border-[#1F293D] bg-[#0E1422]/95 backdrop-blur flex items-center justify-between z-10">
           <div className="flex items-center gap-3">
             <h2 className="text-sm font-bold text-white tracking-wide flex items-center gap-2">
-              <Box className="w-4 h-4 text-[#CCFF00]" />
+              <Box className="w-4 h-4 text-[#00D2FF]" />
               3D Venue & Station Control Surface
             </h2>
-            <span className="text-xs text-gray-400 hidden md:inline font-mono">
+            <span className="text-xs text-[#94A3B8] hidden md:inline font-mono">
               &bull; Click any pod to inspect, launch sessions, or manage hardware.
             </span>
           </div>
 
           <div className="flex items-center gap-2">
             {/* 3D vs 2D Toggle */}
-            <div className="flex p-0.5 rounded-xl bg-[#202020] border border-[#2E2E2E]">
+            <div className="flex p-0.5 rounded-xl bg-[#121826] border border-[#1F293D]">
               <button
                 onClick={() => setViewMode('3d')}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
                   viewMode === '3d'
-                    ? 'bg-[#CCFF00] text-[#111111] shadow-sm'
-                    : 'text-gray-400 hover:text-white'
+                    ? 'bg-[#00D2FF] text-[#0A0E17] shadow-sm shadow-[#00D2FF]/20'
+                    : 'text-[#94A3B8] hover:text-white'
                 }`}
               >
                 <Box className="w-3.5 h-3.5" />
@@ -47,8 +47,8 @@ export default function VenuePage() {
                 onClick={() => setViewMode('2d')}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
                   viewMode === '2d'
-                    ? 'bg-[#CCFF00] text-[#111111] shadow-sm'
-                    : 'text-gray-400 hover:text-white'
+                    ? 'bg-[#00D2FF] text-[#0A0E17] shadow-sm shadow-[#00D2FF]/20'
+                    : 'text-[#94A3B8] hover:text-white'
                 }`}
               >
                 <Layers className="w-3.5 h-3.5" />
@@ -58,21 +58,21 @@ export default function VenuePage() {
           </div>
         </div>
 
-        {/* View Surface */}
-        <div className="flex-1 relative overflow-hidden bg-[#111111]">
+        {/* Dynamic Canvas View */}
+        <div className="flex-1 relative overflow-hidden">
           {viewMode === '3d' ? (
             <VenueScene
               stations={stations}
               sessions={sessions}
               selectedStationId={selectedStationId}
-              onSelectStation={selectStation}
+              onSelectStation={(id) => selectStation(id)}
             />
           ) : (
-            <div className="h-full overflow-y-auto bg-[#111111]">
+            <div className="h-full overflow-y-auto">
               <VenueMap2D
                 stations={stations}
                 selectedStationId={selectedStationId}
-                onSelectStation={selectStation}
+                onSelectStation={(id) => selectStation(id)}
                 currencySymbol={settings.currencySymbol}
               />
             </div>
@@ -80,12 +80,14 @@ export default function VenuePage() {
         </div>
       </div>
 
-      {/* Slide-out Station Details Drawer */}
+      {/* Slide-out Station Inspector Drawer */}
       {selectedStation && (
-        <StationDetailsDrawer
-          station={selectedStation}
-          onClose={() => selectStation(null)}
-        />
+        <aside className="w-full sm:w-96 md:w-[420px] h-full absolute top-0 right-0 z-30 shadow-2xl animate-in slide-in-from-right duration-200">
+          <StationDetailsDrawer
+            station={selectedStation}
+            onClose={() => selectStation(null)}
+          />
+        </aside>
       )}
     </div>
   );

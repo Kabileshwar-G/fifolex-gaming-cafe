@@ -26,11 +26,11 @@ import {
 } from 'lucide-react';
 
 const STATUS_BADGE: Record<BookingStatus, { label: string; bg: string; text: string; border: string }> = {
-  confirmed: { label: 'Confirmed', bg: 'bg-[#CCFF00]/15', text: 'text-[#CCFF00]', border: 'border-[#CCFF00]/40' },
+  confirmed: { label: 'Confirmed', bg: 'bg-[#00D2FF]/15', text: 'text-[#00D2FF]', border: 'border-[#00D2FF]/40' },
   pending: { label: 'Pending', bg: 'bg-[#FF8C00]/20', text: 'text-[#FF8C00]', border: 'border-[#FF8C00]/40' },
-  checked_in: { label: 'Checked In', bg: 'bg-[#8A2BE2]/20', text: 'text-[#c084fc]', border: 'border-[#8A2BE2]/40' },
+  checked_in: { label: 'Checked In', bg: 'bg-[#6366F1]/20', text: 'text-[#818CF8]', border: 'border-[#6366F1]/40' },
   completed: { label: 'Completed', bg: 'bg-gray-800/60', text: 'text-gray-300', border: 'border-gray-700/60' },
-  cancelled: { label: 'Cancelled', bg: 'bg-[#FF0055]/20', text: 'text-[#FF0055]', border: 'border-[#FF0055]/40' },
+  cancelled: { label: 'Cancelled', bg: 'bg-[#EF4444]/20', text: 'text-[#EF4444]', border: 'border-[#EF4444]/40' },
   no_show: { label: 'No Show', bg: 'bg-rose-950/60', text: 'text-rose-400', border: 'border-rose-800/60' },
 };
 
@@ -151,12 +151,12 @@ export default function BookingsPage() {
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto bg-[#111111] text-white">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto bg-[#0A0E17] text-white">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#2E2E2E]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#1F293D]">
         <div>
           <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-wide flex items-center gap-2.5">
-            <CalendarIcon className="w-5 h-5 text-[#CCFF00]" />
+            <CalendarIcon className="w-5 h-5 text-[#00D2FF]" />
             Reservations & Schedule Calendar
           </h1>
           <p className="text-xs sm:text-sm text-gray-400 mt-1">
@@ -170,7 +170,7 @@ export default function BookingsPage() {
               setBookingDate(selectedDate);
               setShowNewModal(true);
             }}
-            className="flex items-center gap-2 px-4 py-2.5 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] font-extrabold rounded-xl text-xs shadow-lg shadow-[#CCFF00]/25 transition-all self-start sm:self-auto"
+            className="flex items-center gap-2 px-4 py-2.5 bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17] font-extrabold rounded-xl text-xs shadow-lg shadow-[#00D2FF]/25 transition-all self-start sm:self-auto"
           >
             <Plus className="w-4 h-4" />
             New Reservation
@@ -179,11 +179,11 @@ export default function BookingsPage() {
       </div>
 
       {/* Date Navigation & Filters */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 p-3 bg-[#1E1E1E] border border-[#2E2E2E] rounded-2xl">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 p-3 bg-[#121826] border border-[#1F293D] rounded-2xl">
         <div className="flex items-center gap-2">
           <button
             onClick={() => changeDate(-1)}
-            className="p-2 rounded-lg bg-[#252525] hover:bg-[#2C2C2C] text-gray-300 border border-[#333333]"
+            className="p-2 rounded-lg bg-[#161F32] hover:bg-[#2C2C2C] text-gray-300 border border-[#1F293D]"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -192,19 +192,19 @@ export default function BookingsPage() {
             type="date"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
-            className="bg-[#141414] border border-[#333333] rounded-lg px-3 py-1.5 text-xs text-white font-mono"
+            className="bg-[#141414] border border-[#1F293D] rounded-lg px-3 py-1.5 text-xs text-white font-mono"
           />
 
           <button
             onClick={() => changeDate(1)}
-            className="p-2 rounded-lg bg-[#252525] hover:bg-[#2C2C2C] text-gray-300 border border-[#333333]"
+            className="p-2 rounded-lg bg-[#161F32] hover:bg-[#2C2C2C] text-gray-300 border border-[#1F293D]"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
 
           <button
             onClick={() => setSelectedDate(new Date().toISOString().split('T')[0])}
-            className="px-3 py-1.5 rounded-lg bg-[#252525] text-[#CCFF00] font-bold text-xs hover:bg-[#2E2E2E] border border-[#333333]"
+            className="px-3 py-1.5 rounded-lg bg-[#161F32] text-[#00D2FF] font-bold text-xs hover:bg-[#1F293D] border border-[#1F293D]"
           >
             Today
           </button>
@@ -218,14 +218,14 @@ export default function BookingsPage() {
               placeholder="Search player, pod, phone..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-[#141414] border border-[#333333] rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#CCFF00]"
+              className="w-full bg-[#141414] border border-[#1F293D] rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#00D2FF]"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-[#141414] border border-[#333333] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-[#CCFF00]"
+            className="bg-[#141414] border border-[#1F293D] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-[#00D2FF]"
           >
             <option value="all">All Statuses</option>
             <option value="confirmed">Confirmed</option>
@@ -239,7 +239,7 @@ export default function BookingsPage() {
       </div>
 
       {/* Bookings List */}
-      <div className="bg-[#1E1E1E] border border-[#2E2E2E] rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-[#121826] border border-[#1F293D] rounded-2xl overflow-hidden shadow-xl">
         {filteredBookings.length === 0 ? (
           <div className="p-12 text-center text-gray-400">
             <CalendarIcon className="w-10 h-10 mx-auto mb-3 opacity-40 text-gray-500" />
@@ -247,18 +247,18 @@ export default function BookingsPage() {
             <p className="text-xs text-gray-400 mt-1">Select another day or schedule a new reservation.</p>
           </div>
         ) : (
-          <div className="divide-y divide-[#2E2E2E]">
+          <div className="divide-y divide-[#1F293D]">
             {filteredBookings.map(bk => {
               const badge = STATUS_BADGE[bk.status];
               return (
                 <div
                   key={bk.id}
-                  className="p-4 hover:bg-[#252525] transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4"
+                  className="p-4 hover:bg-[#161F32] transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-[#282828] border border-[#3A3A3A] flex flex-col items-center justify-center font-mono">
+                    <div className="w-12 h-12 rounded-xl bg-[#161F32] border border-[#3A3A3A] flex flex-col items-center justify-center font-mono">
                       <span className="text-[10px] text-gray-400 font-semibold">POD</span>
-                      <span className="font-extrabold text-[#CCFF00] text-xs">{bk.stationName}</span>
+                      <span className="font-extrabold text-[#00D2FF] text-xs">{bk.stationName}</span>
                     </div>
 
                     <div className="space-y-1">
@@ -268,7 +268,7 @@ export default function BookingsPage() {
                           {badge.label}
                         </span>
                         {bk.depositPaid && (
-                          <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#CCFF00]/15 text-[#CCFF00] border border-[#CCFF00]/40 font-mono font-bold">
+                          <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#00D2FF]/15 text-[#00D2FF] border border-[#00D2FF]/40 font-mono font-bold">
                             Deposit Paid ({formatCurrency(bk.depositCents, settings.currencySymbol)})
                           </span>
                         )}
@@ -276,7 +276,7 @@ export default function BookingsPage() {
 
                       <div className="flex flex-wrap items-center gap-3 text-xs text-gray-400">
                         <span className="flex items-center gap-1 font-mono text-white">
-                          <Clock className="w-3.5 h-3.5 text-[#CCFF00]" />
+                          <Clock className="w-3.5 h-3.5 text-[#00D2FF]" />
                           {bk.startTime} ({formatDuration(bk.durationMinutes)})
                         </span>
                         {bk.customerPhone && (
@@ -294,7 +294,7 @@ export default function BookingsPage() {
                       </div>
 
                       {bk.notes && (
-                        <p className="text-[11px] text-gray-400 italic bg-[#141414] px-2 py-1 rounded border border-[#2E2E2E] inline-block">
+                        <p className="text-[11px] text-gray-400 italic bg-[#141414] px-2 py-1 rounded border border-[#1F293D] inline-block">
                           Note: {bk.notes}
                         </p>
                       )}
@@ -307,7 +307,7 @@ export default function BookingsPage() {
                       {bk.status === 'confirmed' && (
                         <button
                           onClick={() => handleCheckIn(bk.id)}
-                          className="px-3.5 py-2 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] rounded-xl text-xs font-extrabold flex items-center gap-1.5 shadow-md shadow-[#CCFF00]/25 transition-colors"
+                          className="px-3.5 py-2 bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17] rounded-xl text-xs font-extrabold flex items-center gap-1.5 shadow-md shadow-[#00D2FF]/25 transition-colors"
                         >
                           <Play className="w-3.5 h-3.5 fill-current" />
                           Check-In Player
@@ -317,7 +317,7 @@ export default function BookingsPage() {
                       {bk.status === 'pending' && (
                         <button
                           onClick={() => updateBookingStatus(bk.id, 'confirmed')}
-                          className="px-3 py-1.5 bg-[#8A2BE2] hover:bg-[#7a20ce] text-white rounded-lg text-xs font-bold flex items-center gap-1"
+                          className="px-3 py-1.5 bg-[#6366F1] hover:bg-[#7a20ce] text-white rounded-lg text-xs font-bold flex items-center gap-1"
                         >
                           <Check className="w-3.5 h-3.5" />
                           Confirm
@@ -334,20 +334,20 @@ export default function BookingsPage() {
                               setRescheduleDuration(bk.durationMinutes);
                               setRescheduleError('');
                             }}
-                            className="px-2.5 py-1.5 bg-[#8A2BE2]/20 hover:bg-[#8A2BE2]/30 text-[#c084fc] border border-[#8A2BE2]/50 rounded-lg text-xs font-bold flex items-center gap-1"
+                            className="px-2.5 py-1.5 bg-[#6366F1]/20 hover:bg-[#6366F1]/30 text-[#818CF8] border border-[#6366F1]/50 rounded-lg text-xs font-bold flex items-center gap-1"
                           >
                             <ArrowRightLeft className="w-3 h-3" />
                             Reschedule
                           </button>
                           <button
                             onClick={() => updateBookingStatus(bk.id, 'no_show')}
-                            className="px-2.5 py-1.5 bg-[#FF0055]/20 hover:bg-[#FF0055]/30 text-[#FF0055] border border-[#FF0055]/40 rounded-lg text-xs font-medium"
+                            className="px-2.5 py-1.5 bg-[#EF4444]/20 hover:bg-[#EF4444]/30 text-[#EF4444] border border-[#EF4444]/40 rounded-lg text-xs font-medium"
                           >
                             No Show
                           </button>
                           <button
                             onClick={() => updateBookingStatus(bk.id, 'cancelled')}
-                            className="px-2.5 py-1.5 bg-[#252525] hover:bg-[#2C2C2C] text-gray-400 rounded-lg text-xs font-medium border border-[#333333]"
+                            className="px-2.5 py-1.5 bg-[#161F32] hover:bg-[#2C2C2C] text-gray-400 rounded-lg text-xs font-medium border border-[#1F293D]"
                           >
                             Cancel
                           </button>
@@ -365,10 +365,10 @@ export default function BookingsPage() {
       {/* NEW BOOKING MODAL */}
       {showNewModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-lg bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#2E2E2E]">
+          <div className="w-full max-w-lg bg-[#121826] border border-[#1F293D] rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1F293D]">
               <h3 className="font-bold text-base text-white flex items-center gap-2">
-                <CalendarIcon className="w-4 h-4 text-[#CCFF00]" />
+                <CalendarIcon className="w-4 h-4 text-[#00D2FF]" />
                 Schedule New Reservation
               </h3>
               <button onClick={() => setShowNewModal(false)} className="text-gray-400 hover:text-white">
@@ -377,7 +377,7 @@ export default function BookingsPage() {
             </div>
 
             {formError && (
-              <p className="text-xs text-[#FF0055] bg-[#FF0055]/20 p-2.5 rounded-lg border border-[#FF0055]/40 font-semibold">
+              <p className="text-xs text-[#EF4444] bg-[#EF4444]/20 p-2.5 rounded-lg border border-[#EF4444]/40 font-semibold">
                 {formError}
               </p>
             )}
@@ -388,7 +388,7 @@ export default function BookingsPage() {
                 <select
                   value={stationId}
                   onChange={(e) => setStationId(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
                   required
                 >
                   <option value="">-- Choose station pod --</option>
@@ -413,7 +413,7 @@ export default function BookingsPage() {
                       setCustomerEmail(c.email || '');
                     }
                   }}
-                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
                 >
                   <option value="">-- Or enter guest contact details below --</option>
                   {customers.map(c => (
@@ -432,7 +432,7 @@ export default function BookingsPage() {
                     placeholder="e.g. Liam Walker"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
                     required={!customerId}
                   />
                 </div>
@@ -443,7 +443,7 @@ export default function BookingsPage() {
                     placeholder="+1 (555) 000-0000"
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
                     required
                   />
                 </div>
@@ -456,7 +456,7 @@ export default function BookingsPage() {
                     type="date"
                     value={bookingDate}
                     onChange={(e) => setBookingDate(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white font-mono"
+                    className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white font-mono"
                     required
                   />
                 </div>
@@ -466,7 +466,7 @@ export default function BookingsPage() {
                     type="time"
                     value={bookingTime}
                     onChange={(e) => setBookingTime(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white font-mono"
+                    className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white font-mono"
                     required
                   />
                 </div>
@@ -475,7 +475,7 @@ export default function BookingsPage() {
                   <select
                     value={durationMinutes}
                     onChange={(e) => setDurationMinutes(Number(e.target.value))}
-                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
                   >
                     <option value={60}>1 hour</option>
                     <option value={90}>1.5 hours</option>
@@ -494,7 +494,7 @@ export default function BookingsPage() {
                     placeholder="Deposit in cents"
                     value={depositAmountCents || ''}
                     onChange={(e) => setDepositAmountCents(Number(e.target.value))}
-                    className="w-36 bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white font-mono"
+                    className="w-36 bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white font-mono"
                   />
                   <span className="text-xs text-gray-400 self-center font-mono">
                     = {formatCurrency(depositAmountCents, settings.currencySymbol)}
@@ -509,7 +509,7 @@ export default function BookingsPage() {
                   placeholder="e.g. VIP tournament setup, controller preferences"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
                 />
               </div>
 
@@ -517,13 +517,13 @@ export default function BookingsPage() {
                 <button
                   type="button"
                   onClick={() => setShowNewModal(false)}
-                  className="flex-1 py-2.5 rounded-lg bg-[#252525] text-xs font-semibold text-gray-300"
+                  className="flex-1 py-2.5 rounded-lg bg-[#161F32] text-xs font-semibold text-gray-300"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-lg bg-[#CCFF00] hover:bg-[#b8e600] text-xs font-extrabold text-[#111111] shadow-lg shadow-[#CCFF00]/25"
+                  className="flex-1 py-2.5 rounded-lg bg-[#00D2FF] hover:bg-[#00B4D8] text-xs font-extrabold text-[#0A0E17] shadow-lg shadow-[#00D2FF]/25"
                 >
                   Lock Reservation
                 </button>
@@ -536,10 +536,10 @@ export default function BookingsPage() {
       {/* RESCHEDULE BOOKING MODAL */}
       {rescheduleTarget && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#2E2E2E]">
+          <div className="w-full max-w-md bg-[#121826] border border-[#1F293D] rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1F293D]">
               <h3 className="font-bold text-base text-white flex items-center gap-2">
-                <ArrowRightLeft className="w-4 h-4 text-[#CCFF00]" />
+                <ArrowRightLeft className="w-4 h-4 text-[#00D2FF]" />
                 Reschedule Station Reservation
               </h3>
               <button onClick={() => setRescheduleTarget(null)} className="text-gray-400 hover:text-white">
@@ -549,11 +549,11 @@ export default function BookingsPage() {
 
             <p className="text-xs text-gray-300">
               Rescheduling <span className="font-bold text-white">{rescheduleTarget.customerName}</span> on{' '}
-              <span className="font-bold text-[#CCFF00]">{rescheduleTarget.stationName}</span>.
+              <span className="font-bold text-[#00D2FF]">{rescheduleTarget.stationName}</span>.
             </p>
 
             {rescheduleError && (
-              <p className="text-xs text-[#FF0055] bg-[#FF0055]/20 p-2.5 rounded-lg border border-[#FF0055]/40 font-semibold">
+              <p className="text-xs text-[#EF4444] bg-[#EF4444]/20 p-2.5 rounded-lg border border-[#EF4444]/40 font-semibold">
                 {rescheduleError}
               </p>
             )}
@@ -565,7 +565,7 @@ export default function BookingsPage() {
                   type="date"
                   value={rescheduleDate}
                   onChange={(e) => setRescheduleDate(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white font-mono"
+                  className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white font-mono"
                   required
                 />
               </div>
@@ -577,7 +577,7 @@ export default function BookingsPage() {
                     type="time"
                     value={rescheduleTime}
                     onChange={(e) => setRescheduleTime(e.target.value)}
-                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white font-mono"
+                    className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white font-mono"
                     required
                   />
                 </div>
@@ -586,7 +586,7 @@ export default function BookingsPage() {
                   <select
                     value={rescheduleDuration}
                     onChange={(e) => setRescheduleDuration(Number(e.target.value))}
-                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
                   >
                     <option value={60}>1 hour</option>
                     <option value={90}>1.5 hours</option>
@@ -601,7 +601,7 @@ export default function BookingsPage() {
             <div className="flex gap-2 pt-2">
               <button
                 onClick={() => setRescheduleTarget(null)}
-                className="flex-1 py-2.5 rounded-lg bg-[#252525] text-xs font-semibold text-gray-300"
+                className="flex-1 py-2.5 rounded-lg bg-[#161F32] text-xs font-semibold text-gray-300"
               >
                 Cancel
               </button>
@@ -614,7 +614,7 @@ export default function BookingsPage() {
                     setRescheduleTarget(null);
                   }
                 }}
-                className="flex-1 py-2.5 rounded-lg bg-[#CCFF00] hover:bg-[#b8e600] text-xs font-extrabold text-[#111111] shadow-lg shadow-[#CCFF00]/25"
+                className="flex-1 py-2.5 rounded-lg bg-[#00D2FF] hover:bg-[#00B4D8] text-xs font-extrabold text-[#0A0E17] shadow-lg shadow-[#00D2FF]/25"
               >
                 Confirm Reschedule
               </button>

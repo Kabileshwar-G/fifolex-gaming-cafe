@@ -45,10 +45,10 @@ export default function StaffPage() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#2A2A2A]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#1F293D]">
         <div>
           <h1 className="text-xl sm:text-2xl font-black text-white tracking-wide flex items-center gap-2.5">
-            <ShieldAlert className="w-5 h-5 text-[#8A2BE2]" />
+            <ShieldAlert className="w-5 h-5 text-[#6366F1]" />
             Staff Roles & Operational Audit History
           </h1>
           <p className="text-xs sm:text-sm text-[#A3A3A3] mt-1">
@@ -56,20 +56,20 @@ export default function StaffPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 p-1.5 bg-[#1E1E1E] border border-[#2A2A2A] rounded-xl text-xs">
+        <div className="flex items-center gap-2 p-1.5 bg-[#121826] border border-[#1F293D] rounded-xl text-xs">
           <span className="text-[#A3A3A3] px-2 font-medium">Logged in as:</span>
-          <span className="font-black text-[#CCFF00] font-mono">{currentStaff.name} ({currentStaff.role})</span>
+          <span className="font-black text-[#00D2FF] font-mono">{currentStaff.name} ({currentStaff.role})</span>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-2 border-b border-[#2A2A2A] pb-3">
+      <div className="flex items-center gap-2 border-b border-[#1F293D] pb-3">
         <button
           onClick={() => setActiveTab('roster')}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-colors ${
             activeTab === 'roster'
-              ? 'bg-[#CCFF00] text-[#111111] shadow-md shadow-[#CCFF00]/20'
-              : 'text-[#A3A3A3] hover:text-white hover:bg-[#1E1E1E]'
+              ? 'bg-[#00D2FF] text-[#0A0E17] shadow-md shadow-[#00D2FF]/20'
+              : 'text-[#A3A3A3] hover:text-white hover:bg-[#121826]'
           }`}
         >
           <Users className="w-3.5 h-3.5" />
@@ -79,8 +79,8 @@ export default function StaffPage() {
           onClick={() => setActiveTab('permissions')}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-colors ${
             activeTab === 'permissions'
-              ? 'bg-[#CCFF00] text-[#111111] shadow-md shadow-[#CCFF00]/20'
-              : 'text-[#A3A3A3] hover:text-white hover:bg-[#1E1E1E]'
+              ? 'bg-[#00D2FF] text-[#0A0E17] shadow-md shadow-[#00D2FF]/20'
+              : 'text-[#A3A3A3] hover:text-white hover:bg-[#121826]'
           }`}
         >
           <Key className="w-3.5 h-3.5" />
@@ -90,8 +90,8 @@ export default function StaffPage() {
           onClick={() => setActiveTab('audit')}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-colors ${
             activeTab === 'audit'
-              ? 'bg-[#CCFF00] text-[#111111] shadow-md shadow-[#CCFF00]/20'
-              : 'text-[#A3A3A3] hover:text-white hover:bg-[#1E1E1E]'
+              ? 'bg-[#00D2FF] text-[#0A0E17] shadow-md shadow-[#00D2FF]/20'
+              : 'text-[#A3A3A3] hover:text-white hover:bg-[#121826]'
           }`}
         >
           <Clock className="w-3.5 h-3.5" />
@@ -107,18 +107,18 @@ export default function StaffPage() {
               key={staff.id}
               className={`p-5 rounded-2xl border transition-all flex flex-col justify-between ${
                 staff.id === currentStaff.id
-                  ? 'bg-[#1E1E1E] border-[#CCFF00] shadow-lg shadow-[#CCFF00]/10'
-                  : 'bg-[#1E1E1E] border-[#2A2A2A] hover:border-[#333333]'
+                  ? 'bg-[#121826] border-[#00D2FF] shadow-lg shadow-[#00D2FF]/10'
+                  : 'bg-[#121826] border-[#1F293D] hover:border-[#1F293D]'
               }`}
             >
               <div className="space-y-3.5">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#8A2BE2] to-[#CCFF00] flex items-center justify-center font-black text-[#111111] text-sm">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#6366F1] to-[#00D2FF] flex items-center justify-center font-black text-[#0A0E17] text-sm">
                     {staff.name.charAt(0)}
                   </div>
                   <div>
                     <h3 className="font-bold text-white text-sm leading-tight">{staff.name}</h3>
-                    <span className="text-[11px] text-[#CCFF00] font-mono capitalize block">{staff.role.replace('_', ' ')}</span>
+                    <span className="text-[11px] text-[#00D2FF] font-mono capitalize block">{staff.role.replace('_', ' ')}</span>
                   </div>
                 </div>
 
@@ -126,23 +126,23 @@ export default function StaffPage() {
                   <span>Email:</span> <span className="text-white ml-1">{staff.email}</span>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-[#161616] border border-[#2A2A2A] text-xs flex justify-between items-center">
+                <div className="p-2.5 rounded-xl bg-[#161F32] border border-[#1F293D] text-xs flex justify-between items-center">
                   <span className="text-[#A3A3A3]">Active Shift:</span>
-                  <span className="font-mono text-[#CCFF00] font-bold flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#CCFF00] animate-pulse" />
+                  <span className="font-mono text-[#00D2FF] font-bold flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-[#00D2FF] animate-pulse" />
                     On Duty
                   </span>
                 </div>
               </div>
 
-              <div className="pt-3.5 mt-3.5 border-t border-[#2A2A2A]">
+              <div className="pt-3.5 mt-3.5 border-t border-[#1F293D]">
                 <button
                   onClick={() => switchStaffRole(staff.id)}
                   disabled={staff.id === currentStaff.id}
                   className={`w-full py-2 rounded-xl text-xs font-bold transition-colors ${
                     staff.id === currentStaff.id
-                      ? 'bg-[#CCFF00]/15 text-[#CCFF00] border border-[#CCFF00]/30 cursor-default'
-                      : 'bg-[#161616] hover:bg-[#252525] text-white border border-[#2A2A2A]'
+                      ? 'bg-[#00D2FF]/15 text-[#00D2FF] border border-[#00D2FF]/30 cursor-default'
+                      : 'bg-[#161F32] hover:bg-[#161F32] text-white border border-[#1F293D]'
                   }`}
                 >
                   {staff.id === currentStaff.id ? 'Currently Active' : 'Switch to this User'}
@@ -155,15 +155,15 @@ export default function StaffPage() {
 
       {/* TAB 2: RBAC PERMISSION MATRIX */}
       {activeTab === 'permissions' && (
-        <div className="bg-[#1E1E1E] border border-[#2A2A2A] rounded-2xl overflow-hidden shadow-xl">
-          <div className="p-4 border-b border-[#2A2A2A]">
+        <div className="bg-[#121826] border border-[#1F293D] rounded-2xl overflow-hidden shadow-xl">
+          <div className="p-4 border-b border-[#1F293D]">
             <h3 className="font-bold text-sm text-white">System Role & Security Capabilities</h3>
             <p className="text-xs text-[#A3A3A3] mt-0.5">Permissions are strictly enforced on client actions and backend mutations.</p>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#161616] text-[#A3A3A3] font-mono uppercase text-[10px] border-b border-[#2A2A2A]">
+              <thead className="bg-[#161F32] text-[#A3A3A3] font-mono uppercase text-[10px] border-b border-[#1F293D]">
                 <tr>
                   <th className="p-3.5">Capability / Operation</th>
                   {roles.map(r => (
@@ -171,7 +171,7 @@ export default function StaffPage() {
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#2A2A2A]">
+              <tbody className="divide-y divide-[#1F293D]">
                 {[
                   { key: 'view_dashboard', label: 'View Dashboard & Telemetry' },
                   { key: 'view_stations', label: 'Inspect 3D Venue & Stations' },
@@ -186,16 +186,16 @@ export default function StaffPage() {
                   { key: 'manage_staff', label: 'Staff Management & Handover' },
                   { key: 'manage_settings', label: 'Cafe Rates & 3D Layout Editor' },
                 ].map(item => (
-                  <tr key={item.key} className="hover:bg-[#252525] transition-colors">
+                  <tr key={item.key} className="hover:bg-[#161F32] transition-colors">
                     <td className="p-3.5 font-semibold text-white">{item.label}</td>
                     {roles.map(r => {
                       const allowed = (ROLE_PERMISSIONS[r] as string[]).includes(item.key);
                       return (
                         <td key={r} className="p-3.5 text-center">
                           {allowed ? (
-                            <span className="inline-block w-5 h-5 rounded-full bg-[#CCFF00]/15 text-[#CCFF00] border border-[#CCFF00]/40 text-[11px] leading-5 font-bold">✓</span>
+                            <span className="inline-block w-5 h-5 rounded-full bg-[#00D2FF]/15 text-[#00D2FF] border border-[#00D2FF]/40 text-[11px] leading-5 font-bold">✓</span>
                           ) : (
-                            <span className="inline-block w-5 h-5 rounded-full bg-[#161616] text-gray-600 text-[11px] leading-5 font-bold">—</span>
+                            <span className="inline-block w-5 h-5 rounded-full bg-[#161F32] text-gray-600 text-[11px] leading-5 font-bold">—</span>
                           )}
                         </td>
                       );
@@ -219,13 +219,13 @@ export default function StaffPage() {
                 placeholder="Search audit actions, operators, or target IDs..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-[#1E1E1E] border border-[#2A2A2A] rounded-xl pl-9 pr-3 py-2.5 text-xs text-white focus:border-[#CCFF00] outline-none"
+                className="w-full bg-[#121826] border border-[#1F293D] rounded-xl pl-9 pr-3 py-2.5 text-xs text-white focus:border-[#00D2FF] outline-none"
               />
             </div>
             <select
               value={auditFilter}
               onChange={(e) => setAuditFilter(e.target.value)}
-              className="bg-[#1E1E1E] border border-[#2A2A2A] rounded-xl px-3 py-2.5 text-xs text-white focus:border-[#CCFF00] outline-none"
+              className="bg-[#121826] border border-[#1F293D] rounded-xl px-3 py-2.5 text-xs text-white focus:border-[#00D2FF] outline-none"
             >
               <option value="all">All Event Domains</option>
               <option value="session">Gaming Sessions</option>
@@ -238,10 +238,10 @@ export default function StaffPage() {
             </select>
           </div>
 
-          <div className="bg-[#1E1E1E] border border-[#2A2A2A] rounded-2xl overflow-hidden shadow-xl">
+          <div className="bg-[#121826] border border-[#1F293D] rounded-2xl overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-[#161616] text-[#A3A3A3] font-mono uppercase text-[10px] border-b border-[#2A2A2A]">
+                <thead className="bg-[#161F32] text-[#A3A3A3] font-mono uppercase text-[10px] border-b border-[#1F293D]">
                   <tr>
                     <th className="p-3.5">Timestamp</th>
                     <th className="p-3.5">Staff Operator</th>
@@ -251,17 +251,17 @@ export default function StaffPage() {
                     <th className="p-3.5">Audit Details</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#2A2A2A] font-mono">
+                <tbody className="divide-y divide-[#1F293D] font-mono">
                   {filteredLogs.map(log => (
-                    <tr key={log.id} className="hover:bg-[#252525] transition-colors">
+                    <tr key={log.id} className="hover:bg-[#161F32] transition-colors">
                       <td className="p-3.5 text-[#A3A3A3] whitespace-nowrap">
                         {formatDateTime(log.timestamp, mounted)}
                       </td>
                       <td className="p-3.5 font-sans font-semibold text-white">
-                        {log.staffName} <span className="text-[10px] text-[#CCFF00] font-mono">({log.role})</span>
+                        {log.staffName} <span className="text-[10px] text-[#00D2FF] font-mono">({log.role})</span>
                       </td>
                       <td className="p-3.5">
-                        <span className="px-2 py-0.5 rounded bg-[#8A2BE2]/15 text-[#C084FC] border border-[#8A2BE2]/40 text-[10px] font-bold">
+                        <span className="px-2 py-0.5 rounded bg-[#6366F1]/15 text-[#C084FC] border border-[#6366F1]/40 text-[10px] font-bold">
                           {log.action}
                         </span>
                       </td>

@@ -161,12 +161,12 @@ export default function PosPage() {
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto bg-[#111111] text-white">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto bg-[#0A0E17] text-white">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#2E2E2E]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#1F293D]">
         <div>
           <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-wide flex items-center gap-2.5">
-            <UtensilsCrossed className="w-5 h-5 text-[#CCFF00]" />
+            <UtensilsCrossed className="w-5 h-5 text-[#00D2FF]" />
             Cafe Point of Sale & Food Service
           </h1>
           <p className="text-xs sm:text-sm text-gray-400 mt-1">
@@ -177,7 +177,7 @@ export default function PosPage() {
         <div className="flex items-center gap-2">
           <Link
             href="/kitchen"
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-[#8A2BE2]/20 hover:bg-[#8A2BE2]/30 border border-[#8A2BE2]/40 rounded-xl text-xs font-bold text-[#c084fc] transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-[#6366F1]/20 hover:bg-[#6366F1]/30 border border-[#6366F1]/40 rounded-xl text-xs font-bold text-[#818CF8] transition-colors"
           >
             Kitchen Display System (KDS) &rarr;
           </Link>
@@ -197,7 +197,7 @@ export default function PosPage() {
                 placeholder="Search food, energy drinks, snacks..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-[#1E1E1E] border border-[#2E2E2E] rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#CCFF00]"
+                className="w-full bg-[#121826] border border-[#1F293D] rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#00D2FF]"
               />
             </div>
 
@@ -208,8 +208,8 @@ export default function PosPage() {
                   onClick={() => setCategoryFilter(cat.key)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                     categoryFilter === cat.key
-                      ? 'bg-[#CCFF00] text-[#111111] shadow-md shadow-[#CCFF00]/20'
-                      : 'bg-[#1E1E1E] text-gray-400 hover:text-white border border-[#2E2E2E]'
+                      ? 'bg-[#00D2FF] text-[#0A0E17] shadow-md shadow-[#00D2FF]/20'
+                      : 'bg-[#121826] text-gray-400 hover:text-white border border-[#1F293D]'
                   }`}
                 >
                   {cat.label}
@@ -230,8 +230,8 @@ export default function PosPage() {
                   onClick={() => !isOutOfStock && addToCart(product)}
                   className={`p-3.5 rounded-xl border flex flex-col justify-between transition-all select-none ${
                     isOutOfStock
-                      ? 'bg-[#181818] border-[#2A2A2A] opacity-50 cursor-not-allowed'
-                      : 'bg-[#1E1E1E] border-[#2E2E2E] hover:border-[#CCFF00] hover:bg-[#252525] cursor-pointer'
+                      ? 'bg-[#181818] border-[#1F293D] opacity-50 cursor-not-allowed'
+                      : 'bg-[#121826] border-[#1F293D] hover:border-[#00D2FF] hover:bg-[#161F32] cursor-pointer'
                   }`}
                 >
                   <div>
@@ -242,15 +242,15 @@ export default function PosPage() {
                     </div>
 
                     <div className="mt-2 flex items-center justify-between text-xs">
-                      <span className="font-mono font-extrabold text-[#CCFF00] text-sm">
+                      <span className="font-mono font-extrabold text-[#00D2FF] text-sm">
                         {formatCurrency(product.priceCents, settings.currencySymbol)}
                       </span>
                       <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
                         isOutOfStock
-                          ? 'bg-[#FF0055]/20 text-[#FF0055]'
+                          ? 'bg-[#EF4444]/20 text-[#EF4444]'
                           : isLowStock
                           ? 'bg-[#FF8C00]/20 text-[#FF8C00]'
-                          : 'bg-[#2A2A2A] text-gray-300'
+                          : 'bg-[#1F293D] text-gray-300'
                       }`}>
                         {isOutOfStock ? 'Sold Out' : `${product.stockQuantity} in stock`}
                       </span>
@@ -259,7 +259,7 @@ export default function PosPage() {
 
                   <button
                     disabled={isOutOfStock}
-                    className="mt-3 w-full py-1.5 bg-[#252525] hover:bg-[#CCFF00] hover:text-[#111111] disabled:opacity-30 text-[#CCFF00] text-xs font-bold rounded-lg flex items-center justify-center gap-1 transition-colors border border-[#333333]"
+                    className="mt-3 w-full py-1.5 bg-[#161F32] hover:bg-[#00D2FF] hover:text-[#0A0E17] disabled:opacity-30 text-[#00D2FF] text-xs font-bold rounded-lg flex items-center justify-center gap-1 transition-colors border border-[#1F293D]"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     Add
@@ -271,17 +271,17 @@ export default function PosPage() {
         </div>
 
         {/* Right Column: Active Order Cart & Billing (5 Cols) */}
-        <div className="lg:col-span-5 bg-[#1E1E1E] border border-[#2E2E2E] rounded-2xl p-4 flex flex-col justify-between shadow-xl space-y-4">
+        <div className="lg:col-span-5 bg-[#121826] border border-[#1F293D] rounded-2xl p-4 flex flex-col justify-between shadow-xl space-y-4">
           <div className="space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#2E2E2E]">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1F293D]">
               <h2 className="font-bold text-sm text-white flex items-center gap-2">
-                <ShoppingBag className="w-4 h-4 text-[#CCFF00]" />
+                <ShoppingBag className="w-4 h-4 text-[#00D2FF]" />
                 Current Order ({cartItems.reduce((acc, i) => acc + i.quantity, 0)} items)
               </h2>
               {cartItems.length > 0 && (
                 <button
                   onClick={() => setCartItems([])}
-                  className="text-xs text-[#FF0055] hover:underline font-bold"
+                  className="text-xs text-[#EF4444] hover:underline font-bold"
                 >
                   Clear Cart
                 </button>
@@ -289,13 +289,13 @@ export default function PosPage() {
             </div>
 
             {/* Destination Selection (Session or Walk-in) */}
-            <div className="space-y-2 p-3 rounded-xl bg-[#141414] border border-[#2E2E2E] text-xs">
+            <div className="space-y-2 p-3 rounded-xl bg-[#141414] border border-[#1F293D] text-xs">
               <div>
                 <label className="text-[11px] text-gray-400 block mb-1">Deliver to Gaming Station (Optional)</label>
                 <select
                   value={linkedSessionId}
                   onChange={(e) => setLinkedSessionId(e.target.value)}
-                  className="w-full bg-[#1E1E1E] border border-[#333333] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#121826] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
                 >
                   <option value="">-- Over-the-counter walk-in --</option>
                   {sessions.filter(s => s.status === 'active').map(s => (
@@ -314,7 +314,7 @@ export default function PosPage() {
                     placeholder="Guest Name or Table"
                     value={walkinGuestName}
                     onChange={(e) => setWalkinGuestName(e.target.value)}
-                    className="w-full bg-[#1E1E1E] border border-[#333333] rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#121826] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
                   />
                 </div>
               )}
@@ -331,7 +331,7 @@ export default function PosPage() {
                 {cartItems.map(item => (
                   <div
                     key={item.product.id}
-                    className="p-2.5 rounded-xl bg-[#141414] border border-[#2E2E2E] flex items-center justify-between text-xs"
+                    className="p-2.5 rounded-xl bg-[#141414] border border-[#1F293D] flex items-center justify-between text-xs"
                   >
                     <div className="min-w-0 flex-1 mr-2">
                       <span className="font-bold text-white block truncate">{item.product.name}</span>
@@ -341,7 +341,7 @@ export default function PosPage() {
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <div className="flex items-center rounded-lg bg-[#222222] border border-[#333333]">
+                      <div className="flex items-center rounded-lg bg-[#222222] border border-[#1F293D]">
                         <button
                           onClick={() => updateCartQuantity(item.product.id, -1)}
                           className="p-1 hover:text-white text-gray-400"
@@ -359,13 +359,13 @@ export default function PosPage() {
                         </button>
                       </div>
 
-                      <span className="w-14 text-right font-mono font-bold text-[#CCFF00]">
+                      <span className="w-14 text-right font-mono font-bold text-[#00D2FF]">
                         {formatCurrency(item.product.priceCents * item.quantity, settings.currencySymbol)}
                       </span>
 
                       <button
                         onClick={() => removeFromCart(item.product.id)}
-                        className="text-gray-500 hover:text-[#FF0055] p-1"
+                        className="text-gray-500 hover:text-[#EF4444] p-1"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -378,7 +378,7 @@ export default function PosPage() {
 
           {/* Pricing Summary & Checkout Button */}
           {cartItems.length > 0 && (
-            <div className="space-y-3 pt-3 border-t border-[#2E2E2E]">
+            <div className="space-y-3 pt-3 border-t border-[#1F293D]">
               {/* Discount & Split Bill options */}
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div>
@@ -386,7 +386,7 @@ export default function PosPage() {
                   <select
                     value={discountPercent}
                     onChange={(e) => setDiscountPercent(Number(e.target.value))}
-                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-1.5 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-1.5 text-xs text-white"
                   >
                     <option value={0}>No Discount (0%)</option>
                     <option value={5}>VIP Member (5%)</option>
@@ -398,13 +398,13 @@ export default function PosPage() {
 
                 <div>
                   <label className="text-[11px] text-gray-400 block mb-1 flex items-center gap-1 font-bold">
-                    <Split className="w-3 h-3 text-[#CCFF00]" />
+                    <Split className="w-3 h-3 text-[#00D2FF]" />
                     Split Bill
                   </label>
                   <select
                     value={splitCount}
                     onChange={(e) => setSplitCount(Number(e.target.value))}
-                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-1.5 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-1.5 text-xs text-white"
                   >
                     <option value={1}>Single Payer (1x)</option>
                     <option value={2}>Split 2 Ways</option>
@@ -415,13 +415,13 @@ export default function PosPage() {
               </div>
 
               {/* Price Breakdown */}
-              <div className="p-3 rounded-xl bg-[#141414] border border-[#2E2E2E] text-xs space-y-1.5">
+              <div className="p-3 rounded-xl bg-[#141414] border border-[#1F293D] text-xs space-y-1.5">
                 <div className="flex justify-between text-gray-400">
                   <span>Subtotal:</span>
                   <span className="font-mono text-white">{formatCurrency(subtotalCents, settings.currencySymbol)}</span>
                 </div>
                 {discountAmountCents > 0 && (
-                  <div className="flex justify-between text-[#CCFF00]">
+                  <div className="flex justify-between text-[#00D2FF]">
                     <span>Discount ({discountPercent}%):</span>
                     <span className="font-mono">-{formatCurrency(discountAmountCents, settings.currencySymbol)}</span>
                   </div>
@@ -430,12 +430,12 @@ export default function PosPage() {
                   <span>Tax ({settings.taxRatePercent}%):</span>
                   <span className="font-mono text-white">{formatCurrency(taxAmountCents, settings.currencySymbol)}</span>
                 </div>
-                <div className="flex justify-between text-sm font-bold text-white pt-1.5 border-t border-[#2E2E2E]">
+                <div className="flex justify-between text-sm font-bold text-white pt-1.5 border-t border-[#1F293D]">
                   <span>Total Due:</span>
-                  <span className="font-mono text-[#CCFF00] font-extrabold">{formatCurrency(grandTotalCents, settings.currencySymbol)}</span>
+                  <span className="font-mono text-[#00D2FF] font-extrabold">{formatCurrency(grandTotalCents, settings.currencySymbol)}</span>
                 </div>
                 {splitCount > 1 && (
-                  <div className="flex justify-between text-xs text-[#c084fc] font-bold pt-1 border-t border-[#2E2E2E]">
+                  <div className="flex justify-between text-xs text-[#818CF8] font-bold pt-1 border-t border-[#1F293D]">
                     <span>Each Player ({splitCount}x):</span>
                     <span className="font-mono">{formatCurrency(splitAmountCents, settings.currencySymbol)}</span>
                   </div>
@@ -448,7 +448,7 @@ export default function PosPage() {
                 <select
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#141414] border border-[#1F293D] rounded-lg p-2 text-xs text-white"
                 >
                   {settings.acceptedPaymentMethods.map(pm => (
                     <option key={pm} value={pm}>{pm}</option>
@@ -459,7 +459,7 @@ export default function PosPage() {
               {/* Checkout Action Button */}
               <button
                 onClick={handleCheckout}
-                className="w-full py-3 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] font-extrabold text-xs rounded-xl shadow-lg shadow-[#CCFF00]/25 flex items-center justify-center gap-2 transition-all"
+                className="w-full py-3 bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17] font-extrabold text-xs rounded-xl shadow-lg shadow-[#00D2FF]/25 flex items-center justify-center gap-2 transition-all"
               >
                 <CreditCard className="w-4 h-4" />
                 Charge {formatCurrency(grandTotalCents, settings.currencySymbol)} & Print Receipt

@@ -17,11 +17,11 @@ import {
 } from 'lucide-react';
 
 const STATUS_TICKET: Record<OrderStatus, { label: string; bg: string; text: string; border: string }> = {
-  new: { label: 'New Ticket', bg: 'bg-[#FF0055]/20', text: 'text-[#FF0055]', border: 'border-[#FF0055]/50' },
+  new: { label: 'New Ticket', bg: 'bg-[#EF4444]/20', text: 'text-[#EF4444]', border: 'border-[#EF4444]/50' },
   preparing: { label: 'Preparing', bg: 'bg-[#FF8C00]/20', text: 'text-[#FF8C00]', border: 'border-[#FF8C00]/50' },
-  ready: { label: 'Ready for Pickup', bg: 'bg-[#CCFF00]/15', text: 'text-[#CCFF00]', border: 'border-[#CCFF00]/40' },
-  served: { label: 'Served', bg: 'bg-[#252525]', text: 'text-gray-400', border: 'border-[#333333]' },
-  cancelled: { label: 'Cancelled', bg: 'bg-[#252525]', text: 'text-gray-500', border: 'border-[#333333]' },
+  ready: { label: 'Ready for Pickup', bg: 'bg-[#00D2FF]/15', text: 'text-[#00D2FF]', border: 'border-[#00D2FF]/40' },
+  served: { label: 'Served', bg: 'bg-[#161F32]', text: 'text-gray-400', border: 'border-[#1F293D]' },
+  cancelled: { label: 'Cancelled', bg: 'bg-[#161F32]', text: 'text-gray-500', border: 'border-[#1F293D]' },
 };
 
 export default function KitchenPage() {
@@ -32,12 +32,12 @@ export default function KitchenPage() {
   const pastOrders = orders.filter(o => o.status === 'served' || o.status === 'cancelled');
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto bg-[#111111] text-white">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto bg-[#0A0E17] text-white">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#2E2E2E]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#1F293D]">
         <div>
           <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-wide flex items-center gap-2.5">
-            <ChefHat className="w-5 h-5 text-[#CCFF00]" />
+            <ChefHat className="w-5 h-5 text-[#00D2FF]" />
             Kitchen Display System (KDS) & Bar Counter
           </h1>
           <p className="text-xs sm:text-sm text-gray-400 mt-1">
@@ -46,7 +46,7 @@ export default function KitchenPage() {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="px-3 py-1.5 rounded-xl bg-[#CCFF00]/15 border border-[#CCFF00]/40 text-[#CCFF00] text-xs font-mono font-extrabold">
+          <span className="px-3 py-1.5 rounded-xl bg-[#00D2FF]/15 border border-[#00D2FF]/40 text-[#00D2FF] text-xs font-mono font-extrabold">
             {activeOrders.length} Active Tickets
           </span>
         </div>
@@ -55,12 +55,12 @@ export default function KitchenPage() {
       {/* ACTIVE TICKETS GRID */}
       <div>
         <h2 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
-          <Clock className="w-4 h-4 text-[#CCFF00]" />
+          <Clock className="w-4 h-4 text-[#00D2FF]" />
           Live Orders Queue
         </h2>
 
         {activeOrders.length === 0 ? (
-          <div className="p-12 text-center bg-[#1E1E1E] border border-[#2E2E2E] rounded-2xl text-gray-400">
+          <div className="p-12 text-center bg-[#121826] border border-[#1F293D] rounded-2xl text-gray-400">
             <Utensils className="w-10 h-10 mx-auto mb-2 opacity-30 text-gray-500" />
             <p className="font-bold text-white">Kitchen Queue Clean!</p>
             <p className="text-xs text-gray-400 mt-1">No pending food or drink preparation orders.</p>
@@ -74,19 +74,19 @@ export default function KitchenPage() {
               return (
                 <div
                   key={order.id}
-                  className={`p-4 rounded-2xl border flex flex-col justify-between transition-all bg-[#1E1E1E] ${
+                  className={`p-4 rounded-2xl border flex flex-col justify-between transition-all bg-[#121826] ${
                     order.status === 'new'
-                      ? 'border-[#FF0055]/70 shadow-lg shadow-[#FF0055]/20'
+                      ? 'border-[#EF4444]/70 shadow-lg shadow-[#EF4444]/20'
                       : order.status === 'preparing'
                       ? 'border-[#FF8C00]/70 shadow-lg shadow-[#FF8C00]/20'
-                      : 'border-[#CCFF00]/70 shadow-lg shadow-[#CCFF00]/20'
+                      : 'border-[#00D2FF]/70 shadow-lg shadow-[#00D2FF]/20'
                   }`}
                 >
                   <div className="space-y-3">
-                    <div className="flex items-start justify-between pb-2 border-b border-[#2E2E2E]">
+                    <div className="flex items-start justify-between pb-2 border-b border-[#1F293D]">
                       <div>
                         <span className="font-mono font-extrabold text-white text-base block">{order.orderNumber}</span>
-                        <span className="text-xs font-bold text-[#CCFF00]">{order.stationName || 'Bar Counter'}</span>
+                        <span className="text-xs font-bold text-[#00D2FF]">{order.stationName || 'Bar Counter'}</span>
                       </div>
                       <div className="text-right">
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase tracking-wider ${ticketStyle.bg} ${ticketStyle.text} ${ticketStyle.border}`}>
@@ -104,11 +104,11 @@ export default function KitchenPage() {
                     </div>
 
                     {/* Order Items List */}
-                    <div className="space-y-1.5 pt-2 border-t border-[#2E2E2E]">
+                    <div className="space-y-1.5 pt-2 border-t border-[#1F293D]">
                       {order.items.map((item, idx) => (
                         <div key={idx} className="flex justify-between items-center text-xs">
                           <span className="font-medium text-white">
-                            <span className="font-mono font-extrabold text-[#CCFF00] mr-2">{item.quantity}x</span>
+                            <span className="font-mono font-extrabold text-[#00D2FF] mr-2">{item.quantity}x</span>
                             {item.productName}
                           </span>
                         </div>
@@ -117,7 +117,7 @@ export default function KitchenPage() {
                   </div>
 
                   {/* Ticket Lifecycle Progression Buttons */}
-                  <div className="pt-4 mt-4 border-t border-[#2E2E2E]">
+                  <div className="pt-4 mt-4 border-t border-[#1F293D]">
                     {order.status === 'new' && (
                       <button
                         onClick={() => updateOrderStatus(order.id, 'preparing')}
@@ -130,7 +130,7 @@ export default function KitchenPage() {
                     {order.status === 'preparing' && (
                       <button
                         onClick={() => updateOrderStatus(order.id, 'ready')}
-                        className="w-full py-2 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] font-extrabold text-xs rounded-xl shadow-md transition-colors"
+                        className="w-full py-2 bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17] font-extrabold text-xs rounded-xl shadow-md transition-colors"
                       >
                         Mark Ready for Dispatch
                       </button>
@@ -139,7 +139,7 @@ export default function KitchenPage() {
                     {order.status === 'ready' && (
                       <button
                         onClick={() => updateOrderStatus(order.id, 'served')}
-                        className="w-full py-2 bg-[#8A2BE2] hover:bg-[#7a20ce] text-white font-extrabold text-xs rounded-xl shadow-md transition-colors"
+                        className="w-full py-2 bg-[#6366F1] hover:bg-[#7a20ce] text-white font-extrabold text-xs rounded-xl shadow-md transition-colors"
                       >
                         Delivered to Player (Serve)
                       </button>
@@ -153,15 +153,15 @@ export default function KitchenPage() {
       </div>
 
       {/* COMPLETED ORDERS LOG */}
-      <div className="bg-[#1E1E1E] border border-[#2E2E2E] rounded-2xl overflow-hidden shadow-xl mt-8">
-        <div className="p-4 border-b border-[#2E2E2E] flex items-center justify-between">
+      <div className="bg-[#121826] border border-[#1F293D] rounded-2xl overflow-hidden shadow-xl mt-8">
+        <div className="p-4 border-b border-[#1F293D] flex items-center justify-between">
           <h3 className="font-bold text-sm text-white">Recently Served Orders</h3>
-          <span className="text-xs text-[#CCFF00] font-mono font-bold">{pastOrders.length} records</span>
+          <span className="text-xs text-[#00D2FF] font-mono font-bold">{pastOrders.length} records</span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#181818] text-gray-400 font-mono uppercase text-[10px] border-b border-[#2E2E2E]">
+            <thead className="bg-[#181818] text-gray-400 font-mono uppercase text-[10px] border-b border-[#1F293D]">
               <tr>
                 <th className="p-3">Order #</th>
                 <th className="p-3">Location</th>
@@ -171,21 +171,21 @@ export default function KitchenPage() {
                 <th className="p-3">Total</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#2E2E2E]">
+            <tbody className="divide-y divide-[#1F293D]">
               {pastOrders.map(po => (
-                <tr key={po.id} className="hover:bg-[#252525] transition-colors">
-                  <td className="p-3 font-mono font-bold text-[#CCFF00]">{po.orderNumber}</td>
+                <tr key={po.id} className="hover:bg-[#161F32] transition-colors">
+                  <td className="p-3 font-mono font-bold text-[#00D2FF]">{po.orderNumber}</td>
                   <td className="p-3 font-semibold text-white">{po.stationName || 'Counter'}</td>
                   <td className="p-3 text-gray-300">{po.customerName}</td>
                   <td className="p-3 text-gray-400">
                     {po.items.map(i => `${i.quantity}x ${i.productName}`).join(', ')}
                   </td>
                   <td className="p-3 capitalize">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#252525] text-gray-300 border border-[#333333]">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#161F32] text-gray-300 border border-[#1F293D]">
                       {po.status}
                     </span>
                   </td>
-                  <td className="p-3 font-mono font-bold text-[#CCFF00]">
+                  <td className="p-3 font-mono font-bold text-[#00D2FF]">
                     {formatCurrency(po.totalCents, settings.currencySymbol)}
                   </td>
                 </tr>

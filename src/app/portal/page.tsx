@@ -133,23 +133,23 @@ export default function CustomerPortalPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#111111] text-white flex flex-col font-sans">
+    <div className="min-h-screen bg-[#0A0E17] text-white flex flex-col font-sans">
       {/* Customer Header */}
-      <header className="h-16 px-4 sm:px-8 border-b border-[#2A2A2A] bg-[#161616]/95 backdrop-blur flex items-center justify-between sticky top-0 z-30">
+      <header className="h-16 px-4 sm:px-8 border-b border-[#1F293D] bg-[#161F32]/95 backdrop-blur flex items-center justify-between sticky top-0 z-30">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[#CCFF00] flex items-center justify-center font-black text-[#111111] shadow-lg shadow-[#CCFF00]/20">
-            <Layers className="w-4 h-4 text-[#111111]" />
+          <div className="w-8 h-8 rounded-lg bg-[#00D2FF] flex items-center justify-center font-black text-[#0A0E17] shadow-lg shadow-[#00D2FF]/20">
+            <Layers className="w-4 h-4 text-[#0A0E17]" />
           </div>
           <div>
             <span className="font-black text-base text-white tracking-wide">FIFOLEX</span>
-            <span className="text-[10px] text-[#CCFF00] font-mono tracking-widest block uppercase font-bold">Player Sanctuary</span>
+            <span className="text-[10px] text-[#00D2FF] font-mono tracking-widest block uppercase font-bold">Player Sanctuary</span>
           </div>
         </div>
 
         <div className="flex items-center gap-3 text-xs">
           <Link
             href="/"
-            className="px-3 py-1.5 rounded-xl bg-[#1E1E1E] hover:bg-[#252525] text-white border border-[#2A2A2A] transition-colors font-bold"
+            className="px-3 py-1.5 rounded-xl bg-[#121826] hover:bg-[#161F32] text-white border border-[#1F293D] transition-colors font-bold"
           >
             Staff Dashboard &rarr;
           </Link>
@@ -157,8 +157,8 @@ export default function CustomerPortalPage() {
       </header>
 
       {/* Hero Banner */}
-      <div className="p-6 sm:p-10 border-b border-[#2A2A2A] bg-[#161616] text-center max-w-4xl mx-auto w-full space-y-3.5 my-4 rounded-3xl">
-        <span className="px-3 py-1 rounded-full text-xs font-mono font-black bg-[#CCFF00]/15 text-[#CCFF00] border border-[#CCFF00]/30 inline-block">
+      <div className="p-6 sm:p-10 border-b border-[#1F293D] bg-[#161F32] text-center max-w-4xl mx-auto w-full space-y-3.5 my-4 rounded-3xl">
+        <span className="px-3 py-1 rounded-full text-xs font-mono font-black bg-[#00D2FF]/15 text-[#00D2FF] border border-[#00D2FF]/30 inline-block">
           LIVE VENUE PORTAL
         </span>
         <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
@@ -183,8 +183,8 @@ export default function CustomerPortalPage() {
                 onClick={() => setActiveTab(tab.key as any)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black transition-all ${
                   activeTab === tab.key
-                    ? 'bg-[#CCFF00] text-[#111111] shadow-lg shadow-[#CCFF00]/25'
-                    : 'bg-[#1E1E1E] text-white hover:text-[#CCFF00] border border-[#2A2A2A]'
+                    ? 'bg-[#00D2FF] text-[#0A0E17] shadow-lg shadow-[#00D2FF]/25'
+                    : 'bg-[#121826] text-white hover:text-[#00D2FF] border border-[#1F293D]'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -202,8 +202,8 @@ export default function CustomerPortalPage() {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="text-base font-black text-white">Live Station Pod Availability</h2>
-              <span className="text-xs text-[#CCFF00] font-mono font-bold flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#CCFF00] animate-pulse" />
+              <span className="text-xs text-[#00D2FF] font-mono font-bold flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#00D2FF] animate-pulse" />
                 {availableStations.length} Pods Free Right Now
               </span>
             </div>
@@ -216,8 +216,8 @@ export default function CustomerPortalPage() {
                     key={st.id}
                     className={`p-5 rounded-2xl border transition-all flex flex-col justify-between ${
                       isAvailable
-                        ? 'bg-[#1E1E1E] border-[#2A2A2A] hover:border-[#CCFF00] shadow-md'
-                        : 'bg-[#161616] border-[#2A2A2A] opacity-60'
+                        ? 'bg-[#121826] border-[#1F293D] hover:border-[#00D2FF] shadow-md'
+                        : 'bg-[#161F32] border-[#1F293D] opacity-60'
                     }`}
                   >
                     <div className="space-y-2.5">
@@ -228,8 +228,8 @@ export default function CustomerPortalPage() {
                         </div>
                         <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider ${
                           isAvailable
-                            ? 'bg-[#CCFF00]/15 text-[#CCFF00] border border-[#CCFF00]/40'
-                            : 'bg-[#161616] text-[#A3A3A3]'
+                            ? 'bg-[#00D2FF]/15 text-[#00D2FF] border border-[#00D2FF]/40'
+                            : 'bg-[#161F32] text-[#A3A3A3]'
                         }`}>
                           {isAvailable ? 'Available' : 'Occupied'}
                         </span>
@@ -241,7 +241,7 @@ export default function CustomerPortalPage() {
                       </div>
                     </div>
 
-                    <div className="pt-3.5 mt-3.5 border-t border-[#2A2A2A] flex items-center justify-between">
+                    <div className="pt-3.5 mt-3.5 border-t border-[#1F293D] flex items-center justify-between">
                       <span className="font-mono font-black text-white text-sm">
                         {formatCurrency(st.hourlyRateCents, settings.currencySymbol)}/hr
                       </span>
@@ -251,7 +251,7 @@ export default function CustomerPortalPage() {
                             setSelectedStationId(st.id);
                             setActiveTab('book');
                           }}
-                          className="px-3.5 py-1.5 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] rounded-xl text-xs font-black shadow-md shadow-[#CCFF00]/15"
+                          className="px-3.5 py-1.5 bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17] rounded-xl text-xs font-black shadow-md shadow-[#00D2FF]/15"
                         >
                           Book Slot &rarr;
                         </button>
@@ -266,15 +266,15 @@ export default function CustomerPortalPage() {
 
         {/* TAB 2: BOOK A SESSION */}
         {activeTab === 'book' && (
-          <div className="max-w-xl mx-auto bg-[#1E1E1E] border border-[#2A2A2A] rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
-            <div className="pb-3 border-b border-[#2A2A2A] text-center">
+          <div className="max-w-xl mx-auto bg-[#121826] border border-[#1F293D] rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
+            <div className="pb-3 border-b border-[#1F293D] text-center">
               <h2 className="text-xl font-black text-white">Online Slot Reservation</h2>
               <p className="text-xs text-[#A3A3A3] mt-1">Book your desired station and secure your tournament rig.</p>
             </div>
 
             {bookingSuccess ? (
-              <div className="p-6 text-center space-y-3 bg-[#CCFF00]/10 border border-[#CCFF00]/30 rounded-xl">
-                <CheckCircle2 className="w-12 h-12 text-[#CCFF00] mx-auto" />
+              <div className="p-6 text-center space-y-3 bg-[#00D2FF]/10 border border-[#00D2FF]/30 rounded-xl">
+                <CheckCircle2 className="w-12 h-12 text-[#00D2FF] mx-auto" />
                 <h3 className="text-base font-black text-white">Reservation Confirmed!</h3>
                 <p className="text-xs text-gray-300">
                   Your gaming pod is reserved for {bookingDate} at {bookingTime}. Show this screen or provide your phone number at reception.
@@ -284,7 +284,7 @@ export default function CustomerPortalPage() {
                     setBookingSuccess(false);
                     setActiveTab('browse');
                   }}
-                  className="mt-2 px-5 py-2.5 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] rounded-xl text-xs font-black"
+                  className="mt-2 px-5 py-2.5 bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17] rounded-xl text-xs font-black"
                 >
                   Back to Stations
                 </button>
@@ -292,7 +292,7 @@ export default function CustomerPortalPage() {
             ) : (
               <form onSubmit={handleBookSession} className="space-y-4">
                 {bookingError && (
-                  <p className="text-xs text-[#FF0055] bg-[#FF0055]/15 p-3 rounded-xl border border-[#FF0055]/40 font-bold">
+                  <p className="text-xs text-[#EF4444] bg-[#EF4444]/15 p-3 rounded-xl border border-[#EF4444]/40 font-bold">
                     {bookingError}
                   </p>
                 )}
@@ -302,7 +302,7 @@ export default function CustomerPortalPage() {
                   <select
                     value={selectedStationId}
                     onChange={(e) => setSelectedStationId(e.target.value)}
-                    className="w-full bg-[#161616] border border-[#2A2A2A] rounded-xl p-2.5 text-xs text-white focus:border-[#CCFF00] outline-none"
+                    className="w-full bg-[#161F32] border border-[#1F293D] rounded-xl p-2.5 text-xs text-white focus:border-[#00D2FF] outline-none"
                     required
                   >
                     <option value="">-- Choose station pod --</option>
@@ -322,7 +322,7 @@ export default function CustomerPortalPage() {
                       placeholder="e.g. Kai Jensen"
                       value={customerName}
                       onChange={(e) => setCustomerName(e.target.value)}
-                      className="w-full bg-[#161616] border border-[#2A2A2A] rounded-xl p-2.5 text-xs text-white focus:border-[#CCFF00] outline-none"
+                      className="w-full bg-[#161F32] border border-[#1F293D] rounded-xl p-2.5 text-xs text-white focus:border-[#00D2FF] outline-none"
                       required
                     />
                   </div>
@@ -333,7 +333,7 @@ export default function CustomerPortalPage() {
                       placeholder="+1 (555) 000-0000"
                       value={customerPhone}
                       onChange={(e) => setCustomerPhone(e.target.value)}
-                      className="w-full bg-[#161616] border border-[#2A2A2A] rounded-xl p-2.5 text-xs text-white focus:border-[#CCFF00] outline-none"
+                      className="w-full bg-[#161F32] border border-[#1F293D] rounded-xl p-2.5 text-xs text-white focus:border-[#00D2FF] outline-none"
                       required
                     />
                   </div>
@@ -346,7 +346,7 @@ export default function CustomerPortalPage() {
                       type="date"
                       value={bookingDate}
                       onChange={(e) => setBookingDate(e.target.value)}
-                      className="w-full bg-[#161616] border border-[#2A2A2A] rounded-xl p-2 text-xs text-white font-mono focus:border-[#CCFF00] outline-none"
+                      className="w-full bg-[#161F32] border border-[#1F293D] rounded-xl p-2 text-xs text-white font-mono focus:border-[#00D2FF] outline-none"
                       required
                     />
                   </div>
@@ -356,7 +356,7 @@ export default function CustomerPortalPage() {
                       type="time"
                       value={bookingTime}
                       onChange={(e) => setBookingTime(e.target.value)}
-                      className="w-full bg-[#161616] border border-[#2A2A2A] rounded-xl p-2 text-xs text-white font-mono focus:border-[#CCFF00] outline-none"
+                      className="w-full bg-[#161F32] border border-[#1F293D] rounded-xl p-2 text-xs text-white font-mono focus:border-[#00D2FF] outline-none"
                       required
                     />
                   </div>
@@ -365,7 +365,7 @@ export default function CustomerPortalPage() {
                     <select
                       value={durationMinutes}
                       onChange={(e) => setDurationMinutes(Number(e.target.value))}
-                      className="w-full bg-[#161616] border border-[#2A2A2A] rounded-xl p-2 text-xs text-white focus:border-[#CCFF00] outline-none"
+                      className="w-full bg-[#161F32] border border-[#1F293D] rounded-xl p-2 text-xs text-white focus:border-[#00D2FF] outline-none"
                     >
                       <option value={60}>1 hour</option>
                       <option value={120}>2 hours</option>
@@ -376,7 +376,7 @@ export default function CustomerPortalPage() {
                 </div>
 
                 {selectedStation && (
-                  <div className="p-3.5 rounded-xl bg-[#161616] border border-[#2A2A2A] text-xs space-y-1.5">
+                  <div className="p-3.5 rounded-xl bg-[#161F32] border border-[#1F293D] text-xs space-y-1.5">
                     <div className="flex justify-between text-[#A3A3A3]">
                       <span>Rate:</span>
                       <span>{formatCurrency(selectedStation.hourlyRateCents, settings.currencySymbol)}/hr</span>
@@ -387,7 +387,7 @@ export default function CustomerPortalPage() {
                         {formatCurrency((durationMinutes / 60) * selectedStation.hourlyRateCents, settings.currencySymbol)}
                       </span>
                     </div>
-                    <div className="flex justify-between text-[#CCFF00] font-black pt-1.5 border-t border-[#2A2A2A]">
+                    <div className="flex justify-between text-[#00D2FF] font-black pt-1.5 border-t border-[#1F293D]">
                       <span>Required Deposit (50%):</span>
                       <span className="font-mono">
                         {formatCurrency(Math.round(((durationMinutes / 60) * selectedStation.hourlyRateCents) * 0.5), settings.currencySymbol)}
@@ -398,7 +398,7 @@ export default function CustomerPortalPage() {
 
                 <button
                   type="submit"
-                  className="w-full py-3 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] font-black text-xs rounded-xl shadow-lg shadow-[#CCFF00]/20 transition-all"
+                  className="w-full py-3 bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17] font-black text-xs rounded-xl shadow-lg shadow-[#00D2FF]/20 transition-all"
                 >
                   Pay Deposit & Confirm Slot
                 </button>
@@ -410,7 +410,7 @@ export default function CustomerPortalPage() {
         {/* TAB 3: ORDER SNACKS TO SEAT */}
         {activeTab === 'snacks' && (
           <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#2A2A2A]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#1F293D]">
               <div>
                 <h2 className="text-base font-black text-white">Order Refreshments to Your Station</h2>
                 <p className="text-xs text-[#A3A3A3]">Never leave your game. Staff will deliver items straight to your pod.</p>
@@ -421,7 +421,7 @@ export default function CustomerPortalPage() {
                 <select
                   value={seatDestination}
                   onChange={(e) => setSeatDestination(e.target.value)}
-                  className="bg-[#1E1E1E] border border-[#2A2A2A] rounded-xl px-3 py-1.5 text-xs text-[#CCFF00] font-mono font-bold focus:border-[#CCFF00] outline-none"
+                  className="bg-[#121826] border border-[#1F293D] rounded-xl px-3 py-1.5 text-xs text-[#00D2FF] font-mono font-bold focus:border-[#00D2FF] outline-none"
                 >
                   {stations.map(st => (
                     <option key={st.id} value={st.name}>{st.name} ({st.type})</option>
@@ -431,7 +431,7 @@ export default function CustomerPortalPage() {
             </div>
 
             {orderSubmitted && (
-              <div className="p-4 bg-[#CCFF00]/15 border border-[#CCFF00]/30 rounded-xl text-xs text-[#CCFF00] flex items-center justify-between font-bold">
+              <div className="p-4 bg-[#00D2FF]/15 border border-[#00D2FF]/30 rounded-xl text-xs text-[#00D2FF] flex items-center justify-between font-bold">
                 <span>Order dispatched to the kitchen! Your refreshments will arrive shortly at {seatDestination}.</span>
                 <button onClick={() => setOrderSubmitted(false)} className="underline text-white font-black">Order More</button>
               </div>
@@ -439,18 +439,18 @@ export default function CustomerPortalPage() {
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
               {products.map(p => (
-                <div key={p.id} className="p-4 rounded-2xl bg-[#1E1E1E] border border-[#2A2A2A] hover:border-[#333333] transition-all flex flex-col justify-between">
+                <div key={p.id} className="p-4 rounded-2xl bg-[#121826] border border-[#1F293D] hover:border-[#1F293D] transition-all flex flex-col justify-between">
                   <div>
                     <span className="font-bold text-white text-xs block leading-tight">{p.name}</span>
                     <span className="text-[10px] text-[#A3A3A3] capitalize">{p.category}</span>
                   </div>
-                  <div className="mt-3 flex items-center justify-between pt-2 border-t border-[#2A2A2A]">
-                    <span className="font-mono text-[#CCFF00] font-black text-xs">
+                  <div className="mt-3 flex items-center justify-between pt-2 border-t border-[#1F293D]">
+                    <span className="font-mono text-[#00D2FF] font-black text-xs">
                       {formatCurrency(p.priceCents, settings.currencySymbol)}
                     </span>
                     <button
                       onClick={() => handleOrderSnack(p)}
-                      className="px-2.5 py-1 bg-[#8A2BE2] hover:bg-[#7822c9] text-white rounded-lg text-xs font-bold"
+                      className="px-2.5 py-1 bg-[#6366F1] hover:bg-[#4F46E5] text-white rounded-lg text-xs font-bold"
                     >
                       + Add
                     </button>
@@ -460,10 +460,10 @@ export default function CustomerPortalPage() {
             </div>
 
             {orderedItems.length > 0 && (
-              <div className="fixed bottom-6 right-6 p-5 bg-[#1E1E1E] border-2 border-[#CCFF00] rounded-2xl shadow-2xl z-40 max-w-sm w-full space-y-3.5">
+              <div className="fixed bottom-6 right-6 p-5 bg-[#121826] border-2 border-[#00D2FF] rounded-2xl shadow-2xl z-40 max-w-sm w-full space-y-3.5">
                 <div className="flex items-center justify-between text-xs font-black text-white">
                   <span>Selected Snacks ({orderedItems.reduce((acc, i) => acc + i.quantity, 0)})</span>
-                  <span className="text-[#CCFF00] font-mono">
+                  <span className="text-[#00D2FF] font-mono">
                     {formatCurrency(orderedItems.reduce((acc, i) => acc + i.quantity * i.priceCents, 0), settings.currencySymbol)}
                   </span>
                 </div>
@@ -477,7 +477,7 @@ export default function CustomerPortalPage() {
                 </div>
                 <button
                   onClick={handleSendOrder}
-                  className="w-full py-2.5 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] rounded-xl text-xs font-black shadow-lg shadow-[#CCFF00]/25"
+                  className="w-full py-2.5 bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17] rounded-xl text-xs font-black shadow-lg shadow-[#00D2FF]/25"
                 >
                   Send Order to Station {seatDestination}
                 </button>
@@ -488,13 +488,13 @@ export default function CustomerPortalPage() {
 
         {/* TAB 4: LEAVE FEEDBACK */}
         {activeTab === 'feedback' && (
-          <div className="max-w-md mx-auto bg-[#1E1E1E] border border-[#2A2A2A] rounded-2xl p-6 sm:p-8 shadow-2xl space-y-4">
+          <div className="max-w-md mx-auto bg-[#121826] border border-[#1F293D] rounded-2xl p-6 sm:p-8 shadow-2xl space-y-4">
             <h2 className="text-lg font-black text-white text-center">Post-Visit Player Feedback</h2>
             <p className="text-xs text-[#A3A3A3] text-center">How was your session? We tune our rigs based on your feedback.</p>
 
             {feedbackSubmitted ? (
-              <div className="p-6 text-center space-y-2 bg-[#CCFF00]/10 border border-[#CCFF00]/30 rounded-xl">
-                <CheckCircle2 className="w-10 h-10 text-[#CCFF00] mx-auto" />
+              <div className="p-6 text-center space-y-2 bg-[#00D2FF]/10 border border-[#00D2FF]/30 rounded-xl">
+                <CheckCircle2 className="w-10 h-10 text-[#00D2FF] mx-auto" />
                 <h3 className="font-black text-white text-sm">Thank You for Your Feedback!</h3>
                 <p className="text-xs text-gray-300">+50 bonus loyalty points added to your member account.</p>
               </div>
@@ -508,7 +508,7 @@ export default function CustomerPortalPage() {
                         key={star}
                         type="button"
                         onClick={() => setRating(star)}
-                        className={`text-2xl transition-transform ${star <= rating ? 'text-[#CCFF00] scale-110' : 'text-gray-600'}`}
+                        className={`text-2xl transition-transform ${star <= rating ? 'text-[#00D2FF] scale-110' : 'text-gray-600'}`}
                       >
                         ★
                       </button>
@@ -523,14 +523,14 @@ export default function CustomerPortalPage() {
                     placeholder="Tell us about the displays, game latency, atmosphere, or snack service..."
                     value={feedbackText}
                     onChange={(e) => setFeedbackText(e.target.value)}
-                    className="w-full bg-[#161616] border border-[#2A2A2A] rounded-xl p-2.5 text-xs text-white focus:border-[#CCFF00] outline-none"
+                    className="w-full bg-[#161F32] border border-[#1F293D] rounded-xl p-2.5 text-xs text-white focus:border-[#00D2FF] outline-none"
                     required
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-2.5 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] rounded-xl text-xs font-black shadow-lg shadow-[#CCFF00]/20"
+                  className="w-full py-2.5 bg-[#00D2FF] hover:bg-[#00B4D8] text-[#0A0E17] rounded-xl text-xs font-black shadow-lg shadow-[#00D2FF]/20"
                 >
                   Submit Review
                 </button>
