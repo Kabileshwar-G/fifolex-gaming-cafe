@@ -2,41 +2,39 @@
 
 import React, { useState } from 'react';
 import { useApp } from '@/store/AppContext';
-import { useMounted } from '@/lib/useMounted';
-import { Booking, BookingStatus, StationType } from '@/types';
+import { Booking, BookingStatus } from '@/types';
 import { formatCurrency, formatDuration } from '@/lib/formatters';
 import { hasPermission } from '@/lib/permissions';
 import {
   Calendar as CalendarIcon,
+  Clock,
+  User,
   Plus,
+  Check,
+  X,
   Search,
   Filter,
   CheckCircle2,
-  Clock,
-  User,
-  Phone,
-  Mail,
-  X,
-  AlertCircle,
+  AlertTriangle,
   Play,
   RotateCcw,
-  Check,
   ChevronLeft,
   ChevronRight,
+  Phone,
+  Mail,
   ArrowRightLeft
 } from 'lucide-react';
 
 const STATUS_BADGE: Record<BookingStatus, { label: string; bg: string; text: string; border: string }> = {
-  pending: { label: 'Pending', bg: 'bg-amber-950/40', text: 'text-amber-400', border: 'border-amber-800/40' },
-  confirmed: { label: 'Confirmed', bg: 'bg-emerald-950/40', text: 'text-emerald-400', border: 'border-emerald-800/40' },
-  checked_in: { label: 'Checked In', bg: 'bg-cyan-950/40', text: 'text-cyan-400', border: 'border-cyan-800/40' },
-  completed: { label: 'Completed', bg: 'bg-purple-950/40', text: 'text-purple-400', border: 'border-purple-800/40' },
-  cancelled: { label: 'Cancelled', bg: 'bg-gray-800/60', text: 'text-gray-400', border: 'border-gray-700/40' },
-  no_show: { label: 'No Show', bg: 'bg-rose-950/40', text: 'text-rose-400', border: 'border-rose-800/40' },
+  confirmed: { label: 'Confirmed', bg: 'bg-[#CCFF00]/15', text: 'text-[#CCFF00]', border: 'border-[#CCFF00]/40' },
+  pending: { label: 'Pending', bg: 'bg-[#FF8C00]/20', text: 'text-[#FF8C00]', border: 'border-[#FF8C00]/40' },
+  checked_in: { label: 'Checked In', bg: 'bg-[#8A2BE2]/20', text: 'text-[#c084fc]', border: 'border-[#8A2BE2]/40' },
+  completed: { label: 'Completed', bg: 'bg-gray-800/60', text: 'text-gray-300', border: 'border-gray-700/60' },
+  cancelled: { label: 'Cancelled', bg: 'bg-[#FF0055]/20', text: 'text-[#FF0055]', border: 'border-[#FF0055]/40' },
+  no_show: { label: 'No Show', bg: 'bg-rose-950/60', text: 'text-rose-400', border: 'border-rose-800/60' },
 };
 
 export default function BookingsPage() {
-  const mounted = useMounted();
   const {
     bookings,
     stations,
@@ -73,16 +71,16 @@ export default function BookingsPage() {
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerEmail, setCustomerEmail] = useState('');
+  const [bookingDate, setBookingDate] = useState('2026-11-25');
   const [bookingTime, setBookingTime] = useState('18:00');
-  const [bookingDate, setBookingDate] = useState(selectedDate);
   const [durationMinutes, setDurationMinutes] = useState(120);
-  const [depositAmountCents, setDepositAmountCents] = useState(500);
+  const [depositAmountCents, setDepositAmountCents] = useState(1000);
   const [notes, setNotes] = useState('');
   const [formError, setFormError] = useState('');
 
   const canManageBookings = hasPermission(currentStaff.role, 'manage_bookings');
 
-  // Filter bookings
+  // Filter bookings for selected date and criteria
   const filteredBookings = bookings.filter(b => {
     const matchesDate = b.date === selectedDate;
     const matchesStatus = statusFilter === 'all' || b.status === statusFilter;
@@ -146,7 +144,6 @@ export default function BookingsPage() {
     }
   };
 
-  // Day navigation helpers
   const changeDate = (days: number) => {
     const d = new Date(selectedDate);
     d.setDate(d.getDate() + days);
@@ -154,12 +151,12 @@ export default function BookingsPage() {
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto bg-[#111111] text-white">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-gray-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#2E2E2E]">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-wide flex items-center gap-2.5">
-            <CalendarIcon className="w-5 h-5 text-amber-400" />
+          <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-wide flex items-center gap-2.5">
+            <CalendarIcon className="w-5 h-5 text-[#CCFF00]" />
             Reservations & Schedule Calendar
           </h1>
           <p className="text-xs sm:text-sm text-gray-400 mt-1">
@@ -173,7 +170,7 @@ export default function BookingsPage() {
               setBookingDate(selectedDate);
               setShowNewModal(true);
             }}
-            className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-bold rounded-xl text-xs shadow-lg shadow-amber-950/40 transition-all self-start sm:self-auto"
+            className="flex items-center gap-2 px-4 py-2.5 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] font-extrabold rounded-xl text-xs shadow-lg shadow-[#CCFF00]/25 transition-all self-start sm:self-auto"
           >
             <Plus className="w-4 h-4" />
             New Reservation
@@ -182,11 +179,11 @@ export default function BookingsPage() {
       </div>
 
       {/* Date Navigation & Filters */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 p-3 bg-[#0d1017] border border-[#1f2538] rounded-2xl">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 p-3 bg-[#1E1E1E] border border-[#2E2E2E] rounded-2xl">
         <div className="flex items-center gap-2">
           <button
             onClick={() => changeDate(-1)}
-            className="p-2 rounded-lg bg-[#141824] hover:bg-[#1b2233] text-gray-300 border border-gray-700/60"
+            className="p-2 rounded-lg bg-[#252525] hover:bg-[#2C2C2C] text-gray-300 border border-[#333333]"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -195,19 +192,19 @@ export default function BookingsPage() {
             type="date"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
-            className="bg-[#141824] border border-gray-700/80 rounded-lg px-3 py-1.5 text-xs text-white font-mono"
+            className="bg-[#141414] border border-[#333333] rounded-lg px-3 py-1.5 text-xs text-white font-mono"
           />
 
           <button
             onClick={() => changeDate(1)}
-            className="p-2 rounded-lg bg-[#141824] hover:bg-[#1b2233] text-gray-300 border border-gray-700/60"
+            className="p-2 rounded-lg bg-[#252525] hover:bg-[#2C2C2C] text-gray-300 border border-[#333333]"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
 
           <button
             onClick={() => setSelectedDate(new Date().toISOString().split('T')[0])}
-            className="px-3 py-1.5 rounded-lg bg-[#1b2233] text-cyan-300 text-xs font-semibold hover:bg-[#252f47]"
+            className="px-3 py-1.5 rounded-lg bg-[#252525] text-[#CCFF00] font-bold text-xs hover:bg-[#2E2E2E] border border-[#333333]"
           >
             Today
           </button>
@@ -221,14 +218,14 @@ export default function BookingsPage() {
               placeholder="Search player, pod, phone..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-[#141824] border border-[#232b40] rounded-lg pl-9 pr-3 py-1.5 text-xs text-white"
+              className="w-full bg-[#141414] border border-[#333333] rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#CCFF00]"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-[#141824] border border-[#232b40] rounded-lg px-3 py-1.5 text-xs text-gray-300"
+            className="bg-[#141414] border border-[#333333] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-[#CCFF00]"
           >
             <option value="all">All Statuses</option>
             <option value="confirmed">Confirmed</option>
@@ -242,44 +239,44 @@ export default function BookingsPage() {
       </div>
 
       {/* Bookings List */}
-      <div className="bg-[#0e121c] border border-[#1f2538] rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-[#1E1E1E] border border-[#2E2E2E] rounded-2xl overflow-hidden shadow-xl">
         {filteredBookings.length === 0 ? (
-          <div className="p-12 text-center text-gray-500">
+          <div className="p-12 text-center text-gray-400">
             <CalendarIcon className="w-10 h-10 mx-auto mb-3 opacity-40 text-gray-500" />
-            <p className="text-gray-300 font-semibold">No bookings scheduled for this date</p>
-            <p className="text-xs text-gray-500 mt-1">Select another day or schedule a new reservation.</p>
+            <p className="text-white font-bold">No bookings scheduled for this date</p>
+            <p className="text-xs text-gray-400 mt-1">Select another day or schedule a new reservation.</p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-800/70">
+          <div className="divide-y divide-[#2E2E2E]">
             {filteredBookings.map(bk => {
               const badge = STATUS_BADGE[bk.status];
               return (
                 <div
                   key={bk.id}
-                  className="p-4 hover:bg-[#131726] transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4"
+                  className="p-4 hover:bg-[#252525] transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-[#171f33] border border-[#2b395c] flex flex-col items-center justify-center font-mono">
+                    <div className="w-12 h-12 rounded-xl bg-[#282828] border border-[#3A3A3A] flex flex-col items-center justify-center font-mono">
                       <span className="text-[10px] text-gray-400 font-semibold">POD</span>
-                      <span className="font-bold text-amber-400 text-xs">{bk.stationName}</span>
+                      <span className="font-extrabold text-[#CCFF00] text-xs">{bk.stationName}</span>
                     </div>
 
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-white text-sm">{bk.customerName}</span>
+                        <span className="font-extrabold text-white text-sm">{bk.customerName}</span>
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase tracking-wider ${badge.bg} ${badge.text} ${badge.border}`}>
                           {badge.label}
                         </span>
                         {bk.depositPaid && (
-                          <span className="px-1.5 py-0.5 rounded text-[10px] bg-emerald-950/60 text-emerald-400 border border-emerald-800/40">
+                          <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#CCFF00]/15 text-[#CCFF00] border border-[#CCFF00]/40 font-mono font-bold">
                             Deposit Paid ({formatCurrency(bk.depositCents, settings.currencySymbol)})
                           </span>
                         )}
                       </div>
 
                       <div className="flex flex-wrap items-center gap-3 text-xs text-gray-400">
-                        <span className="flex items-center gap-1 font-mono text-gray-300">
-                          <Clock className="w-3.5 h-3.5 text-amber-400" />
+                        <span className="flex items-center gap-1 font-mono text-white">
+                          <Clock className="w-3.5 h-3.5 text-[#CCFF00]" />
                           {bk.startTime} ({formatDuration(bk.durationMinutes)})
                         </span>
                         {bk.customerPhone && (
@@ -297,7 +294,7 @@ export default function BookingsPage() {
                       </div>
 
                       {bk.notes && (
-                        <p className="text-[11px] text-gray-400 italic bg-[#0a0d14] px-2 py-1 rounded border border-gray-800 inline-block">
+                        <p className="text-[11px] text-gray-400 italic bg-[#141414] px-2 py-1 rounded border border-[#2E2E2E] inline-block">
                           Note: {bk.notes}
                         </p>
                       )}
@@ -310,7 +307,7 @@ export default function BookingsPage() {
                       {bk.status === 'confirmed' && (
                         <button
                           onClick={() => handleCheckIn(bk.id)}
-                          className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-md shadow-emerald-950/40 transition-colors"
+                          className="px-3.5 py-2 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] rounded-xl text-xs font-extrabold flex items-center gap-1.5 shadow-md shadow-[#CCFF00]/25 transition-colors"
                         >
                           <Play className="w-3.5 h-3.5 fill-current" />
                           Check-In Player
@@ -320,7 +317,7 @@ export default function BookingsPage() {
                       {bk.status === 'pending' && (
                         <button
                           onClick={() => updateBookingStatus(bk.id, 'confirmed')}
-                          className="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1"
+                          className="px-3 py-1.5 bg-[#8A2BE2] hover:bg-[#7a20ce] text-white rounded-lg text-xs font-bold flex items-center gap-1"
                         >
                           <Check className="w-3.5 h-3.5" />
                           Confirm
@@ -337,20 +334,20 @@ export default function BookingsPage() {
                               setRescheduleDuration(bk.durationMinutes);
                               setRescheduleError('');
                             }}
-                            className="px-2.5 py-1.5 bg-[#1b2233] hover:bg-[#252f47] text-cyan-300 border border-cyan-800/40 rounded-lg text-xs font-semibold flex items-center gap-1"
+                            className="px-2.5 py-1.5 bg-[#8A2BE2]/20 hover:bg-[#8A2BE2]/30 text-[#c084fc] border border-[#8A2BE2]/50 rounded-lg text-xs font-bold flex items-center gap-1"
                           >
                             <ArrowRightLeft className="w-3 h-3" />
                             Reschedule
                           </button>
                           <button
                             onClick={() => updateBookingStatus(bk.id, 'no_show')}
-                            className="px-2.5 py-1.5 bg-rose-950/40 hover:bg-rose-900/50 text-rose-300 border border-rose-800/40 rounded-lg text-xs font-medium"
+                            className="px-2.5 py-1.5 bg-[#FF0055]/20 hover:bg-[#FF0055]/30 text-[#FF0055] border border-[#FF0055]/40 rounded-lg text-xs font-medium"
                           >
                             No Show
                           </button>
                           <button
                             onClick={() => updateBookingStatus(bk.id, 'cancelled')}
-                            className="px-2.5 py-1.5 bg-gray-800 hover:bg-gray-700 text-gray-400 rounded-lg text-xs font-medium"
+                            className="px-2.5 py-1.5 bg-[#252525] hover:bg-[#2C2C2C] text-gray-400 rounded-lg text-xs font-medium border border-[#333333]"
                           >
                             Cancel
                           </button>
@@ -368,10 +365,10 @@ export default function BookingsPage() {
       {/* NEW BOOKING MODAL */}
       {showNewModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-lg bg-[#0e121c] border border-gray-700 rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-800">
+          <div className="w-full max-w-lg bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#2E2E2E]">
               <h3 className="font-bold text-base text-white flex items-center gap-2">
-                <CalendarIcon className="w-4 h-4 text-amber-400" />
+                <CalendarIcon className="w-4 h-4 text-[#CCFF00]" />
                 Schedule New Reservation
               </h3>
               <button onClick={() => setShowNewModal(false)} className="text-gray-400 hover:text-white">
@@ -380,7 +377,7 @@ export default function BookingsPage() {
             </div>
 
             {formError && (
-              <p className="text-xs text-rose-400 bg-rose-950/50 p-2.5 rounded-lg border border-rose-800/40">
+              <p className="text-xs text-[#FF0055] bg-[#FF0055]/20 p-2.5 rounded-lg border border-[#FF0055]/40 font-semibold">
                 {formError}
               </p>
             )}
@@ -391,7 +388,7 @@ export default function BookingsPage() {
                 <select
                   value={stationId}
                   onChange={(e) => setStationId(e.target.value)}
-                  className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
                   required
                 >
                   <option value="">-- Choose station pod --</option>
@@ -416,7 +413,7 @@ export default function BookingsPage() {
                       setCustomerEmail(c.email || '');
                     }
                   }}
-                  className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
                 >
                   <option value="">-- Or enter guest contact details below --</option>
                   {customers.map(c => (
@@ -435,7 +432,7 @@ export default function BookingsPage() {
                     placeholder="e.g. Liam Walker"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
                     required={!customerId}
                   />
                 </div>
@@ -446,7 +443,7 @@ export default function BookingsPage() {
                     placeholder="+1 (555) 000-0000"
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
-                    className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
                     required
                   />
                 </div>
@@ -459,7 +456,7 @@ export default function BookingsPage() {
                     type="date"
                     value={bookingDate}
                     onChange={(e) => setBookingDate(e.target.value)}
-                    className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white font-mono"
+                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white font-mono"
                     required
                   />
                 </div>
@@ -469,7 +466,7 @@ export default function BookingsPage() {
                     type="time"
                     value={bookingTime}
                     onChange={(e) => setBookingTime(e.target.value)}
-                    className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white font-mono"
+                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white font-mono"
                     required
                   />
                 </div>
@@ -478,7 +475,7 @@ export default function BookingsPage() {
                   <select
                     value={durationMinutes}
                     onChange={(e) => setDurationMinutes(Number(e.target.value))}
-                    className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
                   >
                     <option value={60}>1 hour</option>
                     <option value={90}>1.5 hours</option>
@@ -497,9 +494,9 @@ export default function BookingsPage() {
                     placeholder="Deposit in cents"
                     value={depositAmountCents || ''}
                     onChange={(e) => setDepositAmountCents(Number(e.target.value))}
-                    className="w-36 bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white font-mono"
+                    className="w-36 bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white font-mono"
                   />
-                  <span className="text-xs text-gray-400 self-center">
+                  <span className="text-xs text-gray-400 self-center font-mono">
                     = {formatCurrency(depositAmountCents, settings.currencySymbol)}
                   </span>
                 </div>
@@ -512,7 +509,7 @@ export default function BookingsPage() {
                   placeholder="e.g. VIP tournament setup, controller preferences"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
                 />
               </div>
 
@@ -520,13 +517,13 @@ export default function BookingsPage() {
                 <button
                   type="button"
                   onClick={() => setShowNewModal(false)}
-                  className="flex-1 py-2.5 rounded-lg bg-gray-800 text-xs font-semibold text-gray-300"
+                  className="flex-1 py-2.5 rounded-lg bg-[#252525] text-xs font-semibold text-gray-300"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-xs font-bold text-white shadow-lg"
+                  className="flex-1 py-2.5 rounded-lg bg-[#CCFF00] hover:bg-[#b8e600] text-xs font-extrabold text-[#111111] shadow-lg shadow-[#CCFF00]/25"
                 >
                   Lock Reservation
                 </button>
@@ -539,10 +536,10 @@ export default function BookingsPage() {
       {/* RESCHEDULE BOOKING MODAL */}
       {rescheduleTarget && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-[#0e121c] border border-gray-700 rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-800">
+          <div className="w-full max-w-md bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#2E2E2E]">
               <h3 className="font-bold text-base text-white flex items-center gap-2">
-                <ArrowRightLeft className="w-4 h-4 text-cyan-400" />
+                <ArrowRightLeft className="w-4 h-4 text-[#CCFF00]" />
                 Reschedule Station Reservation
               </h3>
               <button onClick={() => setRescheduleTarget(null)} className="text-gray-400 hover:text-white">
@@ -552,11 +549,11 @@ export default function BookingsPage() {
 
             <p className="text-xs text-gray-300">
               Rescheduling <span className="font-bold text-white">{rescheduleTarget.customerName}</span> on{' '}
-              <span className="font-bold text-cyan-400">{rescheduleTarget.stationName}</span>.
+              <span className="font-bold text-[#CCFF00]">{rescheduleTarget.stationName}</span>.
             </p>
 
             {rescheduleError && (
-              <p className="text-xs text-rose-400 bg-rose-950/50 p-2.5 rounded-lg border border-rose-800/40">
+              <p className="text-xs text-[#FF0055] bg-[#FF0055]/20 p-2.5 rounded-lg border border-[#FF0055]/40 font-semibold">
                 {rescheduleError}
               </p>
             )}
@@ -568,7 +565,7 @@ export default function BookingsPage() {
                   type="date"
                   value={rescheduleDate}
                   onChange={(e) => setRescheduleDate(e.target.value)}
-                  className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white font-mono"
+                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white font-mono"
                   required
                 />
               </div>
@@ -580,7 +577,7 @@ export default function BookingsPage() {
                     type="time"
                     value={rescheduleTime}
                     onChange={(e) => setRescheduleTime(e.target.value)}
-                    className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white font-mono"
+                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white font-mono"
                     required
                   />
                 </div>
@@ -589,7 +586,7 @@ export default function BookingsPage() {
                   <select
                     value={rescheduleDuration}
                     onChange={(e) => setRescheduleDuration(Number(e.target.value))}
-                    className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
                   >
                     <option value={60}>1 hour</option>
                     <option value={90}>1.5 hours</option>
@@ -604,7 +601,7 @@ export default function BookingsPage() {
             <div className="flex gap-2 pt-2">
               <button
                 onClick={() => setRescheduleTarget(null)}
-                className="flex-1 py-2.5 rounded-lg bg-gray-800 text-xs font-semibold text-gray-300"
+                className="flex-1 py-2.5 rounded-lg bg-[#252525] text-xs font-semibold text-gray-300"
               >
                 Cancel
               </button>
@@ -617,7 +614,7 @@ export default function BookingsPage() {
                     setRescheduleTarget(null);
                   }
                 }}
-                className="flex-1 py-2.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-xs font-bold text-white shadow-lg"
+                className="flex-1 py-2.5 rounded-lg bg-[#CCFF00] hover:bg-[#b8e600] text-xs font-extrabold text-[#111111] shadow-lg shadow-[#CCFF00]/25"
               >
                 Confirm Reschedule
               </button>

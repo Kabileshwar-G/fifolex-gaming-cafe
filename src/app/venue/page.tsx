@@ -10,34 +10,33 @@ import { Box, Layers, Sliders, RefreshCw, Sparkles } from 'lucide-react';
 export default function VenuePage() {
   const { stations, sessions, selectedStationId, selectStation, settings } = useApp();
   const [viewMode, setViewMode] = useState<'3d' | '2d'>('3d');
-  const [isEditLayoutMode, setIsEditLayoutMode] = useState(false);
 
   const selectedStation = stations.find(s => s.id === selectedStationId);
 
   return (
-    <div className="flex h-full relative overflow-hidden bg-[#07080c]">
+    <div className="flex h-full relative overflow-hidden bg-[#111111]">
       {/* Main View Area */}
       <div className="flex-1 flex flex-col min-w-0 relative h-full">
         {/* Top Control Bar */}
-        <div className="h-14 px-4 border-b border-[#1a1f2c] bg-[#0c0e14]/90 backdrop-blur flex items-center justify-between z-10">
+        <div className="h-14 px-4 border-b border-[#262626] bg-[#161616]/95 backdrop-blur flex items-center justify-between z-10">
           <div className="flex items-center gap-3">
             <h2 className="text-sm font-bold text-white tracking-wide flex items-center gap-2">
-              <Box className="w-4 h-4 text-cyan-400" />
-              Venue & Station Control Surface
+              <Box className="w-4 h-4 text-[#CCFF00]" />
+              3D Venue & Station Control Surface
             </h2>
-            <span className="text-xs text-gray-400 hidden md:inline">
-              &bull; Click any station to inspect, start sessions, or manage equipment.
+            <span className="text-xs text-gray-400 hidden md:inline font-mono">
+              &bull; Click any pod to inspect, launch sessions, or manage hardware.
             </span>
           </div>
 
           <div className="flex items-center gap-2">
             {/* 3D vs 2D Toggle */}
-            <div className="flex p-0.5 rounded-lg bg-[#141824] border border-[#232838]">
+            <div className="flex p-0.5 rounded-xl bg-[#202020] border border-[#2E2E2E]">
               <button
                 onClick={() => setViewMode('3d')}
-                className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold transition-colors ${
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
                   viewMode === '3d'
-                    ? 'bg-indigo-600 text-white shadow-sm'
+                    ? 'bg-[#CCFF00] text-[#111111] shadow-sm'
                     : 'text-gray-400 hover:text-white'
                 }`}
               >
@@ -46,9 +45,9 @@ export default function VenuePage() {
               </button>
               <button
                 onClick={() => setViewMode('2d')}
-                className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold transition-colors ${
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
                   viewMode === '2d'
-                    ? 'bg-indigo-600 text-white shadow-sm'
+                    ? 'bg-[#CCFF00] text-[#111111] shadow-sm'
                     : 'text-gray-400 hover:text-white'
                 }`}
               >
@@ -60,7 +59,7 @@ export default function VenuePage() {
         </div>
 
         {/* View Surface */}
-        <div className="flex-1 relative overflow-hidden">
+        <div className="flex-1 relative overflow-hidden bg-[#111111]">
           {viewMode === '3d' ? (
             <VenueScene
               stations={stations}
@@ -69,7 +68,7 @@ export default function VenuePage() {
               onSelectStation={selectStation}
             />
           ) : (
-            <div className="h-full overflow-y-auto">
+            <div className="h-full overflow-y-auto bg-[#111111]">
               <VenueMap2D
                 stations={stations}
                 selectedStationId={selectedStationId}

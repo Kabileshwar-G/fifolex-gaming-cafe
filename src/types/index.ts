@@ -133,11 +133,15 @@ export interface Order {
   orderNumber: string;
   sessionId?: string;
   stationName?: string;
+  customerId?: string;
   customerName: string;
   items: OrderLineItem[];
   status: OrderStatus;
   totalCents: number;
   paid: boolean;
+  paymentMethod?: string;
+  staffName?: string;
+  notes?: string;
   createdAt: string;
 }
 

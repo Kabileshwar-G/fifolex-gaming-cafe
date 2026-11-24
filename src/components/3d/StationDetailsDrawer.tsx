@@ -30,11 +30,11 @@ interface StationDetailsDrawerProps {
 }
 
 const STATUS_CONFIG: Record<StationStatus, { label: string; bg: string; text: string; border: string }> = {
-  available: { label: 'Available', bg: 'bg-emerald-950/40', text: 'text-emerald-400', border: 'border-emerald-800/40' },
-  occupied: { label: 'Occupied', bg: 'bg-cyan-950/40', text: 'text-cyan-400', border: 'border-cyan-800/40' },
-  reserved: { label: 'Reserved', bg: 'bg-amber-950/40', text: 'text-amber-400', border: 'border-amber-800/40' },
-  cleaning: { label: 'Cleaning', bg: 'bg-purple-950/40', text: 'text-purple-400', border: 'border-purple-800/40' },
-  maintenance: { label: 'Maintenance', bg: 'bg-rose-950/40', text: 'text-rose-400', border: 'border-rose-800/40' },
+  available: { label: 'Available', bg: 'bg-[#CCFF00]/15', text: 'text-[#CCFF00]', border: 'border-[#CCFF00]/40' },
+  occupied: { label: 'Occupied', bg: 'bg-[#8A2BE2]/20', text: 'text-[#c084fc]', border: 'border-[#8A2BE2]/40' },
+  reserved: { label: 'Reserved', bg: 'bg-[#FF8C00]/20', text: 'text-[#FF8C00]', border: 'border-[#FF8C00]/40' },
+  cleaning: { label: 'Cleaning', bg: 'bg-[#00F0FF]/15', text: 'text-[#00F0FF]', border: 'border-[#00F0FF]/40' },
+  maintenance: { label: 'Maintenance', bg: 'bg-[#FF0055]/20', text: 'text-[#FF0055]', border: 'border-[#FF0055]/40' },
 };
 
 export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ station, onClose }) => {
@@ -137,21 +137,21 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
   const timing = activeSession ? getTimeRemaining(activeSession.expectedEndTime, mounted) : null;
 
   return (
-    <div className="w-96 max-w-full bg-[#0d1017] border-l border-[#1f2538] flex flex-col h-full shadow-2xl z-40 select-none overflow-y-auto">
+    <div className="w-96 max-w-full bg-[#1E1E1E] border-l border-[#2E2E2E] flex flex-col h-full shadow-2xl z-40 select-none overflow-y-auto">
       {/* Drawer Header */}
-      <div className="p-4 border-b border-[#1f2538] flex items-center justify-between bg-[#121622]">
+      <div className="p-4 border-b border-[#2E2E2E] flex items-center justify-between bg-[#171717]">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#1b2133] border border-[#2d3652] flex items-center justify-center font-bold text-cyan-400 font-mono text-base">
+          <div className="w-10 h-10 rounded-xl bg-[#252525] border border-[#3A3A3A] flex items-center justify-center font-bold text-[#CCFF00] font-mono text-base shadow-sm">
             {station.name}
           </div>
           <div>
-            <h2 className="font-bold text-gray-100 text-sm leading-tight">{station.name}</h2>
+            <h2 className="font-bold text-white text-sm leading-tight">{station.name}</h2>
             <span className="text-[11px] text-gray-400 capitalize">{station.type} &bull; {station.zone}</span>
           </div>
         </div>
         <button
           onClick={onClose}
-          className="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors"
+          className="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-[#2A2A2A] transition-colors"
         >
           <X className="w-4 h-4" />
         </button>
@@ -159,17 +159,17 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
 
       <div className="p-4 space-y-4 flex-1">
         {/* Status Badge & Pricing Header */}
-        <div className="flex items-center justify-between p-3 rounded-xl bg-[#131724] border border-[#232b40]">
+        <div className="flex items-center justify-between p-3 rounded-xl bg-[#171717] border border-[#2E2E2E]">
           <div>
             <span className="text-[10px] text-gray-400 uppercase font-mono block">Station Status</span>
-            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold mt-1 border ${statusStyle.bg} ${statusStyle.text} ${statusStyle.border}`}>
+            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold mt-1 border ${statusStyle.bg} ${statusStyle.text} ${statusStyle.border}`}>
               <span className="w-2 h-2 rounded-full bg-current animate-pulse" />
               {statusStyle.label}
             </span>
           </div>
           <div className="text-right">
             <span className="text-[10px] text-gray-400 uppercase font-mono block">Hourly Rate</span>
-            <span className="text-base font-bold text-white font-mono">
+            <span className="text-base font-extrabold text-white font-mono">
               {formatCurrency(station.hourlyRateCents, settings.currencySymbol)}/hr
             </span>
           </div>
@@ -177,14 +177,14 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
 
         {/* ACTIVE SESSION CARD */}
         {activeSession && (
-          <div className="p-3.5 rounded-xl bg-[#121829] border border-cyan-800/40 space-y-3">
-            <div className="flex items-center justify-between pb-2 border-b border-gray-800">
-              <span className="text-xs font-bold text-cyan-400 flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5" />
+          <div className="p-3.5 rounded-xl bg-[#171717] border border-[#8A2BE2]/50 space-y-3">
+            <div className="flex items-center justify-between pb-2 border-b border-[#2E2E2E]">
+              <span className="text-xs font-bold text-[#c084fc] flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-[#8A2BE2]" />
                 Live Session
               </span>
-              <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
-                timing?.isOverdue ? 'bg-rose-950/80 text-rose-300 animate-pulse' : 'bg-cyan-950/60 text-cyan-300'
+              <span className={`text-xs font-mono font-bold px-2.5 py-0.5 rounded-full ${
+                timing?.isOverdue ? 'bg-[#FF0055]/30 text-[#FF0055] border border-[#FF0055]/50 animate-pulse' : 'bg-[#CCFF00]/15 text-[#CCFF00] border border-[#CCFF00]/40'
               }`}>
                 {timing?.text}
               </span>
@@ -193,11 +193,11 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div>
                 <span className="text-[10px] text-gray-400 block">Customer</span>
-                <span className="font-semibold text-gray-200">{activeSession.customerName}</span>
+                <span className="font-semibold text-white">{activeSession.customerName}</span>
               </div>
               <div>
                 <span className="text-[10px] text-gray-400 block">Duration</span>
-                <span className="font-semibold text-gray-200 font-mono">{formatDuration(activeSession.durationMinutes)}</span>
+                <span className="font-semibold text-white font-mono">{formatDuration(activeSession.durationMinutes)}</span>
               </div>
               <div>
                 <span className="text-[10px] text-gray-400 block">Start Time</span>
@@ -214,7 +214,7 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
             </div>
 
             {activeSession.discountCents > 0 && (
-              <div className="text-[11px] text-emerald-400 bg-emerald-950/30 px-2 py-1 rounded border border-emerald-900/40 flex justify-between">
+              <div className="text-[11px] text-[#CCFF00] bg-[#CCFF00]/10 px-2 py-1 rounded border border-[#CCFF00]/30 flex justify-between font-mono">
                 <span>Discount Applied:</span>
                 <span>-{formatCurrency(activeSession.discountCents, settings.currencySymbol)} ({activeSession.discountReason})</span>
               </div>
@@ -222,12 +222,12 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
 
             {/* Session Action Buttons */}
             {canManageSessions && (
-              <div className="pt-2 border-t border-gray-800/80 space-y-2">
+              <div className="pt-2 border-t border-[#2E2E2E] space-y-2">
                 <div className="grid grid-cols-2 gap-2">
                   {activeSession.status === 'active' ? (
                     <button
                       onClick={() => pauseSession(activeSession.id)}
-                      className="px-2.5 py-1.5 rounded-lg bg-amber-950/40 hover:bg-amber-900/50 text-amber-300 border border-amber-800/40 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                      className="px-2.5 py-2 rounded-lg bg-[#252525] hover:bg-[#2A2A2A] text-amber-300 border border-amber-600/40 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
                     >
                       <Pause className="w-3.5 h-3.5" />
                       Pause Timer
@@ -235,7 +235,7 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
                   ) : (
                     <button
                       onClick={() => resumeSession(activeSession.id)}
-                      className="px-2.5 py-1.5 rounded-lg bg-emerald-950/40 hover:bg-emerald-900/50 text-emerald-300 border border-emerald-800/40 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                      className="px-2.5 py-2 rounded-lg bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-md shadow-[#CCFF00]/20"
                     >
                       <Play className="w-3.5 h-3.5" />
                       Resume Timer
@@ -244,7 +244,7 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
 
                   <button
                     onClick={() => extendSession(activeSession.id, 30)}
-                    className="px-2.5 py-1.5 rounded-lg bg-indigo-950/40 hover:bg-indigo-900/50 text-indigo-300 border border-indigo-800/40 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                    className="px-2.5 py-2 rounded-lg bg-[#8A2BE2]/20 hover:bg-[#8A2BE2]/35 text-[#c084fc] border border-[#8A2BE2]/50 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
                   >
                     <PlusCircle className="w-3.5 h-3.5" />
                     +30m Extend
@@ -254,14 +254,14 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => setShowTransferForm(!showTransferForm)}
-                    className="px-2.5 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors"
+                    className="px-2.5 py-2 rounded-lg bg-[#252525] hover:bg-[#2A2A2A] text-gray-300 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors border border-[#333333]"
                   >
                     <ArrowRightLeft className="w-3.5 h-3.5" />
                     Transfer Station
                   </button>
                   <button
                     onClick={() => setShowCheckoutModal(true)}
-                    className="px-2.5 py-1.5 rounded-lg bg-rose-900/40 hover:bg-rose-900/60 text-rose-300 border border-rose-700/50 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
+                    className="px-2.5 py-2 rounded-lg bg-[#FF0055]/20 hover:bg-[#FF0055]/30 text-[#FF0055] border border-[#FF0055]/50 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
                   >
                     End & Checkout
                   </button>
@@ -269,12 +269,12 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
 
                 {/* Transfer Form Dropdown */}
                 {showTransferForm && (
-                  <div className="p-3 bg-[#0a0d14] rounded-lg border border-gray-700 space-y-2 mt-2">
+                  <div className="p-3 bg-[#111111] rounded-lg border border-[#333333] space-y-2 mt-2">
                     <p className="text-[11px] font-bold text-gray-300">Move Player to Station:</p>
                     <select
                       value={transferTargetId}
                       onChange={(e) => setTransferTargetId(e.target.value)}
-                      className="w-full bg-[#141824] border border-gray-700 rounded p-1.5 text-xs text-white"
+                      className="w-full bg-[#1A1A1A] border border-[#333333] rounded p-1.5 text-xs text-white"
                     >
                       <option value="">Select target station...</option>
                       {availableTransferTargets.map(t => (
@@ -286,7 +286,7 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
                       placeholder="Reason for transfer (e.g. mouse fault)"
                       value={transferReason}
                       onChange={(e) => setTransferReason(e.target.value)}
-                      className="w-full bg-[#141824] border border-gray-700 rounded p-1.5 text-xs text-white"
+                      className="w-full bg-[#1A1A1A] border border-[#333333] rounded p-1.5 text-xs text-white"
                     />
                     <div className="flex justify-end gap-2 pt-1">
                       <button
@@ -298,7 +298,7 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
                       <button
                         onClick={handleTransfer}
                         disabled={!transferTargetId}
-                        className="px-3 py-1 bg-cyan-600 hover:bg-cyan-500 disabled:opacity-40 text-xs font-bold text-white rounded"
+                        className="px-3 py-1 bg-[#CCFF00] hover:bg-[#b8e600] disabled:opacity-40 text-xs font-bold text-[#111111] rounded shadow"
                       >
                         Confirm Move
                       </button>
@@ -312,14 +312,14 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
 
         {/* START WALKIN SESSION FORM (If station is available) */}
         {station.status === 'available' && canManageSessions && (
-          <form onSubmit={handleStartWalkin} className="p-3.5 rounded-xl bg-[#121622] border border-[#232b40] space-y-3">
-            <span className="text-xs font-bold text-gray-200 flex items-center gap-1.5">
-              <Play className="w-3.5 h-3.5 text-emerald-400" />
+          <form onSubmit={handleStartWalkin} className="p-3.5 rounded-xl bg-[#171717] border border-[#2E2E2E] space-y-3">
+            <span className="text-xs font-bold text-white flex items-center gap-1.5">
+              <Play className="w-3.5 h-3.5 text-[#CCFF00]" />
               Start Walk-In Session
             </span>
 
             {formError && (
-              <p className="text-xs text-rose-400 bg-rose-950/40 p-2 rounded border border-rose-800/40">
+              <p className="text-xs text-[#FF0055] bg-[#FF0055]/15 p-2 rounded border border-[#FF0055]/40">
                 {formError}
               </p>
             )}
@@ -336,7 +336,7 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
                     setWalkinPhone(cust.phone);
                   }
                 }}
-                className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
               >
                 <option value="">-- Or enter walk-in guest below --</option>
                 {customers.map(c => (
@@ -354,7 +354,7 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
                 placeholder="e.g. Alex Mercer"
                 value={walkinName}
                 onChange={(e) => setWalkinName(e.target.value)}
-                className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
                 required={!selectedCustomerId}
               />
             </div>
@@ -366,7 +366,7 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
                 placeholder="+1 (555) 000-0000"
                 value={walkinPhone}
                 onChange={(e) => setWalkinPhone(e.target.value)}
-                className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
               />
             </div>
 
@@ -380,8 +380,8 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
                     onClick={() => setWalkinDuration(mins)}
                     className={`py-1.5 text-xs font-mono font-semibold rounded-lg border transition-colors ${
                       walkinDuration === mins
-                        ? 'bg-indigo-600 text-white border-indigo-400 shadow-md'
-                        : 'bg-[#181d2e] text-gray-300 border-gray-700 hover:bg-[#20273c]'
+                        ? 'bg-[#CCFF00] text-[#111111] font-bold border-[#CCFF00] shadow-sm'
+                        : 'bg-[#181818] text-gray-300 border-[#333333] hover:bg-[#222222]'
                     }`}
                   >
                     {mins >= 60 ? `${mins / 60}h` : `${mins}m`}
@@ -393,7 +393,7 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-lg shadow-emerald-950/50"
+                className="w-full py-2.5 rounded-lg bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] font-extrabold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-lg shadow-[#CCFF00]/25"
               >
                 <Play className="w-3.5 h-3.5 fill-current" />
                 Launch Session ({formatCurrency((walkinDuration / 60) * station.hourlyRateCents, settings.currencySymbol)})
@@ -403,13 +403,13 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
         )}
 
         {/* QUICK STATUS OVERRIDES */}
-        <div className="p-3 rounded-xl bg-[#121622] border border-[#232b40] space-y-2">
+        <div className="p-3 rounded-xl bg-[#171717] border border-[#2E2E2E] space-y-2">
           <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block">Station Status Actions</span>
           <div className="grid grid-cols-2 gap-2">
             {station.status !== 'available' && station.status !== 'occupied' && (
               <button
                 onClick={() => updateStationStatus(station.id, 'available')}
-                className="px-2.5 py-1.5 bg-emerald-950/40 hover:bg-emerald-900/50 text-emerald-300 border border-emerald-800/40 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5"
+                className="px-2.5 py-1.5 bg-[#CCFF00]/15 hover:bg-[#CCFF00]/25 text-[#CCFF00] border border-[#CCFF00]/40 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5"
               >
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 Mark Available
@@ -419,7 +419,7 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
             {station.status !== 'cleaning' && (
               <button
                 onClick={() => updateStationStatus(station.id, 'cleaning')}
-                className="px-2.5 py-1.5 bg-purple-950/40 hover:bg-purple-900/50 text-purple-300 border border-purple-800/40 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5"
+                className="px-2.5 py-1.5 bg-[#00F0FF]/15 hover:bg-[#00F0FF]/25 text-[#00F0FF] border border-[#00F0FF]/40 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 Set to Cleaning
@@ -432,7 +432,7 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
                   const reason = prompt("Enter maintenance / fault description:");
                   if (reason) updateStationStatus(station.id, 'maintenance', reason);
                 }}
-                className="px-2.5 py-1.5 bg-rose-950/40 hover:bg-rose-900/50 text-rose-300 border border-rose-800/40 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 col-span-2"
+                className="px-2.5 py-1.5 bg-[#FF0055]/15 hover:bg-[#FF0055]/25 text-[#FF0055] border border-[#FF0055]/40 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 col-span-2"
               >
                 <Wrench className="w-3.5 h-3.5" />
                 Flag for Maintenance
@@ -442,9 +442,9 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
         </div>
 
         {/* HARDWARE SPECS */}
-        <div className="p-3 rounded-xl bg-[#121622] border border-[#232b40] space-y-2 text-xs">
+        <div className="p-3 rounded-xl bg-[#171717] border border-[#2E2E2E] space-y-2 text-xs">
           <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
-            <Cpu className="w-3.5 h-3.5 text-indigo-400" />
+            <Cpu className="w-3.5 h-3.5 text-[#8A2BE2]" />
             Hardware Profile
           </span>
           <div className="space-y-1 text-gray-300 pt-1">
@@ -465,14 +465,14 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
 
         {/* INSTALLED GAMES */}
         {station.installedGames.length > 0 && (
-          <div className="p-3 rounded-xl bg-[#121622] border border-[#232b40] space-y-2">
+          <div className="p-3 rounded-xl bg-[#171717] border border-[#2E2E2E] space-y-2">
             <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
-              <Gamepad2 className="w-3.5 h-3.5 text-cyan-400" />
+              <Gamepad2 className="w-3.5 h-3.5 text-[#00F0FF]" />
               Pre-loaded Titles ({station.installedGames.length})
             </span>
             <div className="flex flex-wrap gap-1.5 pt-1">
               {station.installedGames.map(game => (
-                <span key={game} className="px-2 py-0.5 rounded bg-[#1a2133] text-gray-300 text-[11px] border border-gray-700/60">
+                <span key={game} className="px-2 py-0.5 rounded bg-[#222222] text-gray-300 text-[11px] border border-[#333333]">
                   {game}
                 </span>
               ))}
@@ -484,8 +484,8 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
       {/* CHECKOUT & RECEIPT MODAL */}
       {showCheckoutModal && activeSession && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-[#0e121c] border border-gray-700 rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-800">
+          <div className="w-full max-w-md bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#2E2E2E]">
               <h3 className="font-bold text-base text-white">Complete Session & Checkout</h3>
               <button onClick={() => setShowCheckoutModal(false)} className="text-gray-400 hover:text-white">
                 <X className="w-5 h-5" />
@@ -503,15 +503,15 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
               </div>
               <div className="flex justify-between text-gray-300">
                 <span>Total Time:</span>
-                <span className="font-mono font-bold text-cyan-400">{formatDuration(activeSession.durationMinutes)}</span>
+                <span className="font-mono font-bold text-[#CCFF00]">{formatDuration(activeSession.durationMinutes)}</span>
               </div>
               <div className="flex justify-between text-gray-300">
                 <span>Hourly Rate:</span>
                 <span className="font-mono">{formatCurrency(station.hourlyRateCents, settings.currencySymbol)}/hr</span>
               </div>
-              <div className="flex justify-between text-sm font-bold text-white pt-2 border-t border-gray-800">
+              <div className="flex justify-between text-sm font-bold text-white pt-2 border-t border-[#2E2E2E]">
                 <span>Total Amount:</span>
-                <span className="font-mono text-emerald-400">
+                <span className="font-mono text-[#CCFF00] font-extrabold">
                   {formatCurrency(Math.max(0, activeSession.totalChargedCents - discountCents), settings.currencySymbol)}
                 </span>
               </div>
@@ -522,7 +522,7 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
               <select
                 value={paymentMethod}
                 onChange={(e) => setPaymentMethod(e.target.value)}
-                className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
               >
                 {settings.acceptedPaymentMethods.map(pm => (
                   <option key={pm} value={pm}>{pm}</option>
@@ -533,13 +533,13 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
             <div className="flex gap-2 pt-2">
               <button
                 onClick={() => setShowCheckoutModal(false)}
-                className="flex-1 py-2.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-xs font-semibold text-gray-300"
+                className="flex-1 py-2.5 rounded-lg bg-[#252525] hover:bg-[#2C2C2C] text-xs font-semibold text-gray-300"
               >
                 Cancel
               </button>
               <button
                 onClick={handleEndSession}
-                className="flex-1 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white shadow-lg"
+                className="flex-1 py-2.5 rounded-lg bg-[#CCFF00] hover:bg-[#b8e600] text-xs font-extrabold text-[#111111] shadow-lg shadow-[#CCFF00]/25"
               >
                 Confirm & Print Receipt
               </button>

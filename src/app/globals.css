@@ -3,8 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --background: #08090d;
-  --foreground: #f3f4f6;
+  --background: #111111;
+  --foreground: #FFFFFF;
+  --surface-card: #1E1E1E;
+  --primary-accent: #CCFF00;
+  --secondary-accent: #8A2BE2;
 }
 
 body {
@@ -14,42 +17,67 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom Cyber Glass scrollbar */
+/* Custom Rebel Glitch Dark Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0c0e14;
+  background: #111111;
 }
 ::-webkit-scrollbar-thumb {
-  background: #232838;
+  background: #2A2A2A;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3b4259;
+  background: #CCFF00;
 }
 
-/* Glowing text helper classes */
-.glow-text-emerald {
-  text-shadow: 0 0 12px rgba(16, 185, 129, 0.45);
+/* Glitch Art & Glow helper classes */
+.glow-acid {
+  box-shadow: 0 0 16px rgba(204, 255, 0, 0.45);
+}
+.glow-acid-sm {
+  box-shadow: 0 0 8px rgba(204, 255, 0, 0.35);
+}
+.glow-ultra {
+  box-shadow: 0 0 16px rgba(138, 43, 226, 0.45);
+}
+.glow-ultra-sm {
+  box-shadow: 0 0 8px rgba(138, 43, 226, 0.35);
+}
+
+.glow-text-acid {
+  text-shadow: 0 0 12px rgba(204, 255, 0, 0.6);
+}
+.glow-text-ultra {
+  text-shadow: 0 0 12px rgba(138, 43, 226, 0.6);
 }
 .glow-text-cyan {
-  text-shadow: 0 0 12px rgba(6, 182, 212, 0.45);
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
 }
-.glow-text-amber {
-  text-shadow: 0 0 12px rgba(245, 158, 11, 0.45);
-}
-.glow-text-rose {
-  text-shadow: 0 0 12px rgba(244, 63, 94, 0.45);
+.glow-text-magenta {
+  text-shadow: 0 0 12px rgba(255, 0, 127, 0.6);
 }
 
-/* Card glass panel */
+/* Dark Gunmetal Card Surface */
 .cyber-card {
-  background: rgba(18, 22, 31, 0.75);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(40, 48, 68, 0.6);
+  background: #1E1E1E;
+  border: 1px solid #2E2E2E;
 }
 .cyber-card:hover {
-  border-color: rgba(99, 102, 241, 0.35);
+  border-color: #CCFF00;
+}
+
+/* Rebellious Glitch Accent Badge */
+.glitch-badge {
+  background: rgba(204, 255, 0, 0.12);
+  color: #CCFF00;
+  border: 1px solid rgba(204, 255, 0, 0.35);
+}
+
+.ultra-badge {
+  background: rgba(138, 43, 226, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(138, 43, 226, 0.4);
 }

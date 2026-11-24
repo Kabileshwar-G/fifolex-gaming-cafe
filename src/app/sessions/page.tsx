@@ -100,13 +100,14 @@ export default function SessionsPage() {
     }
 
     const targetStation = stations.find(s => s.id === selectedStationId);
-    let calculatedDiscount = 0;
+    let memberDiscountCents = 0;
     let discountReason = '';
+
     if (member && targetStation) {
       const discountPct = settings.membershipDiscounts[member.membershipTier] || 0;
       if (discountPct > 0) {
         const gross = (durationMinutes / 60) * targetStation.hourlyRateCents;
-        calculatedDiscount = Math.round((gross * discountPct) / 100);
+        memberDiscountCents = Math.round((gross * discountPct) / 100);
         discountReason = `${member.membershipTier.toUpperCase()} Member (${discountPct}%)`;
       }
     }
@@ -117,7 +118,7 @@ export default function SessionsPage() {
       customerPhone: member ? member.phone : guestPhone.trim(),
       customerId: member ? member.id : undefined,
       durationMinutes,
-      discountCents: calculatedDiscount,
+      discountCents: memberDiscountCents,
       discountReason
     });
 
@@ -134,7 +135,7 @@ export default function SessionsPage() {
 
   const handleTransferSubmit = () => {
     if (!transferSessionTarget || !newStationId) return;
-    const res = transferSession(transferSessionTarget.id, newStationId, transferReason.trim() || "Station switch requested");
+    const res = transferSession(transferSessionTarget.id, newStationId, transferReason.trim() || "Customer requested station move");
     if (!res.success) {
       alert(res.error);
     } else {
@@ -153,12 +154,12 @@ export default function SessionsPage() {
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto bg-[#111111] text-white">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-gray-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#2E2E2E]">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-wide flex items-center gap-2.5">
-            <Monitor className="w-5 h-5 text-cyan-400" />
+          <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-wide flex items-center gap-2.5">
+            <Monitor className="w-5 h-5 text-[#CCFF00]" />
             Station & Session Telemetry
           </h1>
           <p className="text-xs sm:text-sm text-gray-400 mt-1">
@@ -169,7 +170,7 @@ export default function SessionsPage() {
         {canManageSessions && (
           <button
             onClick={() => setShowStartModal(true)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl text-xs shadow-lg shadow-emerald-950/40 transition-all self-start sm:self-auto"
+            className="flex items-center gap-2 px-4 py-2.5 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] font-extrabold rounded-xl text-xs shadow-lg shadow-[#CCFF00]/25 transition-all self-start sm:self-auto"
           >
             <Play className="w-4 h-4 fill-current" />
             Start New Session
@@ -178,13 +179,13 @@ export default function SessionsPage() {
       </div>
 
       {/* Tabs Bar */}
-      <div className="flex items-center gap-2 border-b border-gray-800 pb-3">
+      <div className="flex items-center gap-2 border-b border-[#2E2E2E] pb-3">
         <button
           onClick={() => setActiveTab('active')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-colors ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'active'
-              ? 'bg-cyan-950/60 text-cyan-300 border border-cyan-700/50'
-              : 'text-gray-400 hover:text-white hover:bg-gray-800/40'
+              ? 'bg-[#CCFF00] text-[#111111] shadow-sm'
+              : 'text-gray-400 hover:text-white hover:bg-[#202020]'
           }`}
         >
           <Clock className="w-3.5 h-3.5" />
@@ -192,10 +193,10 @@ export default function SessionsPage() {
         </button>
         <button
           onClick={() => setActiveTab('all_stations')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-colors ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'all_stations'
-              ? 'bg-indigo-950/60 text-indigo-300 border border-indigo-700/50'
-              : 'text-gray-400 hover:text-white hover:bg-gray-800/40'
+              ? 'bg-[#CCFF00] text-[#111111] shadow-sm'
+              : 'text-gray-400 hover:text-white hover:bg-[#202020]'
           }`}
         >
           <Monitor className="w-3.5 h-3.5" />
@@ -203,10 +204,10 @@ export default function SessionsPage() {
         </button>
         <button
           onClick={() => setActiveTab('history')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-colors ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'history'
-              ? 'bg-purple-950/60 text-purple-300 border border-purple-700/50'
-              : 'text-gray-400 hover:text-white hover:bg-gray-800/40'
+              ? 'bg-[#CCFF00] text-[#111111] shadow-sm'
+              : 'text-gray-400 hover:text-white hover:bg-[#202020]'
           }`}
         >
           <Receipt className="w-3.5 h-3.5" />
@@ -218,14 +219,14 @@ export default function SessionsPage() {
       {activeTab === 'active' && (
         <div className="space-y-4">
           {activeSessions.length === 0 ? (
-            <div className="p-12 text-center bg-[#0d1017] border border-gray-800 rounded-2xl">
-              <Monitor className="w-10 h-10 text-gray-600 mx-auto mb-3" />
-              <p className="text-gray-300 font-semibold">No active sessions currently running</p>
-              <p className="text-xs text-gray-500 mt-1">Available pods are ready for walk-in players.</p>
+            <div className="p-12 text-center bg-[#1E1E1E] border border-[#2E2E2E] rounded-2xl">
+              <Monitor className="w-10 h-10 text-gray-500 mx-auto mb-3" />
+              <p className="text-white font-bold">No active sessions currently running</p>
+              <p className="text-xs text-gray-400 mt-1">Available pods are ready for walk-in players.</p>
               {canManageSessions && (
                 <button
                   onClick={() => setShowStartModal(true)}
-                  className="mt-4 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg"
+                  className="mt-4 px-4 py-2 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] text-xs font-extrabold rounded-lg shadow-md"
                 >
                   Start Walk-In Player
                 </button>
@@ -242,21 +243,21 @@ export default function SessionsPage() {
                     key={sess.id}
                     className={`p-4 rounded-2xl border transition-all flex flex-col justify-between ${
                       timing.isOverdue
-                        ? 'bg-rose-950/20 border-rose-700/60 shadow-lg shadow-rose-950/30'
+                        ? 'bg-[#1E1E1E] border-[#FF0055]/70 shadow-lg shadow-[#FF0055]/20'
                         : timing.isEndingSoon
-                        ? 'bg-amber-950/20 border-amber-700/60 shadow-lg shadow-amber-950/30'
-                        : 'bg-[#0e121c] border-[#222a3d]'
+                        ? 'bg-[#1E1E1E] border-[#FF8C00]/70 shadow-lg shadow-[#FF8C00]/20'
+                        : 'bg-[#1E1E1E] border-[#2E2E2E] hover:border-[#CCFF00]/50'
                     }`}
                   >
                     <div>
                       {/* Top Pod Header */}
                       <div className="flex items-start justify-between">
                         <div className="flex items-center gap-2.5">
-                          <div className="w-9 h-9 rounded-lg bg-[#182033] border border-[#2d3b5e] flex items-center justify-center font-bold text-cyan-400 font-mono text-sm">
+                          <div className="w-9 h-9 rounded-lg bg-[#282828] border border-[#3A3A3A] flex items-center justify-center font-bold text-[#CCFF00] font-mono text-sm">
                             {sess.stationName}
                           </div>
                           <div>
-                            <span className="font-bold text-white text-sm block leading-tight">{sess.customerName}</span>
+                            <span className="font-extrabold text-white text-sm block leading-tight">{sess.customerName}</span>
                             <span className="text-[11px] text-gray-400 capitalize">{station?.type} &bull; {station?.zone}</span>
                           </div>
                         </div>
@@ -264,36 +265,36 @@ export default function SessionsPage() {
                         {/* Timing pill */}
                         <span className={`px-2.5 py-1 rounded-md text-xs font-mono font-bold ${
                           timing.isOverdue
-                            ? 'bg-rose-950/90 text-rose-300 border border-rose-800 animate-pulse'
+                            ? 'bg-[#FF0055]/20 text-[#FF0055] border border-[#FF0055]/50 animate-pulse'
                             : timing.isEndingSoon
-                            ? 'bg-amber-950/90 text-amber-300 border border-amber-800'
-                            : 'bg-cyan-950/60 text-cyan-300 border border-cyan-800/60'
+                            ? 'bg-[#FF8C00]/20 text-[#FF8C00] border border-[#FF8C00]/50'
+                            : 'bg-[#CCFF00]/15 text-[#CCFF00] border border-[#CCFF00]/40'
                         }`}>
                           {timing.text}
                         </span>
                       </div>
 
                       {/* Session Info Grid */}
-                      <div className="grid grid-cols-2 gap-2 mt-4 p-2.5 rounded-xl bg-[#090b10] border border-gray-800/80 text-xs">
+                      <div className="grid grid-cols-2 gap-2 mt-4 p-2.5 rounded-xl bg-[#141414] border border-[#2E2E2E] text-xs">
                         <div>
                           <span className="text-[10px] text-gray-400 block">Start Time</span>
-                          <span className="font-mono text-gray-200">
+                          <span className="font-mono text-white">
                             {formatTimeOnly(sess.startTime, mounted)}
                           </span>
                         </div>
                         <div>
                           <span className="text-[10px] text-gray-400 block">Expected End</span>
-                          <span className="font-mono text-gray-200">
+                          <span className="font-mono text-white">
                             {formatTimeOnly(sess.expectedEndTime, mounted)}
                           </span>
                         </div>
                         <div>
                           <span className="text-[10px] text-gray-400 block">Total Duration</span>
-                          <span className="font-mono text-gray-200 font-semibold">{formatDuration(sess.durationMinutes)}</span>
+                          <span className="font-mono text-white font-bold">{formatDuration(sess.durationMinutes)}</span>
                         </div>
                         <div>
                           <span className="text-[10px] text-gray-400 block">Accrued Charge</span>
-                          <span className="font-mono text-emerald-400 font-bold">
+                          <span className="font-mono text-[#CCFF00] font-extrabold">
                             {formatCurrency(sess.totalChargedCents, settings.currencySymbol)}
                           </span>
                         </div>
@@ -301,7 +302,7 @@ export default function SessionsPage() {
 
                       {/* Transferred Badge if applicable */}
                       {sess.transferHistory.length > 0 && (
-                        <div className="mt-2 text-[10px] text-indigo-400 bg-indigo-950/30 px-2 py-1 rounded border border-indigo-900/40">
+                        <div className="mt-2 text-[10px] text-[#c084fc] bg-[#8A2BE2]/15 px-2 py-1 rounded border border-[#8A2BE2]/30 font-mono">
                           Transferred from {sess.transferHistory[0].fromStationName} ({sess.transferHistory[0].reason})
                         </div>
                       )}
@@ -309,12 +310,12 @@ export default function SessionsPage() {
 
                     {/* Action Controls */}
                     {canManageSessions && (
-                      <div className="pt-4 mt-3 border-t border-gray-800/80 space-y-2">
+                      <div className="pt-4 mt-3 border-t border-[#2E2E2E] space-y-2">
                         <div className="grid grid-cols-3 gap-1.5">
                           {sess.status === 'active' ? (
                             <button
                               onClick={() => pauseSession(sess.id)}
-                              className="py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs font-semibold flex items-center justify-center gap-1"
+                              className="py-1.5 rounded-lg bg-[#252525] hover:bg-[#2C2C2C] text-gray-300 border border-[#333333] text-xs font-bold flex items-center justify-center gap-1"
                             >
                               <Pause className="w-3 h-3" />
                               Pause
@@ -322,44 +323,44 @@ export default function SessionsPage() {
                           ) : (
                             <button
                               onClick={() => resumeSession(sess.id)}
-                              className="py-1.5 rounded-lg bg-emerald-900/60 hover:bg-emerald-800 text-emerald-300 text-xs font-semibold flex items-center justify-center gap-1"
+                              className="py-1.5 rounded-lg bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] text-xs font-extrabold flex items-center justify-center gap-1 shadow-sm"
                             >
-                              <Play className="w-3 h-3" />
+                              <Play className="w-3 h-3 fill-current" />
                               Resume
                             </button>
                           )}
 
                           <button
                             onClick={() => extendSession(sess.id, 30)}
-                            className="py-1.5 rounded-lg bg-indigo-950/60 hover:bg-indigo-900/60 text-indigo-300 border border-indigo-800/40 text-xs font-mono font-bold"
+                            className="py-1.5 rounded-lg bg-[#8A2BE2]/20 hover:bg-[#8A2BE2]/30 text-[#c084fc] border border-[#8A2BE2]/40 text-xs font-bold flex items-center justify-center gap-1"
                           >
+                            <PlusCircle className="w-3 h-3" />
                             +30m
                           </button>
 
                           <button
-                            onClick={() => extendSession(sess.id, 60)}
-                            className="py-1.5 rounded-lg bg-indigo-950/60 hover:bg-indigo-900/60 text-indigo-300 border border-indigo-800/40 text-xs font-mono font-bold"
+                            onClick={() => {
+                              setTransferSessionTarget(sess);
+                              setNewStationId('');
+                              setTransferReason('');
+                            }}
+                            className="py-1.5 rounded-lg bg-[#252525] hover:bg-[#2C2C2C] text-gray-300 border border-[#333333] text-xs font-semibold flex items-center justify-center gap-1"
                           >
-                            +60m
+                            <ArrowRightLeft className="w-3 h-3" />
+                            Move
                           </button>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-1.5">
-                          <button
-                            onClick={() => setTransferSessionTarget(sess)}
-                            className="py-1.5 rounded-lg bg-[#141926] hover:bg-[#1c2336] text-gray-300 text-xs font-medium flex items-center justify-center gap-1 border border-gray-700/60"
-                          >
-                            <ArrowRightLeft className="w-3 h-3 text-cyan-400" />
-                            Transfer
-                          </button>
-
-                          <button
-                            onClick={() => setCheckoutSessionTarget(sess)}
-                            className="py-1.5 rounded-lg bg-rose-950/50 hover:bg-rose-900/60 text-rose-300 border border-rose-800/60 text-xs font-bold"
-                          >
-                            End & Bill
-                          </button>
-                        </div>
+                        <button
+                          onClick={() => {
+                            setCheckoutSessionTarget(sess);
+                            setCheckoutPaymentMethod(settings.acceptedPaymentMethods[0] || 'Cash');
+                          }}
+                          className="w-full py-2 bg-[#FF0055]/20 hover:bg-[#FF0055]/30 text-[#FF0055] border border-[#FF0055]/50 rounded-lg text-xs font-extrabold flex items-center justify-center gap-1.5 transition-colors"
+                        >
+                          <Receipt className="w-3.5 h-3.5" />
+                          End Session & Checkout
+                        </button>
                       </div>
                     )}
                   </div>
@@ -378,16 +379,16 @@ export default function SessionsPage() {
               <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
-                placeholder="Search station or game..."
+                placeholder="Search stations..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-[#121622] border border-[#232b40] rounded-xl pl-9 pr-3 py-2 text-xs text-white"
+                className="w-full bg-[#1E1E1E] border border-[#2E2E2E] rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#CCFF00]"
               />
             </div>
             <select
               value={zoneFilter}
               onChange={(e) => setZoneFilter(e.target.value)}
-              className="bg-[#121622] border border-[#232b40] rounded-xl px-3 py-2 text-xs text-gray-300"
+              className="bg-[#1E1E1E] border border-[#2E2E2E] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#CCFF00]"
             >
               <option value="all">All Zones</option>
               <option value="Main PC Arena">Main PC Arena</option>
@@ -401,20 +402,20 @@ export default function SessionsPage() {
             {filteredStations.map(st => (
               <div
                 key={st.id}
-                className="p-4 rounded-xl bg-[#0f131d] border border-[#1f2538] flex flex-col justify-between"
+                className="p-4 rounded-xl bg-[#1E1E1E] border border-[#2E2E2E] flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-start justify-between">
                     <div>
-                      <span className="font-bold text-white text-sm font-mono">{st.name}</span>
+                      <span className="font-extrabold text-white text-sm font-mono">{st.name}</span>
                       <span className="block text-[11px] text-gray-400 capitalize">{st.type} &bull; {st.zone}</span>
                     </div>
                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
-                      st.status === 'available' ? 'bg-emerald-950/60 text-emerald-400 border border-emerald-800/40' :
-                      st.status === 'occupied' ? 'bg-cyan-950/60 text-cyan-400 border border-cyan-800/40' :
-                      st.status === 'reserved' ? 'bg-amber-950/60 text-amber-400 border border-amber-800/40' :
-                      st.status === 'cleaning' ? 'bg-purple-950/60 text-purple-400 border border-purple-800/40' :
-                      'bg-rose-950/60 text-rose-400 border border-rose-800/40'
+                      st.status === 'available' ? 'bg-[#CCFF00]/15 text-[#CCFF00] border border-[#CCFF00]/40' :
+                      st.status === 'occupied' ? 'bg-[#8A2BE2]/20 text-[#c084fc] border border-[#8A2BE2]/40' :
+                      st.status === 'reserved' ? 'bg-[#FF8C00]/20 text-[#FF8C00] border border-[#FF8C00]/40' :
+                      st.status === 'cleaning' ? 'bg-[#00F0FF]/15 text-[#00F0FF] border border-[#00F0FF]/40' :
+                      'bg-[#FF0055]/20 text-[#FF0055] border border-[#FF0055]/40'
                     }`}>
                       {st.status}
                     </span>
@@ -425,28 +426,28 @@ export default function SessionsPage() {
                   </div>
                 </div>
 
-                <div className="pt-3 mt-3 border-t border-gray-800/80 flex items-center justify-between">
+                <div className="pt-3 mt-3 border-t border-[#2E2E2E] flex items-center justify-between">
                   {st.status === 'available' ? (
                     <button
                       onClick={() => {
                         setSelectedStationId(st.id);
                         setShowStartModal(true);
                       }}
-                      className="w-full py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-bold"
+                      className="w-full py-1.5 bg-[#CCFF00] hover:bg-[#b8e600] text-[#111111] rounded text-xs font-extrabold shadow"
                     >
                       Start Walk-In
                     </button>
                   ) : st.status === 'cleaning' ? (
                     <button
                       onClick={() => updateStationStatus(st.id, 'available')}
-                      className="w-full py-1.5 bg-purple-900/50 hover:bg-purple-800 text-purple-200 rounded text-xs font-bold"
+                      className="w-full py-1.5 bg-[#00F0FF]/20 hover:bg-[#00F0FF]/30 text-[#00F0FF] border border-[#00F0FF]/40 rounded text-xs font-bold"
                     >
                       Mark Cleaned & Ready
                     </button>
                   ) : (
                     <Link
                       href="/venue"
-                      className="w-full py-1.5 text-center bg-gray-800 hover:bg-gray-700 text-gray-300 rounded text-xs font-medium"
+                      className="w-full py-1.5 text-center bg-[#252525] hover:bg-[#2C2C2C] text-gray-300 rounded text-xs font-bold border border-[#333333]"
                     >
                       Inspect in 3D View
                     </Link>
@@ -460,15 +461,15 @@ export default function SessionsPage() {
 
       {/* TAB 3: SESSION HISTORY */}
       {activeTab === 'history' && (
-        <div className="bg-[#0e121c] border border-[#1f2538] rounded-2xl overflow-hidden shadow-xl">
-          <div className="p-4 border-b border-gray-800 flex items-center justify-between">
-            <h3 className="font-bold text-sm text-gray-200">Completed Sessions Audit History</h3>
-            <span className="text-xs text-gray-400 font-mono">{completedSessions.length} records</span>
+        <div className="bg-[#1E1E1E] border border-[#2E2E2E] rounded-2xl overflow-hidden shadow-xl">
+          <div className="p-4 border-b border-[#2E2E2E] flex items-center justify-between">
+            <h3 className="font-bold text-sm text-white">Completed Sessions Audit History</h3>
+            <span className="text-xs text-[#CCFF00] font-mono font-bold">{completedSessions.length} records</span>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#121622] text-gray-400 font-mono uppercase text-[10px] border-b border-gray-800">
+              <thead className="bg-[#181818] text-gray-400 font-mono uppercase text-[10px] border-b border-[#2E2E2E]">
                 <tr>
                   <th className="p-3">Station</th>
                   <th className="p-3">Player</th>
@@ -479,13 +480,13 @@ export default function SessionsPage() {
                   <th className="p-3">Ended At</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-800/60">
+              <tbody className="divide-y divide-[#2E2E2E]/60">
                 {completedSessions.map(cs => (
-                  <tr key={cs.id} className="hover:bg-[#131826] transition-colors">
-                    <td className="p-3 font-mono font-bold text-cyan-400">{cs.stationName}</td>
-                    <td className="p-3 font-semibold text-gray-200">{cs.customerName}</td>
+                  <tr key={cs.id} className="hover:bg-[#252525] transition-colors">
+                    <td className="p-3 font-mono font-bold text-[#CCFF00]">{cs.stationName}</td>
+                    <td className="p-3 font-semibold text-white">{cs.customerName}</td>
                     <td className="p-3 font-mono">{formatDuration(cs.durationMinutes)}</td>
-                    <td className="p-3 font-mono font-bold text-emerald-400">
+                    <td className="p-3 font-mono font-bold text-[#CCFF00]">
                       {formatCurrency(cs.totalChargedCents, settings.currencySymbol)}
                     </td>
                     <td className="p-3 text-gray-300">{cs.paymentMethod || 'Cash'}</td>
@@ -504,10 +505,10 @@ export default function SessionsPage() {
       {/* MODAL: START SESSION */}
       {showStartModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-lg bg-[#0e121c] border border-gray-700 rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-800">
+          <div className="w-full max-w-lg bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#2E2E2E]">
               <h3 className="font-bold text-base text-white flex items-center gap-2">
-                <Play className="w-4 h-4 text-emerald-400 fill-current" />
+                <Play className="w-4 h-4 text-[#CCFF00] fill-current" />
                 Launch Gaming Session
               </h3>
               <button onClick={() => setShowStartModal(false)} className="text-gray-400 hover:text-white">
@@ -516,7 +517,7 @@ export default function SessionsPage() {
             </div>
 
             {startError && (
-              <p className="text-xs text-rose-400 bg-rose-950/50 p-2.5 rounded-lg border border-rose-800/40">
+              <p className="text-xs text-[#FF0055] bg-[#FF0055]/15 p-2.5 rounded-lg border border-[#FF0055]/40">
                 {startError}
               </p>
             )}
@@ -527,7 +528,7 @@ export default function SessionsPage() {
                 <select
                   value={selectedStationId}
                   onChange={(e) => setSelectedStationId(e.target.value)}
-                  className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
                   required
                 >
                   <option value="">-- Choose an available station --</option>
@@ -551,7 +552,7 @@ export default function SessionsPage() {
                       setGuestPhone(c.phone);
                     }
                   }}
-                  className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
                 >
                   <option value="">-- Or enter walk-in guest below --</option>
                   {customers.map(c => (
@@ -570,7 +571,7 @@ export default function SessionsPage() {
                     placeholder="e.g. Alex Mercer"
                     value={guestName}
                     onChange={(e) => setGuestName(e.target.value)}
-                    className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
                     required={!selectedCustomerId}
                   />
                 </div>
@@ -581,7 +582,7 @@ export default function SessionsPage() {
                     placeholder="+1 (555) 000-0000"
                     value={guestPhone}
                     onChange={(e) => setGuestPhone(e.target.value)}
-                    className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                    className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
                   />
                 </div>
               </div>
@@ -596,8 +597,8 @@ export default function SessionsPage() {
                       onClick={() => setDurationMinutes(mins)}
                       className={`py-2 text-xs font-mono font-bold rounded-lg border transition-all ${
                         durationMinutes === mins
-                          ? 'bg-indigo-600 text-white border-indigo-400'
-                          : 'bg-[#181d2e] text-gray-300 border-gray-700 hover:bg-[#20273c]'
+                          ? 'bg-[#CCFF00] text-[#111111] border-[#CCFF00] shadow'
+                          : 'bg-[#181818] text-gray-300 border-[#333333] hover:bg-[#252525]'
                       }`}
                     >
                       {mins >= 60 ? `${mins / 60}h` : `${mins}m`}
@@ -610,13 +611,13 @@ export default function SessionsPage() {
                 <button
                   type="button"
                   onClick={() => setShowStartModal(false)}
-                  className="flex-1 py-2.5 rounded-lg bg-gray-800 text-xs font-semibold text-gray-300"
+                  className="flex-1 py-2.5 rounded-lg bg-[#252525] text-xs font-bold text-gray-300"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white shadow-lg"
+                  className="flex-1 py-2.5 rounded-lg bg-[#CCFF00] hover:bg-[#b8e600] text-xs font-extrabold text-[#111111] shadow-lg shadow-[#CCFF00]/25"
                 >
                   Confirm & Start
                 </button>
@@ -629,10 +630,10 @@ export default function SessionsPage() {
       {/* MODAL: TRANSFER SESSION */}
       {transferSessionTarget && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-[#0e121c] border border-gray-700 rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-800">
+          <div className="w-full max-w-md bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#2E2E2E]">
               <h3 className="font-bold text-base text-white flex items-center gap-2">
-                <ArrowRightLeft className="w-4 h-4 text-cyan-400" />
+                <ArrowRightLeft className="w-4 h-4 text-[#CCFF00]" />
                 Transfer Player Station
               </h3>
               <button onClick={() => setTransferSessionTarget(null)} className="text-gray-400 hover:text-white">
@@ -642,7 +643,7 @@ export default function SessionsPage() {
 
             <p className="text-xs text-gray-300">
               Transferring <span className="font-bold text-white">{transferSessionTarget.customerName}</span> from{' '}
-              <span className="font-bold text-cyan-400">{transferSessionTarget.stationName}</span>.
+              <span className="font-bold text-[#CCFF00]">{transferSessionTarget.stationName}</span>.
             </p>
 
             <div className="space-y-3">
@@ -651,7 +652,7 @@ export default function SessionsPage() {
                 <select
                   value={newStationId}
                   onChange={(e) => setNewStationId(e.target.value)}
-                  className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
                 >
                   <option value="">Select available pod...</option>
                   {availableStations.map(st => (
@@ -669,7 +670,7 @@ export default function SessionsPage() {
                   placeholder="e.g. Controller issue, friend group moving"
                   value={transferReason}
                   onChange={(e) => setTransferReason(e.target.value)}
-                  className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                  className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
                 />
               </div>
             </div>
@@ -677,14 +678,14 @@ export default function SessionsPage() {
             <div className="flex gap-2 pt-2">
               <button
                 onClick={() => setTransferSessionTarget(null)}
-                className="flex-1 py-2.5 rounded-lg bg-gray-800 text-xs font-semibold text-gray-300"
+                className="flex-1 py-2.5 rounded-lg bg-[#252525] text-xs font-semibold text-gray-300"
               >
                 Cancel
               </button>
               <button
                 onClick={handleTransferSubmit}
                 disabled={!newStationId}
-                className="flex-1 py-2.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 disabled:opacity-40 text-xs font-bold text-white shadow-lg"
+                className="flex-1 py-2.5 rounded-lg bg-[#CCFF00] hover:bg-[#b8e600] disabled:opacity-40 text-xs font-extrabold text-[#111111] shadow-lg shadow-[#CCFF00]/25"
               >
                 Execute Transfer
               </button>
@@ -696,10 +697,10 @@ export default function SessionsPage() {
       {/* MODAL: CHECKOUT & RECEIPT */}
       {checkoutSessionTarget && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-[#0e121c] border border-gray-700 rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-800">
+          <div className="w-full max-w-md bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#2E2E2E]">
               <h3 className="font-bold text-base text-white flex items-center gap-2">
-                <Receipt className="w-4 h-4 text-emerald-400" />
+                <Receipt className="w-4 h-4 text-[#CCFF00]" />
                 Session Checkout & Billing
               </h3>
               <button onClick={() => setCheckoutSessionTarget(null)} className="text-gray-400 hover:text-white">
@@ -707,27 +708,27 @@ export default function SessionsPage() {
               </button>
             </div>
 
-            <div className="p-3 bg-[#090c12] rounded-xl border border-gray-800 space-y-2 text-xs">
+            <div className="p-3 bg-[#141414] rounded-xl border border-[#2E2E2E] space-y-2 text-xs">
               <div className="flex justify-between text-gray-300">
                 <span>Player:</span>
                 <span className="font-bold text-white">{checkoutSessionTarget.customerName}</span>
               </div>
               <div className="flex justify-between text-gray-300">
                 <span>Station:</span>
-                <span className="font-bold text-cyan-400">{checkoutSessionTarget.stationName}</span>
+                <span className="font-bold text-[#CCFF00]">{checkoutSessionTarget.stationName}</span>
               </div>
               <div className="flex justify-between text-gray-300">
                 <span>Total Duration:</span>
                 <span className="font-mono">{formatDuration(checkoutSessionTarget.durationMinutes)}</span>
               </div>
               {checkoutSessionTarget.discountCents > 0 && (
-                <div className="flex justify-between text-emerald-400">
+                <div className="flex justify-between text-[#CCFF00]">
                   <span>Pre-applied Discount:</span>
                   <span className="font-mono">-{formatCurrency(checkoutSessionTarget.discountCents, settings.currencySymbol)}</span>
                 </div>
               )}
               {canRefundOrOverride && (
-                <div className="pt-2 border-t border-gray-800 space-y-1.5">
+                <div className="pt-2 border-t border-[#2E2E2E] space-y-1.5">
                   <span className="text-[10px] text-gray-400 block font-semibold">Staff Override / Courtesy Discount</span>
                   <div className="flex gap-2">
                     <input
@@ -735,21 +736,21 @@ export default function SessionsPage() {
                       placeholder="Discount in cents"
                       value={manualDiscountCents || ''}
                       onChange={(e) => setManualDiscountCents(Number(e.target.value))}
-                      className="w-28 bg-[#181d2e] border border-gray-700 rounded px-2 py-1 text-xs text-white"
+                      className="w-28 bg-[#1A1A1A] border border-[#333333] rounded px-2 py-1 text-xs text-white"
                     />
                     <input
                       type="text"
                       placeholder="Reason (e.g. game crash)"
                       value={manualDiscountReason}
                       onChange={(e) => setManualDiscountReason(e.target.value)}
-                      className="flex-1 bg-[#181d2e] border border-gray-700 rounded px-2 py-1 text-xs text-white"
+                      className="flex-1 bg-[#1A1A1A] border border-[#333333] rounded px-2 py-1 text-xs text-white"
                     />
                   </div>
                 </div>
               )}
-              <div className="flex justify-between text-sm font-bold text-white pt-2 border-t border-gray-800">
+              <div className="flex justify-between text-sm font-bold text-white pt-2 border-t border-[#2E2E2E]">
                 <span>Total Payable:</span>
-                <span className="font-mono text-emerald-400">
+                <span className="font-mono text-[#CCFF00] font-extrabold">
                   {formatCurrency(Math.max(0, checkoutSessionTarget.totalChargedCents - manualDiscountCents), settings.currencySymbol)}
                 </span>
               </div>
@@ -760,7 +761,7 @@ export default function SessionsPage() {
               <select
                 value={checkoutPaymentMethod}
                 onChange={(e) => setCheckoutPaymentMethod(e.target.value)}
-                className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                className="w-full bg-[#141414] border border-[#333333] rounded-lg p-2 text-xs text-white"
               >
                 {settings.acceptedPaymentMethods.map(pm => (
                   <option key={pm} value={pm}>{pm}</option>
@@ -771,13 +772,13 @@ export default function SessionsPage() {
             <div className="flex gap-2 pt-2">
               <button
                 onClick={() => setCheckoutSessionTarget(null)}
-                className="flex-1 py-2.5 rounded-lg bg-gray-800 text-xs font-semibold text-gray-300"
+                className="flex-1 py-2.5 rounded-lg bg-[#252525] text-xs font-semibold text-gray-300"
               >
                 Cancel
               </button>
               <button
                 onClick={handleCheckoutSubmit}
-                className="flex-1 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white shadow-lg"
+                className="flex-1 py-2.5 rounded-lg bg-[#CCFF00] hover:bg-[#b8e600] text-xs font-extrabold text-[#111111] shadow-lg shadow-[#CCFF00]/25"
               >
                 Collect Payment & Close
               </button>
