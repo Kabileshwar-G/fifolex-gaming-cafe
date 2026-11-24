@@ -8,7 +8,7 @@ import { StationDetailsDrawer } from '@/components/3d/StationDetailsDrawer';
 import { Box, Layers, Sliders, RefreshCw, Sparkles } from 'lucide-react';
 
 export default function VenuePage() {
-  const { stations, selectedStationId, selectStation, settings } = useApp();
+  const { stations, sessions, selectedStationId, selectStation, settings } = useApp();
   const [viewMode, setViewMode] = useState<'3d' | '2d'>('3d');
   const [isEditLayoutMode, setIsEditLayoutMode] = useState(false);
 
@@ -64,6 +64,7 @@ export default function VenuePage() {
           {viewMode === '3d' ? (
             <VenueScene
               stations={stations}
+              sessions={sessions}
               selectedStationId={selectedStationId}
               onSelectStation={selectStation}
             />

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useApp } from '@/store/AppContext';
+import { useMounted } from '@/lib/useMounted';
 import { Booking, BookingStatus, StationType } from '@/types';
 import { formatCurrency, formatDuration } from '@/lib/formatters';
 import { hasPermission } from '@/lib/permissions';
@@ -21,7 +22,8 @@ import {
   RotateCcw,
   Check,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  ArrowRightLeft
 } from 'lucide-react';
 
 const STATUS_BADGE: Record<BookingStatus, { label: string; bg: string; text: string; border: string }> = {
@@ -34,6 +36,7 @@ const STATUS_BADGE: Record<BookingStatus, { label: string; bg: string; text: str
 };
 
 export default function BookingsPage() {
+  const mounted = useMounted();
   const {
     bookings,
     stations,
@@ -42,12 +45,26 @@ export default function BookingsPage() {
     settings,
     createBooking,
     updateBookingStatus,
+    rescheduleBooking,
     checkInBooking
   } = useApp();
 
-  const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [selectedDate, setSelectedDate] = useState<string>("2026-11-25");
+
+  // Update selectedDate on mount to today
+  React.useEffect(() => {
+    setSelectedDate(new Date().toISOString().split('T')[0]);
+  }, []);
+
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
+
+  // Reschedule Modal State
+  const [rescheduleTarget, setRescheduleTarget] = useState<Booking | null>(null);
+  const [rescheduleDate, setRescheduleDate] = useState('');
+  const [rescheduleTime, setRescheduleTime] = useState('');
+  const [rescheduleDuration, setRescheduleDuration] = useState(60);
+  const [rescheduleError, setRescheduleError] = useState('');
 
   // New Booking Modal State
   const [showNewModal, setShowNewModal] = useState(false);
@@ -313,6 +330,19 @@ export default function BookingsPage() {
                       {(bk.status === 'pending' || bk.status === 'confirmed') && (
                         <>
                           <button
+                            onClick={() => {
+                              setRescheduleTarget(bk);
+                              setRescheduleDate(bk.date);
+                              setRescheduleTime(bk.startTime);
+                              setRescheduleDuration(bk.durationMinutes);
+                              setRescheduleError('');
+                            }}
+                            className="px-2.5 py-1.5 bg-[#1b2233] hover:bg-[#252f47] text-cyan-300 border border-cyan-800/40 rounded-lg text-xs font-semibold flex items-center gap-1"
+                          >
+                            <ArrowRightLeft className="w-3 h-3" />
+                            Reschedule
+                          </button>
+                          <button
                             onClick={() => updateBookingStatus(bk.id, 'no_show')}
                             className="px-2.5 py-1.5 bg-rose-950/40 hover:bg-rose-900/50 text-rose-300 border border-rose-800/40 rounded-lg text-xs font-medium"
                           >
@@ -502,6 +532,96 @@ export default function BookingsPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* RESCHEDULE BOOKING MODAL */}
+      {rescheduleTarget && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="w-full max-w-md bg-[#0e121c] border border-gray-700 rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-gray-800">
+              <h3 className="font-bold text-base text-white flex items-center gap-2">
+                <ArrowRightLeft className="w-4 h-4 text-cyan-400" />
+                Reschedule Station Reservation
+              </h3>
+              <button onClick={() => setRescheduleTarget(null)} className="text-gray-400 hover:text-white">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <p className="text-xs text-gray-300">
+              Rescheduling <span className="font-bold text-white">{rescheduleTarget.customerName}</span> on{' '}
+              <span className="font-bold text-cyan-400">{rescheduleTarget.stationName}</span>.
+            </p>
+
+            {rescheduleError && (
+              <p className="text-xs text-rose-400 bg-rose-950/50 p-2.5 rounded-lg border border-rose-800/40">
+                {rescheduleError}
+              </p>
+            )}
+
+            <div className="space-y-3">
+              <div>
+                <label className="text-xs text-gray-300 block mb-1 font-semibold">New Date</label>
+                <input
+                  type="date"
+                  value={rescheduleDate}
+                  onChange={(e) => setRescheduleDate(e.target.value)}
+                  className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white font-mono"
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs text-gray-300 block mb-1 font-semibold">New Start Time</label>
+                  <input
+                    type="time"
+                    value={rescheduleTime}
+                    onChange={(e) => setRescheduleTime(e.target.value)}
+                    className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white font-mono"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-300 block mb-1 font-semibold">Duration</label>
+                  <select
+                    value={rescheduleDuration}
+                    onChange={(e) => setRescheduleDuration(Number(e.target.value))}
+                    className="w-full bg-[#181d2e] border border-gray-700 rounded-lg p-2 text-xs text-white"
+                  >
+                    <option value={60}>1 hour</option>
+                    <option value={90}>1.5 hours</option>
+                    <option value={120}>2 hours</option>
+                    <option value={180}>3 hours</option>
+                    <option value={240}>4 hours</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-2 pt-2">
+              <button
+                onClick={() => setRescheduleTarget(null)}
+                className="flex-1 py-2.5 rounded-lg bg-gray-800 text-xs font-semibold text-gray-300"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  const res = rescheduleBooking(rescheduleTarget.id, rescheduleDate, rescheduleTime, rescheduleDuration);
+                  if (!res.success) {
+                    setRescheduleError(res.error || "Schedule conflict occurred.");
+                  } else {
+                    setRescheduleTarget(null);
+                  }
+                }}
+                className="flex-1 py-2.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-xs font-bold text-white shadow-lg"
+              >
+                Confirm Reschedule
+              </button>
+            </div>
           </div>
         </div>
       )}

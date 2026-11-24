@@ -29,6 +29,7 @@ import {
   initialAuditLogs,
   initialSettings
 } from './initialData';
+import { timeStringToMinutes, checkIntervalOverlap } from '@/lib/formatters';
 
 interface AppContextType {
   stations: Station[];
@@ -68,6 +69,7 @@ interface AppContextType {
   
   createBooking: (booking: Omit<Booking, 'id' | 'createdAt'>) => { success: boolean; error?: string };
   updateBookingStatus: (bookingId: string, status: BookingStatus) => void;
+  rescheduleBooking: (bookingId: string, newDate: string, newStartTime: string, newDurationMinutes?: number) => { success: boolean; error?: string };
   checkInBooking: (bookingId: string) => { success: boolean; error?: string };
   
   createCustomer: (customer: Omit<Customer, 'id' | 'createdAt' | 'loyaltyPoints' | 'totalHoursPlayed'>) => Customer;
@@ -427,15 +429,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [sessions, addAuditLog, persistState]);
 
   const createBooking = useCallback((booking: Omit<Booking, 'id' | 'createdAt'>) => {
-    // Conflict check
-    const existingConflict = bookings.find(
-      b => b.stationId === booking.stationId &&
-      b.date === booking.date &&
-      b.startTime === booking.startTime &&
-      (b.status === 'confirmed' || b.status === 'pending')
-    );
+    // True interval overlap check
+    const newStart = timeStringToMinutes(booking.startTime);
+    const existingConflict = bookings.find(b => {
+      if (b.stationId !== booking.stationId || b.date !== booking.date) return false;
+      if (b.status !== 'confirmed' && b.status !== 'pending') return false;
+      const bStart = timeStringToMinutes(b.startTime);
+      return checkIntervalOverlap(bStart, b.durationMinutes, newStart, booking.durationMinutes);
+    });
     if (existingConflict) {
-      return { success: false, error: "There is already a booking for this station at the selected time." };
+      return {
+        success: false,
+        error: `Schedule conflict: ${existingConflict.stationName} is already booked from ${existingConflict.startTime} for ${existingConflict.durationMinutes}m.`
+      };
     }
 
     const newBooking: Booking = {
@@ -472,6 +478,50 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     });
     addAuditLog("BOOKING_STATUS_CHANGE", "booking", bookingId, `Booking status updated to ${status}`);
   }, [addAuditLog, persistState]);
+
+  const rescheduleBooking = useCallback((bookingId: string, newDate: string, newStartTime: string, newDurationMinutes?: number) => {
+    const targetBooking = bookings.find(b => b.id === bookingId);
+    if (!targetBooking) return { success: false, error: "Booking not found" };
+
+    const duration = newDurationMinutes || targetBooking.durationMinutes;
+    const newStart = timeStringToMinutes(newStartTime);
+
+    // Check interval overlap against other bookings
+    const conflict = bookings.find(b => {
+      if (b.id === bookingId) return false;
+      if (b.stationId !== targetBooking.stationId || b.date !== newDate) return false;
+      if (b.status !== 'confirmed' && b.status !== 'pending') return false;
+      const bStart = timeStringToMinutes(b.startTime);
+      return checkIntervalOverlap(bStart, b.durationMinutes, newStart, duration);
+    });
+
+    if (conflict) {
+      return {
+        success: false,
+        error: `Schedule conflict: ${conflict.stationName} is already booked from ${conflict.startTime} for ${conflict.durationMinutes}m on ${newDate}.`
+      };
+    }
+
+    setBookings(prev => {
+      const updated = prev.map(b => {
+        if (b.id === bookingId) {
+          return {
+            ...b,
+            date: newDate,
+            startTime: newStartTime,
+            durationMinutes: duration,
+            status: 'confirmed' as const
+          };
+        }
+        return b;
+      });
+      persistState({ bookings: updated });
+      return updated;
+    });
+
+    addAuditLog("BOOKING_RESCHEDULE", "booking", bookingId, `Rescheduled ${targetBooking.stationName} reservation to ${newDate} at ${newStartTime}`);
+    return { success: true };
+  }, [bookings, addAuditLog, persistState]);
 
   const checkInBooking = useCallback((bookingId: string) => {
     const booking = bookings.find(b => b.id === bookingId);
@@ -688,6 +738,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         endSession,
         createBooking,
         updateBookingStatus,
+        rescheduleBooking,
         checkInBooking,
         createCustomer,
         updateCustomer,

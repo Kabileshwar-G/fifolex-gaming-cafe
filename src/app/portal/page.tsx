@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useApp } from '@/store/AppContext';
+import { useMounted } from '@/lib/useMounted';
 import { formatCurrency, formatDuration } from '@/lib/formatters';
 import {
   Sparkles,
@@ -21,6 +22,7 @@ import {
 import confetti from 'canvas-confetti';
 
 export default function CustomerPortalPage() {
+  const mounted = useMounted();
   const {
     stations,
     customers,
@@ -36,11 +38,15 @@ export default function CustomerPortalPage() {
   const [selectedStationId, setSelectedStationId] = useState('');
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
-  const [bookingDate, setBookingDate] = useState(new Date().toISOString().split('T')[0]);
+  const [bookingDate, setBookingDate] = useState('2026-11-24');
   const [bookingTime, setBookingTime] = useState('19:00');
   const [durationMinutes, setDurationMinutes] = useState(120);
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [bookingError, setBookingError] = useState('');
+
+  useEffect(() => {
+    setBookingDate(new Date().toISOString().split('T')[0]);
+  }, []);
 
   // Snack Order Flow
   const [seatDestination, setSeatDestination] = useState('PC-01');

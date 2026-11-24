@@ -18,33 +18,52 @@ export function formatDuration(minutes: number): string {
   return `${mins}m`;
 }
 
-export function formatDateTime(isoString: string): string {
+/**
+ * Deterministic date formatter that avoids hydration mismatch between server and client
+ */
+export function formatDateTime(isoString: string, mounted = true): string {
+  if (!mounted) return "Loading...";
   try {
     const d = new Date(isoString);
+    if (isNaN(d.getTime())) return isoString;
     return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' · ' + d.toLocaleDateString([], { month: 'short', day: 'numeric' });
   } catch {
     return isoString;
   }
 }
 
-export function formatTimeOnly(isoString: string): string {
+export function formatTimeOnly(isoString: string, mounted = true): string {
+  if (!mounted) return "--:--";
   try {
     const d = new Date(isoString);
+    if (isNaN(d.getTime())) return isoString;
     return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   } catch {
     return isoString;
   }
 }
 
-export function getTimeRemaining(endTimeIso: string): {
+/**
+ * Calculates remaining time on active sessions.
+ * Returns a stable placeholder if not mounted, preventing React hydration mismatch (418, 423, 425).
+ */
+export function getTimeRemaining(endTimeIso: string, mounted = true): {
   text: string;
   isOverdue: boolean;
   isEndingSoon: boolean;
   minutesLeft: number;
 } {
+  if (!mounted) {
+    return { text: "Active", isOverdue: false, isEndingSoon: false, minutesLeft: 60 };
+  }
+
   try {
     const now = Date.now();
     const end = new Date(endTimeIso).getTime();
+    if (isNaN(end)) {
+      return { text: "Active", isOverdue: false, isEndingSoon: false, minutesLeft: 60 };
+    }
+
     const diffMs = end - now;
     const diffMins = Math.round(diffMs / 60000);
 
@@ -72,4 +91,29 @@ export function getTimeRemaining(endTimeIso: string): {
   } catch {
     return { text: "--", isOverdue: false, isEndingSoon: false, minutesLeft: 0 };
   }
+}
+
+/**
+ * Convert "HH:mm" time string into total minutes from midnight for exact interval comparisons
+ */
+export function timeStringToMinutes(timeStr: string): number {
+  if (!timeStr) return 0;
+  const parts = timeStr.split(':');
+  const h = parseInt(parts[0] || '0', 10);
+  const m = parseInt(parts[1] || '0', 10);
+  return (isNaN(h) ? 0 : h) * 60 + (isNaN(m) ? 0 : m);
+}
+
+/**
+ * Check if two time intervals on the same day overlap
+ */
+export function checkIntervalOverlap(
+  startA: number,
+  durationA: number,
+  startB: number,
+  durationB: number
+): boolean {
+  const endA = startA + durationA;
+  const endB = startB + durationB;
+  return Math.max(startA, startB) < Math.min(endA, endB);
 }

@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useApp } from '@/store/AppContext';
+import { useMounted } from '@/lib/useMounted';
 import { Station, StationStatus, Session } from '@/types';
-import { formatCurrency, formatDuration, getTimeRemaining } from '@/lib/formatters';
+import { formatCurrency, formatDuration, getTimeRemaining, formatTimeOnly } from '@/lib/formatters';
 import { hasPermission } from '@/lib/permissions';
 import {
   Monitor,
@@ -26,6 +27,7 @@ import {
 } from 'lucide-react';
 
 export default function SessionsPage() {
+  const mounted = useMounted();
   const {
     stations,
     sessions,
@@ -232,7 +234,7 @@ export default function SessionsPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {activeSessions.map(sess => {
-                const timing = getTimeRemaining(sess.expectedEndTime);
+                const timing = getTimeRemaining(sess.expectedEndTime, mounted);
                 const station = stations.find(s => s.id === sess.stationId);
 
                 return (
@@ -276,13 +278,13 @@ export default function SessionsPage() {
                         <div>
                           <span className="text-[10px] text-gray-400 block">Start Time</span>
                           <span className="font-mono text-gray-200">
-                            {new Date(sess.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            {formatTimeOnly(sess.startTime, mounted)}
                           </span>
                         </div>
                         <div>
                           <span className="text-[10px] text-gray-400 block">Expected End</span>
                           <span className="font-mono text-gray-200">
-                            {new Date(sess.expectedEndTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            {formatTimeOnly(sess.expectedEndTime, mounted)}
                           </span>
                         </div>
                         <div>
@@ -489,7 +491,7 @@ export default function SessionsPage() {
                     <td className="p-3 text-gray-300">{cs.paymentMethod || 'Cash'}</td>
                     <td className="p-3 text-gray-400">{cs.staffName}</td>
                     <td className="p-3 text-gray-400 font-mono">
-                      {cs.actualEndTime ? new Date(cs.actualEndTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--'}
+                      {cs.actualEndTime ? formatTimeOnly(cs.actualEndTime, mounted) : '--'}
                     </td>
                   </tr>
                 ))}

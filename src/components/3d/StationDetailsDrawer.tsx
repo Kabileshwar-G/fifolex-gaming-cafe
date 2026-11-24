@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import { useApp } from '@/store/AppContext';
+import { useMounted } from '@/lib/useMounted';
 import { Station, StationStatus } from '@/types';
-import { formatCurrency, formatDuration, getTimeRemaining } from '@/lib/formatters';
+import { formatCurrency, formatDuration, getTimeRemaining, formatTimeOnly } from '@/lib/formatters';
 import { hasPermission } from '@/lib/permissions';
 import {
   X,
@@ -37,6 +38,7 @@ const STATUS_CONFIG: Record<StationStatus, { label: string; bg: string; text: st
 };
 
 export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ station, onClose }) => {
+  const mounted = useMounted();
   const {
     sessions,
     stations,
@@ -132,7 +134,7 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
 
   const availableTransferTargets = stations.filter(s => s.id !== station.id && s.status === 'available');
 
-  const timing = activeSession ? getTimeRemaining(activeSession.expectedEndTime) : null;
+  const timing = activeSession ? getTimeRemaining(activeSession.expectedEndTime, mounted) : null;
 
   return (
     <div className="w-96 max-w-full bg-[#0d1017] border-l border-[#1f2538] flex flex-col h-full shadow-2xl z-40 select-none overflow-y-auto">
@@ -200,13 +202,13 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({ stat
               <div>
                 <span className="text-[10px] text-gray-400 block">Start Time</span>
                 <span className="text-gray-300 font-mono">
-                  {new Date(activeSession.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  {formatTimeOnly(activeSession.startTime, mounted)}
                 </span>
               </div>
               <div>
                 <span className="text-[10px] text-gray-400 block">Expected End</span>
                 <span className="text-gray-300 font-mono">
-                  {new Date(activeSession.expectedEndTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  {formatTimeOnly(activeSession.expectedEndTime, mounted)}
                 </span>
               </div>
             </div>

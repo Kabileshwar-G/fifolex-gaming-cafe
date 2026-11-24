@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useApp } from '@/store/AppContext';
-import { formatCurrency, formatDuration, getTimeRemaining } from '@/lib/formatters';
+import { useMounted } from '@/lib/useMounted';
+import { formatCurrency, formatDuration, getTimeRemaining, formatTimeOnly } from '@/lib/formatters';
 import {
   Monitor,
   Users,
@@ -24,6 +25,7 @@ import {
 } from 'lucide-react';
 
 export default function DashboardPage() {
+  const mounted = useMounted();
   const {
     stations,
     sessions,
@@ -191,7 +193,7 @@ export default function DashboardPage() {
             ) : (
               <div className="divide-y divide-gray-800/80">
                 {activeSessions.map(sess => {
-                  const timing = getTimeRemaining(sess.expectedEndTime);
+                  const timing = getTimeRemaining(sess.expectedEndTime, mounted);
                   return (
                     <div
                       key={sess.id}
@@ -211,7 +213,7 @@ export default function DashboardPage() {
                             )}
                           </div>
                           <span className="text-xs text-gray-400">
-                            Started {new Date(sess.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} &bull;{' '}
+                            Started {formatTimeOnly(sess.startTime, mounted)} &bull;{' '}
                             {formatDuration(sess.durationMinutes)} total
                           </span>
                         </div>
@@ -360,7 +362,7 @@ export default function DashboardPage() {
               </div>
               <div className="flex items-center gap-3 text-gray-400 font-mono text-[11px]">
                 <span>{log.staffName} ({log.role})</span>
-                <span>{new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                <span>{formatTimeOnly(log.timestamp, mounted)}</span>
               </div>
             </div>
           ))}

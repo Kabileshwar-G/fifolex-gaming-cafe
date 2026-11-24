@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useApp } from '@/store/AppContext';
+import { useMounted } from '@/lib/useMounted';
 import { Product, ProductCategory, OrderLineItem } from '@/types';
 import { formatCurrency } from '@/lib/formatters';
 import {
@@ -24,6 +25,7 @@ import {
 } from 'lucide-react';
 
 export default function PosPage() {
+  const mounted = useMounted();
   const {
     products,
     sessions,
@@ -474,7 +476,7 @@ export default function PosPage() {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">Date/Time:</span>
-                <span>{new Date().toLocaleString()}</span>
+                <span>{mounted ? new Date().toLocaleString() : 'Receipt Date'}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">Cashier:</span>

@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { useApp } from '@/store/AppContext';
+import { useMounted } from '@/lib/useMounted';
+import { formatDateTime } from '@/lib/formatters';
 import { ROLE_PERMISSIONS } from '@/lib/permissions';
 import { StaffRole, AuditEvent } from '@/types';
 import {
@@ -18,6 +20,7 @@ import {
 } from 'lucide-react';
 
 export default function StaffPage() {
+  const mounted = useMounted();
   const {
     staffUsers,
     currentStaff,
@@ -252,7 +255,7 @@ export default function StaffPage() {
                   {filteredLogs.map(log => (
                     <tr key={log.id} className="hover:bg-[#131826] transition-colors">
                       <td className="p-3 text-gray-400 whitespace-nowrap">
-                        {new Date(log.timestamp).toLocaleString([], { dateStyle: 'short', timeStyle: 'medium' })}
+                        {formatDateTime(log.timestamp, mounted)}
                       </td>
                       <td className="p-3 font-sans font-semibold text-gray-200">
                         {log.staffName} <span className="text-[10px] text-cyan-400 font-mono">({log.role})</span>

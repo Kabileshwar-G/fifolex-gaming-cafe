@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useApp } from '@/store/AppContext';
+import { useMounted } from '@/lib/useMounted';
 import { OrderStatus } from '@/types';
 import { formatCurrency } from '@/lib/formatters';
 import {
@@ -24,6 +25,7 @@ const STATUS_TICKET: Record<OrderStatus, { label: string; bg: string; text: stri
 };
 
 export default function KitchenPage() {
+  const mounted = useMounted();
   const { orders, updateOrderStatus, settings } = useApp();
 
   const activeOrders = orders.filter(o => o.status === 'new' || o.status === 'preparing' || o.status === 'ready');
@@ -67,7 +69,7 @@ export default function KitchenPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {activeOrders.map(order => {
               const ticketStyle = STATUS_TICKET[order.status];
-              const minutesAgo = Math.round((Date.now() - new Date(order.createdAt).getTime()) / 60000);
+              const minutesAgo = mounted ? Math.round((Date.now() - new Date(order.createdAt).getTime()) / 60000) : 0;
 
               return (
                 <div

@@ -33,29 +33,52 @@ const split2Cents = Math.round(grandTotalCents / 2);
 assert.strictEqual(split2Cents, 933, "1866 split 2 ways should be 933 cents each");
 console.log('✓ Pricing engine minor unit tests passed cleanly.\n');
 
-// 2. Booking Overlap Conflict Detection Test
-console.log('2. Testing Booking Conflict Prevention...');
+// 2. Booking Overlap Conflict Detection Test (Interval-based)
+console.log('2. Testing Booking Conflict Prevention (Intervals)...');
+function timeStringToMinutes(timeStr) {
+  const [h, m] = timeStr.split(':').map(Number);
+  return (h || 0) * 60 + (m || 0);
+}
+
+function checkIntervalOverlap(startA, durationA, startB, durationB) {
+  const aStart = timeStringToMinutes(startA);
+  const aEnd = aStart + durationA;
+  const bStart = timeStringToMinutes(startB);
+  const bEnd = bStart + durationB;
+  return aStart < bEnd && bStart < aEnd;
+}
+
 const existingBookings = [
-  { stationId: 'st-pc-01', date: '2026-11-25', startTime: '18:00', durationMinutes: 120, status: 'confirmed' }
+  { id: 'b-1', stationId: 'st-pc-01', date: '2026-11-25', startTime: '18:00', durationMinutes: 120, status: 'confirmed' }
 ];
 
-function checkBookingConflict(newBooking) {
+function checkBookingConflict(newBooking, ignoreId) {
   return existingBookings.some(b => 
+    b.id !== ignoreId &&
     b.stationId === newBooking.stationId &&
     b.date === newBooking.date &&
-    b.startTime === newBooking.startTime &&
-    (b.status === 'confirmed' || b.status === 'pending')
+    (b.status === 'confirmed' || b.status === 'pending') &&
+    checkIntervalOverlap(b.startTime, b.durationMinutes, newBooking.startTime, newBooking.durationMinutes)
   );
 }
 
-const conflictingBooking = { stationId: 'st-pc-01', date: '2026-11-25', startTime: '18:00', durationMinutes: 60 };
-const nonConflictingStation = { stationId: 'st-pc-02', date: '2026-11-25', startTime: '18:00', durationMinutes: 60 };
-const nonConflictingTime = { stationId: 'st-pc-01', date: '2026-11-25', startTime: '21:00', durationMinutes: 60 };
+const identicalStartConflict = { stationId: 'st-pc-01', date: '2026-11-25', startTime: '18:00', durationMinutes: 60 };
+const partialOverlapConflict = { stationId: 'st-pc-01', date: '2026-11-25', startTime: '19:00', durationMinutes: 60 }; // Inside 18:00 - 20:00
+const spanningConflict = { stationId: 'st-pc-01', date: '2026-11-25', startTime: '17:30', durationMinutes: 90 }; // 17:30 - 19:00
+const adjacentNonConflict = { stationId: 'st-pc-01', date: '2026-11-25', startTime: '20:00', durationMinutes: 60 }; // Immediately after
+const differentStation = { stationId: 'st-pc-02', date: '2026-11-25', startTime: '18:00', durationMinutes: 60 };
+const differentDate = { stationId: 'st-pc-01', date: '2026-11-26', startTime: '18:00', durationMinutes: 60 };
 
-assert.strictEqual(checkBookingConflict(conflictingBooking), true, "Conflict should be flagged for same station, date and start time");
-assert.strictEqual(checkBookingConflict(nonConflictingStation), false, "Different station should not conflict");
-assert.strictEqual(checkBookingConflict(nonConflictingTime), false, "Different start time slot should not conflict");
-console.log('✓ Booking conflict prevention tests passed cleanly.\n');
+assert.strictEqual(checkBookingConflict(identicalStartConflict), true, "Identical start time should conflict");
+assert.strictEqual(checkBookingConflict(partialOverlapConflict), true, "Start time inside an ongoing booking should conflict");
+assert.strictEqual(checkBookingConflict(spanningConflict), true, "End time overlapping into an ongoing booking should conflict");
+assert.strictEqual(checkBookingConflict(adjacentNonConflict), false, "Adjacent booking (20:00 after 18:00-20:00) should NOT conflict");
+assert.strictEqual(checkBookingConflict(differentStation), false, "Different station should NOT conflict");
+assert.strictEqual(checkBookingConflict(differentDate), false, "Different date should NOT conflict");
+
+// Rescheduling test (ignoring self)
+assert.strictEqual(checkBookingConflict({ stationId: 'st-pc-01', date: '2026-11-25', startTime: '18:00', durationMinutes: 120 }, 'b-1'), false, "Rescheduling existing booking should ignore self");
+console.log('✓ Booking interval overlap and reschedule tests passed cleanly.\n');
 
 // 3. Station State Machine Lifecycle Transitions
 console.log('3. Testing Station State Lifecycle Transitions...');
