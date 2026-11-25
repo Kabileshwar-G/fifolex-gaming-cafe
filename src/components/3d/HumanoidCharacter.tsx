@@ -3,12 +3,14 @@
 import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
+import { StationType } from '@/types';
 
 export interface HumanoidCharacterProps {
   id?: string;
   name?: string;
   neonColor: string; // Electric Cyan, Royal Indigo, Emerald Mint, Sunset Amber, Magenta
   pose?: 'seated' | 'walking' | 'standing';
+  stationType?: StationType;
   position?: [number, number, number];
   rotation?: [number, number, number];
   scale?: number;
@@ -21,6 +23,7 @@ export const HumanoidCharacter: React.FC<HumanoidCharacterProps> = ({
   name,
   neonColor,
   pose = 'standing',
+  stationType = 'pc',
   position = [0, 0, 0],
   rotation = [0, 0, 0],
   scale = 1,
@@ -80,8 +83,7 @@ export const HumanoidCharacter: React.FC<HumanoidCharacterProps> = ({
     const dt = Math.min(delta, 0.05);
 
     if (pose === 'seated') {
-      // Natural, organic seated gaming posture:
-      // Gentle breathing, subtle keyboard/mouse micro-adjustments
+      // Natural, organic seated gaming posture with breathing and micro-movements
       const breathing = Math.sin(t * 1.8) * 0.008;
       if (torsoRef.current) {
         torsoRef.current.position.y = 0.2 + breathing;
@@ -92,14 +94,64 @@ export const HumanoidCharacter: React.FC<HumanoidCharacterProps> = ({
         headRef.current.rotation.y = Math.sin(t * 0.9) * 0.04;
         headRef.current.rotation.x = -0.04 + Math.sin(t * 1.6) * 0.02;
       }
-      if (rightForearmRef.current) {
-        // Smooth mouse aiming wrist adjustment
-        rightForearmRef.current.rotation.z = Math.sin(t * 2.5) * 0.025;
-        rightForearmRef.current.rotation.y = -0.22 + Math.sin(t * 1.8) * 0.02;
-      }
-      if (leftForearmRef.current) {
-        // Subtle rhythmic keystroke typing
-        leftForearmRef.current.rotation.x = -0.42 + Math.sin(t * 3.2) * 0.015;
+
+      if (stationType === 'racing') {
+        // Sim Rig: Hands gripping the steering wheel, subtle counter-steering
+        const steer = Math.sin(t * 1.6) * 0.08;
+        if (leftArmRef.current) {
+          leftArmRef.current.rotation.x = -0.72 + steer * 0.2;
+          leftArmRef.current.rotation.y = 0.25;
+          leftArmRef.current.rotation.z = -0.15 + steer * 0.4;
+        }
+        if (rightArmRef.current) {
+          rightArmRef.current.rotation.x = -0.72 - steer * 0.2;
+          rightArmRef.current.rotation.y = -0.25;
+          rightArmRef.current.rotation.z = 0.15 + steer * 0.4;
+        }
+        if (leftForearmRef.current) leftForearmRef.current.rotation.x = -0.25;
+        if (rightForearmRef.current) rightForearmRef.current.rotation.x = -0.25;
+      } else if (stationType === 'ps5' || stationType === 'xbox') {
+        // Console Lounge: Holding gamepad controller with both hands centered
+        if (leftArmRef.current) {
+          leftArmRef.current.rotation.x = -0.48;
+          leftArmRef.current.rotation.y = 0.38;
+          leftArmRef.current.rotation.z = -0.22;
+        }
+        if (rightArmRef.current) {
+          rightArmRef.current.rotation.x = -0.48;
+          rightArmRef.current.rotation.y = -0.38;
+          rightArmRef.current.rotation.z = 0.22;
+        }
+        if (leftForearmRef.current) {
+          leftForearmRef.current.rotation.x = -0.35 + Math.sin(t * 3.5) * 0.015;
+          leftForearmRef.current.rotation.y = 0.25;
+        }
+        if (rightForearmRef.current) {
+          rightForearmRef.current.rotation.x = -0.35 + Math.sin(t * 3.8) * 0.015;
+          rightForearmRef.current.rotation.y = -0.25;
+        }
+      } else {
+        // PC Arena: Left hand on keyboard, Right hand on gaming mouse
+        if (leftArmRef.current) {
+          leftArmRef.current.rotation.x = -0.55;
+          leftArmRef.current.rotation.y = 0.18;
+          leftArmRef.current.rotation.z = -0.15;
+        }
+        if (rightArmRef.current) {
+          rightArmRef.current.rotation.x = -0.55;
+          rightArmRef.current.rotation.y = -0.18;
+          rightArmRef.current.rotation.z = 0.15;
+        }
+        if (rightForearmRef.current) {
+          rightForearmRef.current.rotation.x = -0.42;
+          rightForearmRef.current.rotation.y = -0.22 + Math.sin(t * 1.8) * 0.02;
+          rightForearmRef.current.rotation.z = Math.sin(t * 2.5) * 0.025;
+        }
+        if (leftForearmRef.current) {
+          leftForearmRef.current.rotation.x = -0.42 + Math.sin(t * 3.2) * 0.015;
+          leftForearmRef.current.rotation.y = 0.22;
+          leftForearmRef.current.rotation.z = 0;
+        }
       }
       return;
     }
@@ -112,7 +164,7 @@ export const HumanoidCharacter: React.FC<HumanoidCharacterProps> = ({
 
       // Smoothly blend walk weight (0 = idle, 1 = walking)
       const targetWeight = isPaused ? 0 : 1;
-      walkWeight.current = THREE.MathUtils.damp(walkWeight.current, targetWeight, 6, dt);
+      walkWeight.current = THREE.MathUtils.damp(walkWeight.current, targetWeight, 5, dt);
 
       const currentWaypoint = waypoints[waypointIndex.current];
       const targetPos = new THREE.Vector3(currentWaypoint[0], currentWaypoint[1], currentWaypoint[2]);
@@ -123,57 +175,69 @@ export const HumanoidCharacter: React.FC<HumanoidCharacterProps> = ({
 
       if (dist < 0.35 && !isPaused) {
         // Arrived at waypoint - pause naturally before moving to next
-        pauseTimer.current = 1.4 + Math.random() * 2.0;
+        pauseTimer.current = 1.4 + Math.random() * 2.2;
         waypointIndex.current = (waypointIndex.current + 1) % waypoints.length;
       } else if (!isPaused) {
         dir.normalize();
 
-        // Smooth speed acceleration / deceleration
-        const desiredSpeed = dist < 0.8 ? (dist / 0.8) * 1.25 : 1.25;
-        currentSpeed.current = THREE.MathUtils.damp(currentSpeed.current, desiredSpeed, 5, dt);
-
-        groupRef.current.position.addScaledVector(dir, currentSpeed.current * dt);
-
-        // Smooth Shortest-Arc Angular Slerp (no 360 flip glitches)
+        // Calculate angular turn difference (shortest arc)
         const targetAngle = Math.atan2(dir.x, dir.z);
         let angleDiff = targetAngle - groupRef.current.rotation.y;
         while (angleDiff > Math.PI) angleDiff -= Math.PI * 2;
         while (angleDiff < -Math.PI) angleDiff += Math.PI * 2;
-        groupRef.current.rotation.y += angleDiff * Math.min(1, dt * 5.0);
+
+        // Smooth rotation without jitter
+        groupRef.current.rotation.y += angleDiff * (1 - Math.exp(-6.0 * dt));
+
+        // Speed curve: ease into turns and slow gently as target approaches
+        const turnPenalty = Math.max(0.25, Math.cos(angleDiff));
+        const distSpeedFactor = dist < 0.9 ? (dist / 0.9) : 1.0;
+        const desiredSpeed = 1.2 * turnPenalty * distSpeedFactor;
+        currentSpeed.current = THREE.MathUtils.damp(currentSpeed.current, desiredSpeed, 4.5, dt);
+
+        groupRef.current.position.addScaledVector(dir, currentSpeed.current * dt);
       }
 
       // Advance walk cycle proportional to speed
-      walkPhase.current += dt * 6.0 * (currentSpeed.current / 1.25 + 0.1);
+      walkPhase.current += dt * 5.8 * (currentSpeed.current / 1.2 + 0.1);
 
       // Smooth kinematic limb swings
-      const legSwing = Math.sin(walkPhase.current) * 0.52 * walkWeight.current;
-      const armSwing = Math.sin(walkPhase.current) * 0.44 * walkWeight.current;
-      const hipBob = Math.abs(Math.sin(walkPhase.current * 2)) * 0.035 * walkWeight.current;
+      const legSwing = Math.sin(walkPhase.current) * 0.48 * walkWeight.current;
+      const armSwing = Math.sin(walkPhase.current) * 0.40 * walkWeight.current;
+      const hipBob = Math.abs(Math.sin(walkPhase.current * 2)) * 0.028 * walkWeight.current;
+      const hipSway = Math.sin(walkPhase.current) * 0.018 * walkWeight.current;
 
       groupRef.current.position.y = position[1] + hipBob;
+
+      if (torsoRef.current) {
+        torsoRef.current.rotation.z = -hipSway;
+        torsoRef.current.rotation.x = walkWeight.current * 0.05 + (1 - walkWeight.current) * (Math.sin(t * 1.5) * 0.008);
+      }
 
       if (leftLegRef.current) {
         leftLegRef.current.rotation.x = legSwing;
         if (leftCalfRef.current) {
-          leftCalfRef.current.rotation.x = Math.max(0, -legSwing * 0.75);
+          leftCalfRef.current.rotation.x = Math.max(0, -legSwing * 0.7);
         }
       }
       if (rightLegRef.current) {
         rightLegRef.current.rotation.x = -legSwing;
         if (rightCalfRef.current) {
-          rightCalfRef.current.rotation.x = Math.max(0, legSwing * 0.75);
+          rightCalfRef.current.rotation.x = Math.max(0, legSwing * 0.7);
         }
       }
       if (leftArmRef.current) leftArmRef.current.rotation.x = -armSwing;
       if (rightArmRef.current) rightArmRef.current.rotation.x = armSwing;
 
-      // Subtle head sway
+      // Subtle curiosity gaze during wandering and idle
       if (headRef.current) {
-        headRef.current.rotation.y = Math.sin(walkPhase.current * 0.5) * 0.06 * walkWeight.current;
+        const roamLook = Math.sin(walkPhase.current * 0.5) * 0.08 * walkWeight.current;
+        const idleLook = Math.sin(t * 0.8) * 0.16 * (1 - walkWeight.current);
+        headRef.current.rotation.y = roamLook + idleLook;
       }
     } else if (pose === 'standing') {
       // Natural idle standing breathing
-      if (headRef.current) headRef.current.rotation.y = Math.sin(t * 1.2) * 0.1;
+      if (headRef.current) headRef.current.rotation.y = Math.sin(t * 1.0) * 0.12;
       if (leftArmRef.current) leftArmRef.current.rotation.x = Math.sin(t * 1.5) * 0.03;
       if (rightArmRef.current) rightArmRef.current.rotation.x = -Math.sin(t * 1.5) * 0.03;
       if (torsoRef.current) torsoRef.current.position.y = 0.22 + Math.sin(t * 1.5) * 0.005;

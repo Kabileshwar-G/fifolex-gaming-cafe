@@ -154,6 +154,7 @@ export const VenueScene: React.FC<VenueSceneProps> = ({
       <Canvas
         shadows
         camera={{ position: [0, 16, 18], fov: 45 }}
+        gl={{ antialias: true, powerPreference: 'high-performance' }}
         onPointerMissed={() => onSelectStation(null)}
       >
         <color attach="background" args={['#F1F5F9']} />

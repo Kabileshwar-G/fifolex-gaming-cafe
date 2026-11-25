@@ -97,33 +97,52 @@ export const StationMesh: React.FC<StationMeshProps> = ({
         <meshBasicMaterial color={statusColor} />
       </mesh>
 
-      {/* Gaming Chair - Modern Light Studio Ergonomic Chair */}
-      <group position={[0, 0.5, 0.55]}>
+      {/* Gaming Chair - Ergonomic Studio Chair with Chrome Gas-Lift & 5-Star Base */}
+      <group position={[0, 0, 0.55]}>
+        {/* Chair Chrome Gas-Lift Column */}
+        <mesh position={[0, 0.25, 0]}>
+          <cylinderGeometry args={[0.032, 0.032, 0.46, 16]} />
+          <meshStandardMaterial color="#CBD5E1" metalness={0.9} roughness={0.2} />
+        </mesh>
+
+        {/* 5-Star Caster Base Resting on Floor */}
+        <mesh position={[0, 0.03, 0]}>
+          <cylinderGeometry args={[0.26, 0.28, 0.03, 16]} />
+          <meshStandardMaterial color="#475569" metalness={0.7} roughness={0.3} />
+        </mesh>
+        <mesh position={[0, 0.015, 0]}>
+          <ringGeometry args={[0.1, 0.28, 5]} />
+          <meshBasicMaterial color="#334155" />
+        </mesh>
+
         {/* Chair Seat Cushion */}
-        <mesh position={[0, 0, 0]} castShadow>
-          <boxGeometry args={[0.55, 0.1, 0.5]} />
+        <mesh position={[0, 0.5, 0]} castShadow>
+          <boxGeometry args={[0.55, 0.09, 0.5]} />
           <meshStandardMaterial color="#E2E8F0" roughness={0.5} />
         </mesh>
+
         {/* Chair Backrest */}
-        <mesh position={[0, 0.45, 0.2]} castShadow>
+        <mesh position={[0, 0.95, 0.2]} castShadow>
           <boxGeometry args={[0.5, 0.8, 0.1]} />
           <meshStandardMaterial color="#CBD5E1" roughness={0.5} />
         </mesh>
+
         {/* Chair Lumbar Trim Edge */}
-        <mesh position={[0, 0.45, 0.26]}>
+        <mesh position={[0, 0.95, 0.26]}>
           <boxGeometry args={[0.06, 0.7, 0.02]} />
           <meshBasicMaterial color={statusColor} />
         </mesh>
       </group>
 
       {/* SEATED HUMANOID CHARACTER (When Station is Occupied) */}
-      {/* Precisely aligned: sitting on chair at z=0.55, facing forward towards desk & monitor */}
+      {/* Precisely aligned: seated on cushion at z=0.55, facing forward towards desk & monitor */}
       {station.status === 'occupied' && (
         <group position={[0, 0, 0.55]} rotation={[0, Math.PI, 0]}>
           <HumanoidCharacter
             name={session?.customerName || "Player"}
             neonColor={characterNeonColor}
             pose="seated"
+            stationType={station.type}
             scale={0.95}
           />
         </group>
@@ -135,33 +154,79 @@ export const StationMesh: React.FC<StationMeshProps> = ({
         <meshStandardMaterial color="#475569" metalness={0.8} />
       </mesh>
 
-      {/* Monitor Screen Frame */}
+      {/* Monitor Screen Frame - Custom Size per Platform */}
       <mesh position={[0, 1.15, -0.2]} castShadow>
-        <boxGeometry args={[station.type === 'racing' ? 1.4 : 0.95, 0.55, 0.04]} />
+        <boxGeometry args={[station.type === 'racing' ? 1.45 : station.type === 'ps5' || station.type === 'xbox' ? 1.25 : 0.95, 0.58, 0.04]} />
         <meshStandardMaterial color="#1E293B" metalness={0.7} roughness={0.3} />
       </mesh>
 
-      {/* Monitor Screen Glass / Esports Display */}
+      {/* Monitor Screen Glass / Display */}
       <mesh position={[0, 1.15, -0.178]}>
-        <planeGeometry args={[station.type === 'racing' ? 1.35 : 0.9, 0.5]} />
+        <planeGeometry args={[station.type === 'racing' ? 1.4 : station.type === 'ps5' || station.type === 'xbox' ? 1.2 : 0.9, 0.52]} />
         <meshBasicMaterial
           color={
             station.status === 'occupied'
-              ? (station.type === 'pc' ? '#0284C7' : '#7C3AED')
+              ? (station.type === 'pc' ? '#0284C7' : station.type === 'racing' ? '#EA580C' : '#7C3AED')
               : '#334155'
           }
         />
       </mesh>
 
-      {/* Keyboard & Gaming Mouse */}
-      <mesh position={[-0.15, 0.795, 0.15]}>
-        <boxGeometry args={[0.38, 0.015, 0.14]} />
-        <meshStandardMaterial color="#1E293B" roughness={0.4} />
-      </mesh>
-      <mesh position={[0.22, 0.795, 0.15]}>
-        <boxGeometry args={[0.07, 0.02, 0.11]} />
-        <meshStandardMaterial color="#334155" roughness={0.4} />
-      </mesh>
+      {/* PERIPHERALS: Custom Platform-Specific Peripherals */}
+      {station.type === 'racing' ? (
+        /* Sim Rig: Steering Wheel & Wheel Base */
+        <group position={[0, 0.82, 0.1]}>
+          {/* Wheel Mount Base */}
+          <mesh position={[0, 0, 0]}>
+            <boxGeometry args={[0.22, 0.12, 0.18]} />
+            <meshStandardMaterial color="#0F172A" roughness={0.3} />
+          </mesh>
+          {/* Steering Wheel Rim */}
+          <mesh position={[0, 0.08, 0.02]} rotation={[-0.38, 0, 0]}>
+            <torusGeometry args={[0.13, 0.018, 16, 32]} />
+            <meshStandardMaterial color="#1E293B" metalness={0.6} roughness={0.3} />
+          </mesh>
+          {/* Wheel Center Hub */}
+          <mesh position={[0, 0.08, 0.02]} rotation={[-0.38, 0, 0]}>
+            <cylinderGeometry args={[0.04, 0.04, 0.02, 16]} />
+            <meshBasicMaterial color="#EA580C" />
+          </mesh>
+        </group>
+      ) : station.type === 'ps5' || station.type === 'xbox' ? (
+        /* Console Lounge: Wireless Gamepad Controller */
+        <group position={[0, 0.795, 0.16]} rotation={[-0.1, 0, 0]}>
+          <mesh castShadow>
+            <boxGeometry args={[0.16, 0.035, 0.1]} />
+            <meshStandardMaterial color="#0F172A" roughness={0.4} />
+          </mesh>
+          {/* Controller LED Lightbar */}
+          <mesh position={[0, 0.02, -0.04]}>
+            <boxGeometry args={[0.08, 0.008, 0.012]} />
+            <meshBasicMaterial color={station.type === 'ps5' ? '#0284C7' : '#10B981'} />
+          </mesh>
+        </group>
+      ) : (
+        /* PC Arena: Correctly Hand-Aligned Keyboard & Mouse */
+        <group>
+          {/* XL Speed Gaming Mousepad */}
+          <mesh position={[0, 0.792, 0.16]}>
+            <boxGeometry args={[0.82, 0.006, 0.36]} />
+            <meshStandardMaterial color="#0F172A" roughness={0.8} />
+          </mesh>
+
+          {/* Keyboard (at +X for Left Hand on WASD) */}
+          <mesh position={[0.15, 0.798, 0.16]} castShadow>
+            <boxGeometry args={[0.38, 0.015, 0.14]} />
+            <meshStandardMaterial color="#1E293B" roughness={0.4} />
+          </mesh>
+
+          {/* Gaming Mouse (at -X for Right Hand) */}
+          <mesh position={[-0.22, 0.798, 0.16]} castShadow>
+            <boxGeometry args={[0.07, 0.02, 0.11]} />
+            <meshStandardMaterial color="#334155" roughness={0.4} />
+          </mesh>
+        </group>
+      )}
 
       {/* Floating 3D Station Status Badge (Crisp High-Contrast White Pill) */}
       <Html position={[0, 1.75, 0]} center distanceFactor={14} zIndexRange={[100, 0]}>
